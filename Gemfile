@@ -15,6 +15,9 @@ gem 'sdoc', '~> 0.4.0', group: :doc
 gem 'haml-rails'
 gem "chartkick"
 gem "pry"
+gem 'formtastic', '~> 3.0'
+gem 'formtastic-bootstrap'
+gem "cocoon"
 
 group :development, :test do
 end

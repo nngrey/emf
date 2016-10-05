@@ -1,0 +1,9 @@
+.container
+  %h3 Evaluative Questions
+  = semantic_form_for @evaluative_question do |f|
+    = f.inputs
+    = f.semantic_fields_for :sub_questions do |sub_question|
+      = render 'sub_question_fields', f: sub_question
+    .links
+      = link_to_add_association 'add sub_question', f, :sub_questions
+    = f.actions

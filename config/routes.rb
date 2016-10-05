@@ -1,9 +1,13 @@
 Rails.application.routes.draw do
   get 'dashboard/home'
 
-  root 'application#hello'
+  root 'dashboard#home'
 
   get 'dashboard/home' => "pages#show"
+
+  resources :evaluative_questions do
+    resources :sub_questions
+  end
 
 
   # The priority is based upon order of creation: first created -> highest priority.

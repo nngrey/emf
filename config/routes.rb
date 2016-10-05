@@ -5,9 +5,7 @@ Rails.application.routes.draw do
 
   get 'dashboard/home' => "pages#show"
 
-  resources :evaluative_questions do
-    resources :sub_questions
-  end
+  resources :evaluative_questions
 
 
   # The priority is based upon order of creation: first created -> highest priority.

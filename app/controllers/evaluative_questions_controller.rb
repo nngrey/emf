@@ -7,10 +7,14 @@ class EvaluativeQuestionsController < ApplicationController
   def create
     @evaluative_question = EvaluativeQuestion.new(evaluative_question_params)
     if @evaluative_question.save
-      redirect_to @evaluative_question
+      redirect_to edit_evaluative_question_path(@evaluative_question)
     else
       render "new"
     end
+  end
+
+  def edit
+    @evaluative_question = EvaluativeQuestion.find(params[:id])
   end
 
   def show

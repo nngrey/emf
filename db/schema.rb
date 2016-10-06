@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20161005033850) do
+ActiveRecord::Schema.define(version: 20161006031233) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -25,6 +25,17 @@ ActiveRecord::Schema.define(version: 20161005033850) do
     t.datetime "updated_at",  null: false
   end
 
+  create_table "performance_indicators", force: :cascade do |t|
+    t.text     "description"
+    t.text     "definition"
+    t.integer  "numerator"
+    t.integer  "denominator"
+    t.integer  "sub_question_id"
+    t.datetime "created_at",      null: false
+    t.datetime "updated_at",      null: false
+    t.index ["sub_question_id"], name: "index_performance_indicators_on_sub_question_id", using: :btree
+  end
+
   create_table "sub_questions", force: :cascade do |t|
     t.text     "description"
     t.text     "monitoring_information"
@@ -34,5 +45,6 @@ ActiveRecord::Schema.define(version: 20161005033850) do
     t.index ["evaluative_question_id"], name: "index_sub_questions_on_evaluative_question_id", using: :btree
   end
 
+  add_foreign_key "performance_indicators", "sub_questions"
   add_foreign_key "sub_questions", "evaluative_questions"
 end

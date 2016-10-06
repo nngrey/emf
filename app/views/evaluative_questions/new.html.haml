@@ -1,7 +1,8 @@
 .container
-  %h3 Evaluative Questions
+  %h3 Add evaluative question
   = semantic_form_for @evaluative_question do |f|
-    = f.inputs
+    = f.input :category
+    = f.input :description, :label => 'Evaluative question description', :input_html => { :class => 'autogrow', :rows => 3, :cols => 20, :maxlength => 3 }
     = f.semantic_fields_for :sub_questions do |sub_question|
       = render 'sub_question_fields', f: sub_question
     .links

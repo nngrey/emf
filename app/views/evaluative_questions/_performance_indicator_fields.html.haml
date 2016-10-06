@@ -1,0 +1,7 @@
+.nested-fields
+  = f.inputs do
+    = f.input :description, :input_html => { :class => 'autogrow', :rows => 3, :cols => 20, :maxlength => 3 }
+    = f.input :definition, :input_html => { :class => 'autogrow', :rows => 3, :cols => 20, :maxlength => 3 }
+    = f.input :numerator
+    = f.input :denominator
+    = link_to_remove_association "remove performance_indicator", f

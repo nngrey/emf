@@ -1,0 +1,7 @@
+.nested-fields
+  = f.inputs do
+    = f.input :description, :input_html => { :class => 'autogrow', :rows => 3, :cols => 20, :maxlength => 3, :readonly => true }
+    = f.semantic_fields_for :performance_indicators do |performance_indicator|
+      = render 'performance_indicator_fields', f: performance_indicator
+    .links
+      = link_to_add_association 'add performance_indicator', f, :performance_indicators

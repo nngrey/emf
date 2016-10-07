@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20161006031233) do
+ActiveRecord::Schema.define(version: 20161007043348) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -31,8 +31,10 @@ ActiveRecord::Schema.define(version: 20161006031233) do
     t.integer  "numerator"
     t.integer  "denominator"
     t.integer  "sub_question_id"
-    t.datetime "created_at",      null: false
-    t.datetime "updated_at",      null: false
+    t.datetime "created_at",        null: false
+    t.datetime "updated_at",        null: false
+    t.string   "numerator_label"
+    t.string   "denominator_label"
     t.index ["sub_question_id"], name: "index_performance_indicators_on_sub_question_id", using: :btree
   end
 

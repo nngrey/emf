@@ -17,6 +17,15 @@ class EvaluativeQuestionsController < ApplicationController
     @evaluative_question = EvaluativeQuestion.find(params[:id])
   end
 
+  def update
+    @evaluative_question = EvaluativeQuestion.find(params[:id])
+    if @evaluative_question.update_attributes(evaluative_question_params)
+      redirect_to evaluative_question_path(@evaluative_question)
+    else
+      render 'edit'
+    end
+  end
+
   def show
     @evaluative_question = EvaluativeQuestion.find(params[:id])
   end
@@ -26,7 +35,23 @@ class EvaluativeQuestionsController < ApplicationController
     params.require(:evaluative_question).permit(
       :category,
       :description,
-      sub_questions_attributes: [:description, :monitoring_information, :_destroy]
-      )
+      sub_questions_attributes:
+      [
+        :id,
+        :description,
+        :monitoring_information,
+        :_destroy,
+        performance_indicators_attributes:
+        [
+          :description,
+          :definition,
+          :numerator,
+          :denominator,
+          :numerator_label,
+          :denominator_label,
+          :_destroy
+        ]
+      ]
+    )
   end
 end

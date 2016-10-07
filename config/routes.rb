@@ -6,6 +6,7 @@ Rails.application.routes.draw do
   get 'dashboard/home' => "pages#show"
 
   resources :evaluative_questions
+  get 'framework', to: 'frameworks#overview'
 
 
   # The priority is based upon order of creation: first created -> highest priority.

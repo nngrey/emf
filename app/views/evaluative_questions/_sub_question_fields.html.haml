@@ -1,6 +1,6 @@
 .nested-fields
   %h4 New sub-question:
   = f.inputs do
-    = f.input :description, :label => 'Sub-question description', :input_html => { :class => 'autogrow', :rows => 3, :cols => 20, :maxlength => 3 }
-    = f.input :monitoring_information, :input_html => { :class => 'autogrow', :rows => 3, :cols => 20, :maxlength => 3 }
-    = link_to_remove_association "remove sub_question", f
+    = f.input :description, :label => 'Sub-question description', :input_html => { :rows => 3 }
+    = f.input :monitoring_information, :input_html => { :rows => 3 }
+    %p= link_to_remove_association "<button, class='btn btn-default'>Remove sub-question</button>".html_safe, f

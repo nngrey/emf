@@ -15,12 +15,17 @@
             %span.icon-bar
             %span.icon-bar
             %span.icon-bar
-          %a.navbar-brand{:href => "/"} Home
+          %a.navbar-brand{:href => "/"} EMF
+        #bs-example-navbar-collapse-1.collapse.navbar-collapse
           %ul.nav.navbar-nav
-            %li.active
+            %li
+              %a{:href => "#"} Dashboard
+            %li
+              %a{:href => framework_path} Framework
+            %li
               %a{:href => new_evaluative_question_path}
                 Set up
                 %span.sr-only (current)
             %li
-              %a{:href => "#"} Link
+              %a{:href => "#"} Data
     = yield

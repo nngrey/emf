@@ -19,7 +19,7 @@
         #bs-example-navbar-collapse-1.collapse.navbar-collapse
           %ul.nav.navbar-nav
             %li
-              %a{:href => "#"} Dashboard
+              %a{:href => dashboard_home_path} Dashboard
             %li
               %a{:href => framework_path} Framework
             %li
@@ -27,5 +27,5 @@
                 Set up
                 %span.sr-only (current)
             %li
-              %a{:href => "#"} Data
+              %a{:href => performance_indicators_path } Data
     = yield

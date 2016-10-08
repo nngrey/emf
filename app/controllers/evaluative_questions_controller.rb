@@ -20,7 +20,7 @@ class EvaluativeQuestionsController < ApplicationController
   def update
     @evaluative_question = EvaluativeQuestion.find(params[:id])
     if @evaluative_question.update_attributes(evaluative_question_params)
-      redirect_to evaluative_question_path(@evaluative_question)
+      redirect_to framework_path
     else
       render 'edit'
     end

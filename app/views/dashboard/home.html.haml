@@ -1,6 +1,10 @@
 .container
   .row
-    %h1 Dashboard#home
-    = pie_chart({"Football" => 10, "Basketball" => 5})
+    %h1 Dashboard
+    - @performance_indicators.each do |performance_indicator|
+      %h4{:align => "center"}= performance_indicator.description
+      - num = (performance_indicator.denominator - performance_indicator.numerator)
+      = pie_chart({performance_indicator.numerator_label => performance_indicator.numerator, "Not #{ performance_indicator.numerator_label }" => num})
+      %hr
 
 

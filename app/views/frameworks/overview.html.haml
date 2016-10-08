@@ -1,6 +1,24 @@
 .container
 
-  %h3 Effectiveness
+  %h3 Framework
 
-  - @effectiveness_questions.each do |question|
-    = question.description
+  .panel
+    .panel-body
+      - @effectiveness_questions.each do |question|
+        %h4= "Evaluative question - #{ question.category.capitalize }"
+        %dl.dl-horizontal
+          %dt Description
+          %dd= question.description
+          - question.sub_questions.each do |sub_question|
+            %dt Sub-question description
+            %dd= sub_question.description
+            %dt Monitoring information
+            %dd= sub_question.monitoring_information
+            - sub_question.performance_indicators.each do |performance_indicator|
+              %dt Perfomance indicator description
+              %dd= performance_indicator.description
+              %dt Numerator label
+              %dd= performance_indicator.numerator_label
+              %dt Denominator label
+              %dd= performance_indicator.denominator_label
+        %hr

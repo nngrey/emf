@@ -1,11 +1,15 @@
 Rails.application.routes.draw do
   get 'dashboard/home'
 
-  root 'dashboard#home'
+  root 'home#home'
+
+  get 'home/home' => "pages#show"
 
   get 'dashboard/home' => "pages#show"
 
   resources :evaluative_questions
+  resources :performance_indicators
+
   get 'framework', to: 'frameworks#overview'
 
 

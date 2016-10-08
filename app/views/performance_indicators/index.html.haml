@@ -1,0 +1,20 @@
+.container
+
+  %h3 Performance Indicators
+
+  .panel
+    .panel-body
+      - @evaluative_questions.each do |question|
+        %dl.dl-horizontal
+          %dt Evaluative question
+          %dd= question.description
+          - question.sub_questions.each do |sub_question|
+            - sub_question.performance_indicators.each do |performance_indicator|
+              %dt Perfomance indicator
+              %dd= performance_indicator.description
+              %dt= performance_indicator.numerator_label
+              %dd= performance_indicator.numerator
+              %dt= performance_indicator.denominator_label
+              %dd= performance_indicator.denominator
+              = button_to 'input data', edit_performance_indicator_path(performance_indicator), method: :get
+        %hr

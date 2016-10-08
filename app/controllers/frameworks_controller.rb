@@ -1,7 +1,7 @@
 class FrameworksController < ApplicationController
 
   def overview
-    @effectiveness_questions = EvaluativeQuestion.where(category: 'effectiveness')
+    @evaluative_questions = EvaluativeQuestion.all
   end
 
 end

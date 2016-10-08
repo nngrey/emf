@@ -1,10 +1,12 @@
 .container
   .row
     %h1 Dashboard
-    - @performance_indicators.each do |performance_indicator|
-      %h4{:align => "center"}= performance_indicator.description
-      - num = (performance_indicator.denominator - performance_indicator.numerator)
-      = pie_chart({performance_indicator.numerator_label => performance_indicator.numerator, "Not #{ performance_indicator.numerator_label }" => num})
-      %hr
-
+    - if @performance_indicators.any?
+      - @performance_indicators.each do |performance_indicator|
+        %h4{:align => "center"}= performance_indicator.description
+        - num = (performance_indicator.denominator - performance_indicator.numerator)
+        = pie_chart({performance_indicator.numerator_label => performance_indicator.numerator, "Not #{ performance_indicator.numerator_label }" => num})
+        %hr
+    - else
+      %p This is where the dashboard will appear after the framework has been built and data has been entered.
 

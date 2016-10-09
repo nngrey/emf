@@ -1,6 +1,6 @@
 .container
   %h3 Performance indicator
   = semantic_form_for @performance_indicator do |f|
-    = f.input :numerator, :label => "#{ f.object.denominator_label } (the number of units meeting some criterium)"
-    = f.input :denominator, :label => "#{ f.object.denominator_label } (the total number)"
+    = f.input :numerator, :label => "#{ f.object.numerator_label }"
+    = f.input :denominator, :label => "#{ f.object.denominator_label }"
     = f.action :submit, label: 'Submit changes'

@@ -1,6 +1,5 @@
 .container
-  %h3 Performance indicators
-  %h4= "Evaluative question: #{ @evaluative_question.description }"
+  %h4.lead= "Evaluative question: #{ @evaluative_question.description }"
   = semantic_form_for @evaluative_question do |f|
     = f.semantic_fields_for :sub_questions do |sub_question|
       = render 'edit_sub_question_fields', f: sub_question

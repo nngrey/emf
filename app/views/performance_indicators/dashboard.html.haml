@@ -3,8 +3,12 @@
     %h2 Dashboard
     - if @performance_indicators.any?
       - @performance_indicators.each do |performance_indicator|
-        %h4{:align => "center"}= performance_indicator.description
-        = pie_chart({performance_indicator.numerator_label => performance_indicator.numerator, performance_indicator.denominator_label => performance_indicator.denominator})
+        - if performance_indicator.numerator.present? && performance_indicator.denominator.present? && performance_indicator.numerator < performance_indicator.denominator
+          %h4{:align => "center"}= performance_indicator.description
+          = pie_chart({performance_indicator.numerator_label => performance_indicator.numerator, performance_indicator.denominator_label => performance_indicator.denominator})
+        - else
+          .alert.alert-danger{:role => "alert"}
+            %p= "No data has been entered for #{ performance_indicator.description }"
         %hr
     - else
       %p This is where the dashboard will appear after the framework has been built and data has been entered.

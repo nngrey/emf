@@ -1,10 +1,12 @@
 .container
   %h3 Frameworks
-  %p= link_to "Create new framework", new_framework_path, :class => "btn btn-default btn-xs"
   - if @frameworks.any?
     - @frameworks.each do |framework|
-      %span
+      %p
         = framework.name
         = link_to "View", framework_path(framework), :class => "btn btn-default btn-xs"
         = link_to "Edit", edit_framework_path(framework), :class => "btn btn-default btn-xs"
-
+  - else
+    %p No frameworks have been created.
+  %hr
+  %p= link_to "Create new framework", new_framework_path, :class => "btn btn-default"

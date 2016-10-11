@@ -1,7 +1,8 @@
 class EvaluativeQuestionsController < ApplicationController
 
   def new
-    @evaluative_question = EvaluativeQuestion.new
+    @framework = Framework.find(params[:framework_id]) if params[:framework_id]
+    @evaluative_question = EvaluativeQuestion.new(framework: @framework)
     @evaluative_question.sub_questions.build
   end
 

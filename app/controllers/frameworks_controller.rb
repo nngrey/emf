@@ -7,7 +7,7 @@ class FrameworksController < ApplicationController
   def create
     @framework = Framework.new(framework_params)
     if @framework.save
-      redirect_to new_evaluative_question_path
+      redirect_to new_evaluative_question_path(framework_id: @framework.id)
     else
       render "new"
     end
@@ -19,7 +19,6 @@ class FrameworksController < ApplicationController
 
   def update
     @framework = Framework.find(params[:id])
-    binding.pry
     if @framework.update_attributes(framework_params)
       redirect_to framework_path(@framework)
     else
@@ -36,11 +35,6 @@ class FrameworksController < ApplicationController
     @framework = Framework.find(params[:id])
     @evaluative_questions = @framework.evaluative_questions
   end
-
-  # private
-  # def framework_params
-  #   params.require(:framework).permit(:id, :name)
-  # end
 
   private
   def framework_params

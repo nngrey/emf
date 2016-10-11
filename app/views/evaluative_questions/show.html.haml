@@ -1,5 +1,10 @@
 .container
-
-  %h3 Evaluative Question
-
-  %h4= @evaluative_question.description
+  %h2 Framework
+  - if @evaluative_question.present?
+    .text-center
+      .btn-group
+        = link_to 'View as list', evaluative_question_path(@evaluative_question, view_as: 'list'), class: "btn btn-default"
+        = link_to 'View as table', evaluative_question_path(@evaluative_question, view_as: 'table'), class: "btn btn-default"
+    = render partial: @view_as
+  - else
+    %p This is where the framework will appear after it has been built.

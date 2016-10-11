@@ -1,7 +1,11 @@
 .nested-fields
   = f.inputs do
-    = f.label "Sub-question: #{ f.object.description }"
+    %h4= "Sub-question: #{ f.object.description }"
+    - if f.object.errors[:performance_indicators].first == "can't be blank"
+      .alert.alert-danger{:role => "alert"}
+        %ul
+          %li Performance indicator can't be blank
     = f.semantic_fields_for :performance_indicators do |performance_indicator|
       = render 'performance_indicator_fields', f: performance_indicator
     .links
-      %p= link_to_add_association "<button, class='btn btn-default'>Add performance indicator</button>".html_safe, f, :performance_indicators
+      %p= link_to_add_association "<button, class='btn btn-default btn-xs'>Add performance indicator</button>".html_safe, f, :performance_indicators

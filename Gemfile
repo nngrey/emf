@@ -1,6 +1,5 @@
 source 'https://rubygems.org'
 
-
 gem 'rails', '5.0'
 gem 'pg', '~> 0.15'
 gem 'sass-rails', '~> 5.0'
@@ -14,12 +13,16 @@ gem 'jbuilder', '~> 2.0'
 gem 'sdoc', '~> 0.4.0', group: :doc
 gem 'haml-rails'
 gem "chartkick"
-gem "pry"
 gem 'formtastic', '~> 3.0'
 gem 'formtastic-bootstrap'
 gem "cocoon"
 
 group :development, :test do
+  gem 'ffaker'
+  gem 'database_cleaner'
+  gem "pry"
+  gem 'rspec-rails', '2.14.2'
+  gem 'shoulda-matchers'
 end
 
 group :development do

@@ -1,0 +1,10 @@
+.container
+  %h3 Add evaluative question
+  = semantic_form_for @framework do |f|
+    = f.input :name
+    = f.semantic_fields_for :evaluative_questions do |evaluative_question|
+      = evaluative_question.input :category, :as => :select, :collection => ['appropriateness', 'effectiveness', 'efficiency', 'impact', 'sustainability']
+      = evaluative_question.input :description, :input_html => { :rows => 3 }
+      = evaluative_question.semantic_fields_for :sub_questions do |sub_question|
+        = render 'sub_question_fields', f: sub_question
+    .pull-right= f.action :submit, label: 'Update', :button_html => { :class => 'btn btn-success' }

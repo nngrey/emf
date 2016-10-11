@@ -1,6 +1,6 @@
 .container
   .row
-    %h1 Dashboard
+    %h2 Dashboard
     - if @performance_indicators.any?
       - @performance_indicators.each do |performance_indicator|
         %h4{:align => "center"}= performance_indicator.description

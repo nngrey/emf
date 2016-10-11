@@ -6,4 +6,6 @@ class SubQuestion < ApplicationRecord
 
   validates :description, presence: true
   validates :monitoring_information, presence: true
+  validates_presence_of :performance_indicators, on: :update
+  validates_associated :performance_indicators, on: :update
 end

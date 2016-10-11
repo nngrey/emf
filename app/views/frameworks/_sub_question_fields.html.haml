@@ -1,0 +1,6 @@
+.nested-fields
+  = f.inputs do
+    = f.input :description, :label => 'Sub-question description', :input_html => { :rows => 3 }
+    = f.input :monitoring_information, :input_html => { :rows => 3 }
+    = f.semantic_fields_for :performance_indicators do |performance_indicator|
+      = render 'performance_indicator_fields', f: performance_indicator

@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20161007043348) do
+ActiveRecord::Schema.define(version: 20161011055528) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -21,8 +21,16 @@ ActiveRecord::Schema.define(version: 20161007043348) do
   create_table "evaluative_questions", force: :cascade do |t|
     t.string   "category"
     t.text     "description"
-    t.datetime "created_at",  null: false
-    t.datetime "updated_at",  null: false
+    t.datetime "created_at",   null: false
+    t.datetime "updated_at",   null: false
+    t.integer  "framework_id"
+    t.index ["framework_id"], name: "index_evaluative_questions_on_framework_id", using: :btree
+  end
+
+  create_table "frameworks", force: :cascade do |t|
+    t.string   "name"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
   end
 
   create_table "performance_indicators", force: :cascade do |t|
@@ -47,6 +55,7 @@ ActiveRecord::Schema.define(version: 20161007043348) do
     t.index ["evaluative_question_id"], name: "index_sub_questions_on_evaluative_question_id", using: :btree
   end
 
+  add_foreign_key "evaluative_questions", "frameworks"
   add_foreign_key "performance_indicators", "sub_questions"
   add_foreign_key "sub_questions", "evaluative_questions"
 end

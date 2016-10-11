@@ -1,7 +1,7 @@
 .nested-fields
+  .lead= "Sub-question: #{ f.object.description }"
   = f.inputs do
-    %h4.lead= "Sub-question: #{ f.object.description }"
-    %h3 Add Performance indicators
+    %h3 Add performance indicators
     - if f.object.errors[:performance_indicators].first == "can't be blank"
       .alert.alert-danger{:role => "alert"}
         %ul

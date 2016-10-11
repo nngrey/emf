@@ -2,4 +2,4 @@
   %h3 Add evaluative framework
   = semantic_form_for @framework do |f|
     = f.input :name, :label => 'Program name'
-    = f.actions
+    = f.action :submit, label: 'Save and continue', :button_html => { :class => 'btn btn-success' }

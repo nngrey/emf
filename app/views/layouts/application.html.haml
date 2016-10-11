@@ -20,12 +20,15 @@
           %ul.nav.navbar-nav
             %li
               %a{:href => performance_indicators_dashboard_path} Dashboard
-            %li
-              %a{:href => frameworks_path} View frameworks
+            - if Framework.count > 0
+              %li
+                %a{:href => frameworks_path} View frameworks
             %li
               %a{:href => new_framework_path} Create framework
-            %li
-              %a{:href => new_evaluative_question_path} Add evaluative question
-            %li
-              %a{:href => performance_indicators_path} Data entry
+            - if Framework.count > 0
+              %li
+                %a{:href => new_evaluative_question_path} Add evaluative question
+            - if PerformanceIndicator.count > 0
+              %li
+                %a{:href => performance_indicators_path} Data entry
     = yield

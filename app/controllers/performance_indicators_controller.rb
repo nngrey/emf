@@ -17,6 +17,10 @@ class PerformanceIndicatorsController < ApplicationController
     end
   end
 
+  def dashboard
+    @performance_indicators = PerformanceIndicator.all
+  end
+
   private
   def performance_indicator_params
     params.require(:performance_indicator).permit(:numerator, :denominator)

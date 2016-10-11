@@ -5,12 +5,10 @@ Rails.application.routes.draw do
 
   get 'home/home' => "pages#show"
 
-  get 'dashboard/home' => "pages#show"
+  get 'performance_indicators/dashboard' => "performance_indicators#dashboard"
 
-  resources :evaluative_questions
-  resources :performance_indicators
-
-  get 'framework', to: 'frameworks#overview'
+  resources :evaluative_questions, except: [:show, :destroy]
+  resources :performance_indicators, only: [:index, :edit, :update]
 
 
   # The priority is based upon order of creation: first created -> highest priority.

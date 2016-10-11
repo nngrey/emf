@@ -2,6 +2,7 @@ class EvaluativeQuestionsController < ApplicationController
 
   def new
     @evaluative_question = EvaluativeQuestion.new
+    @evaluative_question.sub_questions.build
   end
 
   def create
@@ -9,6 +10,7 @@ class EvaluativeQuestionsController < ApplicationController
     if @evaluative_question.save
       redirect_to edit_evaluative_question_path(@evaluative_question)
     else
+      @evaluative_question.sub_questions.build
       render "new"
     end
   end
@@ -20,14 +22,14 @@ class EvaluativeQuestionsController < ApplicationController
   def update
     @evaluative_question = EvaluativeQuestion.find(params[:id])
     if @evaluative_question.update_attributes(evaluative_question_params)
-      redirect_to framework_path
+      redirect_to evaluative_questions_path
     else
       render 'edit'
     end
   end
 
-  def show
-    @evaluative_question = EvaluativeQuestion.find(params[:id])
+  def index
+    @evaluative_questions = EvaluativeQuestion.all
   end
 
   private

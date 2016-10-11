@@ -19,13 +19,11 @@
         #bs-example-navbar-collapse-1.collapse.navbar-collapse
           %ul.nav.navbar-nav
             %li
-              %a{:href => dashboard_home_path} Dashboard
+              %a{:href => performance_indicators_dashboard_path} Dashboard
             %li
-              %a{:href => framework_path} Framework
+              %a{:href => evaluative_questions_path} Framework
             %li
-              %a{:href => new_evaluative_question_path}
-                Set up
-                %span.sr-only (current)
+              %a{:href => new_evaluative_question_path} Create framework
             %li
-              %a{:href => performance_indicators_path } Data
+              %a{:href => performance_indicators_path } Data entry
     = yield

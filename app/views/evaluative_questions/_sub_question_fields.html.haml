@@ -1,6 +1,21 @@
 .nested-fields
   %h4 New sub-question:
-  = f.inputs do
-    = f.input :description, :label => 'Sub-question description', :input_html => { :rows => 3 }
-    = f.input :monitoring_information, :input_html => { :rows => 3 }
-    %p= link_to_remove_association "<button, class='btn btn-default'>Remove sub-question</button>".html_safe, f
+  - if @evaluative_question.errors[:sub_questions].present?
+    .alert.alert-danger{:role => "alert"}
+      %ul
+        %li Sub-question can't be blank
+  - if @evaluative_question.errors[:sub_questions].present?
+    .select.input.error.required.form-group.has-error
+      = f.inputs do
+        = f.semantic_errors :description, :monitoring_information
+        = f.input :description, :label => 'Sub-question description', :input_html => { :rows => 3 }
+        / %span.help-block can't be blank
+        = f.input :monitoring_information, :input_html => { :rows => 3 }
+        / %span.help-block can't be blank
+        %p= link_to_remove_association "<button, class='btn btn-default'>Remove sub-question</button>".html_safe, f
+  - else
+    = f.inputs do
+      = f.semantic_errors :description, :monitoring_information
+      = f.input :description, :label => 'Sub-question description', :input_html => { :rows => 3 }
+      = f.input :monitoring_information, :input_html => { :rows => 3 }
+      %p= link_to_remove_association "<button, class='btn btn-default'>Remove sub-question</button>".html_safe, f

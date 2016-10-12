@@ -21,12 +21,14 @@ group :development, :test do
   gem 'ffaker'
   gem 'database_cleaner'
   gem "pry"
-  gem 'rspec-rails', '2.14.2'
+  gem 'rspec-rails', '~> 3.5'
   gem 'shoulda-matchers'
+  gem 'factory_girl_rails'
 end
 
 group :development do
-  gem 'better_errors', '1.1.0'
+  gem 'better_errors'
+  gem "binding_of_caller"
   gem 'web-console', '~> 2.0'
   gem 'spring'
 end

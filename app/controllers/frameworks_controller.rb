@@ -1,5 +1,15 @@
 class FrameworksController < ApplicationController
 
+  def index
+    @frameworks = Framework.all
+  end
+
+  def show
+    @view_as = params[:view_as] || 'list'
+    @framework = Framework.find(params[:id])
+    @evaluative_questions = @framework.evaluative_questions
+  end
+
   def new
     @framework = Framework.new
   end
@@ -24,16 +34,6 @@ class FrameworksController < ApplicationController
     else
       render 'edit'
     end
-  end
-
-  def index
-    @frameworks = Framework.all
-  end
-
-  def show
-    @view_as = params[:view_as] || 'list'
-    @framework = Framework.find(params[:id])
-    @evaluative_questions = @framework.evaluative_questions
   end
 
   private

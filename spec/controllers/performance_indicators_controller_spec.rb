@@ -19,12 +19,12 @@ RSpec.describe PerformanceIndicatorsController, type: :controller do
   describe "GET #edit" do
     let(:performance_indicator){ FactoryGirl.create(:performance_indicator) }
 
-    it "populates an array of evaluative_questions" do
+    it "assigns the requested performance indicator" do
       get :edit, params: { id: performance_indicator.id }
       expect(assigns(:performance_indicator)).to eq(performance_indicator)
     end
 
-    it "renders the :index view" do
+    it "renders the :edit view" do
       get :edit, params: { id: performance_indicator.id }
       expect(response).to render_template :edit
     end

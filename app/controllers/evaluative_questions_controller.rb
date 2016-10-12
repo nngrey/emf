@@ -1,5 +1,15 @@
 class EvaluativeQuestionsController < ApplicationController
 
+  # def index
+  #   @view_as = params[:view_as] || 'list'
+  #   @evaluative_questions = EvaluativeQuestion.all
+  # end
+
+  def show
+    @view_as = params[:view_as] || 'list'
+    @evaluative_question = EvaluativeQuestion.find(params[:id])
+  end
+
   def new
     @framework = Framework.find(params[:framework_id]) if params[:framework_id]
     @evaluative_question = EvaluativeQuestion.new(framework: @framework)
@@ -35,16 +45,6 @@ class EvaluativeQuestionsController < ApplicationController
       end
       render 'edit'
     end
-  end
-
-  def show
-    @view_as = params[:view_as] || 'list'
-    @evaluative_question = EvaluativeQuestion.find(params[:id])
-  end
-
-  def index
-    @view_as = params[:view_as] || 'list'
-    @evaluative_questions = EvaluativeQuestion.all
   end
 
   private

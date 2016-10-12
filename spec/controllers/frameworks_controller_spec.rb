@@ -125,13 +125,13 @@ RSpec.describe FrameworksController, type: :controller do
         expect(assigns(:framework)).to eq(framework)
       end
 
-      it "changes the framework's attributes" do
+      it "does not change the framework's attributes" do
         put :update, params: { id: framework.id, framework: { name: 1 } }
         framework.reload
         expect(framework.name).to_not eq(1)
       end
 
-      it "redirects to frameworks_path" do
+      it "redirects to renders the edit template" do
         put :update, params: { id: framework.id, framework: { name: nil } }
         expect(response).to render_template :edit
       end

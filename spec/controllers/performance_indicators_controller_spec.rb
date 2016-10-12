@@ -61,14 +61,14 @@ RSpec.describe PerformanceIndicatorsController, type: :controller do
         expect(assigns(:performance_indicator)).to eq(performance_indicator)
       end
 
-      it "changes the performance indicator's attributes" do
+      it "does not change the performance indicator's attributes" do
         put :update, params: { id: performance_indicator.id, performance_indicator: { numerator: 'abc', denominator: 'xyz' } }
         performance_indicator.reload
         expect(performance_indicator.numerator).to_not eq('abc')
         expect(performance_indicator.denominator).to_not eq('xyz')
       end
 
-      it "redirects to performance_indicators_path" do
+      it "renders the edit template" do
         put :update, params: { id: performance_indicator.id, performance_indicator: { numerator: true, denominator: false } }
         expect(response).to render_template :edit
       end

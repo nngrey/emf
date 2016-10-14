@@ -1,5 +1,6 @@
 .container
-  %h2 Performance indicator
+  %h2 Performance indicator data input
+  %h4= @performance_indicator.description
   = semantic_form_for @performance_indicator do |f|
     = f.input :numerator, :label => "#{ f.object.numerator_label }"
     = f.input :denominator, :label => "#{ f.object.denominator_label }"

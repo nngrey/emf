@@ -5,8 +5,8 @@ class PerformanceIndicator < ApplicationRecord
   validates :definition, presence: true
   validates :numerator_label, presence: true
   validates :denominator_label, presence: true
-  validates :numerator, numericality: true, on: :update
-  validates :denominator, numericality: true, on: :update
+  validates :numerator, numericality: true, on: :update, allow_blank: true
+  validates :denominator, numericality: true, on: :update, allow_blank: true
   validate :unique_labels
 
   def unique_labels

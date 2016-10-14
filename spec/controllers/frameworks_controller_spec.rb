@@ -113,7 +113,7 @@ RSpec.describe FrameworksController, type: :controller do
 
       it "redirects to framework_path" do
         put :update, params: { id: framework.id, framework: { name: 'bob' } }
-        expect(response).to redirect_to framework_path(framework)
+        expect(response).to redirect_to frameworks_path
       end
     end
 

@@ -77,7 +77,7 @@ RSpec.describe EvaluativeQuestionsController, type: :controller do
             ]
           }
         post :create, params: { evaluative_question: valid_attributes }
-        expect(response).to redirect_to edit_evaluative_question_path(id: EvaluativeQuestion.last.id)
+        expect(response).to redirect_to edit_performance_indicators_evaluative_question_path(id: EvaluativeQuestion.last.id)
       end
     end
 
@@ -132,7 +132,7 @@ RSpec.describe EvaluativeQuestionsController, type: :controller do
       it "redirects to evaluative_question_path" do
         valid_attributes = { :category => "new category" }
         put :update, params: { id: evaluative_question.id, evaluative_question: valid_attributes }
-        expect(response).to redirect_to evaluative_question_path(evaluative_question)
+        expect(response).to redirect_to edit_performance_indicators_evaluative_question_path(evaluative_question)
       end
     end
 

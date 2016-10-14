@@ -1,11 +1,29 @@
 .container
-  %h2 Framework
-  - if @evaluative_question.present?
-    .text-center
-      .btn-group
-        = link_to 'View as list', evaluative_question_path(@evaluative_question, view_as: 'list'), class: "btn btn-default"
-        = link_to 'View as table', evaluative_question_path(@evaluative_question, view_as: 'table'), class: "btn btn-default"
-    = render partial: @view_as
-    .text-center= link_to 'Add another evaluative question', new_evaluative_question_path( framework_id: @evaluative_question.framework), class: "btn btn-success"
-  - else
-    %p This is where the framework will appear after it has been built.
+  %h2 Evaluative question
+  .panel
+    .panel-body
+      %h4= "Evaluative question - #{ @evaluative_question.category.capitalize }"
+      %dl.dl-horizontal
+        %dt Description
+        %dd= @evaluative_question.description
+        %br
+        - @evaluative_question.sub_questions.each do |sub_question|
+          %dt Sub-question description
+          %dd= sub_question.description
+          %dt Monitoring information
+          %dd= sub_question.monitoring_information
+          %br
+          - sub_question.performance_indicators.each do |performance_indicator|
+            %dt Perfomance indicator description
+            %dd= performance_indicator.description
+            %dt Perfomance indicator definition
+            %dd= performance_indicator.definition
+            %dt Numerator label
+            %dd= performance_indicator.numerator_label
+            %dt Denominator label
+            %dd= performance_indicator.denominator_label
+      .text-center
+        = link_to "Edit", edit_evaluative_question_path(@evaluative_question), class: "btn btn-default"
+  .text-center
+    = link_to 'View framework', framework_path(@evaluative_question.framework), class: "btn btn-default"
+    = link_to 'Add evaluative question', new_evaluative_question_path( framework_id: @evaluative_question.framework), class: "btn btn-success"

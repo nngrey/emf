@@ -30,7 +30,7 @@ class FrameworksController < ApplicationController
   def update
     @framework = Framework.find(params[:id])
     if @framework.update_attributes(framework_params)
-      redirect_to framework_path(@framework)
+      redirect_to frameworks_path
     else
       render 'edit'
     end

@@ -1,10 +1,5 @@
 class EvaluativeQuestionsController < ApplicationController
 
-  # def index
-  #   @view_as = params[:view_as] || 'list'
-  #   @evaluative_questions = EvaluativeQuestion.all
-  # end
-
   def show
     @view_as = params[:view_as] || 'list'
     @evaluative_question = EvaluativeQuestion.find(params[:id])
@@ -26,10 +21,26 @@ class EvaluativeQuestionsController < ApplicationController
     end
   end
 
+  def edit
+    @evaluative_question = EvaluativeQuestion.find(params[:id])
+    @framework = @evaluative_question.framework
+  end
+
+  def update
+    @evaluative_question = EvaluativeQuestion.find(params[:id])
+    if @evaluative_question.update_attributes(evaluative_question_params)
+      redirect_to edit_performance_indicators_evaluative_question_path(@evaluative_question)
+    else
+      render 'edit'
+    end
+  end
+
   def edit_performance_indicators
     @evaluative_question = EvaluativeQuestion.find(params[:id])
-    @evaluative_question.sub_questions.each do |sub_question|
-      @performance_indicator = sub_question.performance_indicators.build
+    if @evaluative_question.sub_questions.map { |q| q.performance_indicators }.flatten.empty?
+      @evaluative_question.sub_questions.each do |sub_question|
+        @performance_indicator = sub_question.performance_indicators.build
+      end
     end
   end
 
@@ -61,6 +72,7 @@ class EvaluativeQuestionsController < ApplicationController
         :_destroy,
         performance_indicators_attributes:
         [
+          :id,
           :description,
           :definition,
           :numerator,

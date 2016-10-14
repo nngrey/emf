@@ -5,7 +5,7 @@
       - @performance_indicators.each do |performance_indicator|
         - if performance_indicator.numerator.present? && performance_indicator.denominator.present? && performance_indicator.numerator < performance_indicator.denominator
           %h4{:align => "center"}= performance_indicator.description
-          = pie_chart({performance_indicator.numerator_label => performance_indicator.numerator, performance_indicator.denominator_label => performance_indicator.denominator})
+          = send(performance_indicator.chart_type, ({ performance_indicator.numerator_label => performance_indicator.numerator, performance_indicator.denominator_label => performance_indicator.denominator }))
         - else
           .alert.alert-danger{:role => "alert"}
             %p= "No data has been entered for #{ performance_indicator.description }"

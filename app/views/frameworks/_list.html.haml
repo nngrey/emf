@@ -20,6 +20,8 @@
             %dd= performance_indicator.description
             %dt Perfomance indicator definition
             %dd= performance_indicator.definition
+            %dt Chart type
+            %dd= performance_indicator.chart_type.humanize(capitalize: false)
             %dt Numerator label
             %dd= performance_indicator.numerator_label
             %dt Denominator label

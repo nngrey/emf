@@ -79,6 +79,7 @@ class EvaluativeQuestionsController < ApplicationController
           :denominator,
           :numerator_label,
           :denominator_label,
+          :chart_type,
           :_destroy
         ]
       ]

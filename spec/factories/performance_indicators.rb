@@ -2,6 +2,7 @@ FactoryGirl.define do
   factory :performance_indicator do
     description { FFaker::Lorem.sentence }
     definition { FFaker::Lorem.sentence }
+    chart_type ['bar_chart', 'pie_chart'].sample
     numerator_label { FFaker::Lorem.phrase }
     denominator_label { FFaker::Lorem.phrase }
     numerator 10

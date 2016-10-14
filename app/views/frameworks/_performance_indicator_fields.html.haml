@@ -1,8 +1,0 @@
-.nested-fields
-  = f.inputs do
-    = f.input :description, :input_html => { :rows => 3 }
-    = f.input :definition, :input_html => { :rows => 3 }
-    %p{ :style=>"border:1px; border-style:solid; padding: 1em;" }
-      Add labels for two categories in a pie graph. The first label should be the number of things that meet a certain criterium (e.g., "working filters"). The second label should be the number of things that do not meet the critirium (e.g., "malfunctioning filters"). The actual number of filters in each category will be entered later.
-    = f.input :numerator_label, label: "Primary label (e.g., # of working filters)"
-    = f.input :denominator_label, :label => "Secondary label (e.g., #of malfunctioning filters)"

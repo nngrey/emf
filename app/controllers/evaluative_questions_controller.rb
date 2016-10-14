@@ -19,21 +19,21 @@ class EvaluativeQuestionsController < ApplicationController
   def create
     @evaluative_question = EvaluativeQuestion.new(evaluative_question_params)
     if @evaluative_question.save
-      redirect_to edit_evaluative_question_path(@evaluative_question)
+      redirect_to edit_performance_indicators_evaluative_question_path(@evaluative_question)
     else
       @evaluative_question.sub_questions.build
       render "new"
     end
   end
 
-  def edit
+  def edit_performance_indicators
     @evaluative_question = EvaluativeQuestion.find(params[:id])
     @evaluative_question.sub_questions.each do |sub_question|
       @performance_indicator = sub_question.performance_indicators.build
     end
   end
 
-  def update
+  def update_performance_indicators
     @evaluative_question = EvaluativeQuestion.find(params[:id])
     if @evaluative_question.update_attributes(evaluative_question_params)
       redirect_to evaluative_question_path(@evaluative_question)
@@ -43,7 +43,7 @@ class EvaluativeQuestionsController < ApplicationController
           @performance_indicator = sub_question.performance_indicators.build
         end
       end
-      render 'edit'
+      render 'edit_performance_indicators'
     end
   end
 

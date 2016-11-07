@@ -1,31 +1,13 @@
 .container
-  %h2 Evaluative question
-  .panel
-    .panel-body
-      %h4= "Evaluative question - #{ @evaluative_question.category.capitalize }"
-      %dl.dl-horizontal
-        %dt Description
-        %dd= @evaluative_question.description
-        %br
-        - @evaluative_question.sub_questions.each do |sub_question|
-          %dt Sub-question description
-          %dd= sub_question.description
-          %dt Monitoring information
-          %dd= sub_question.monitoring_information
-          %br
-          - sub_question.performance_indicators.each do |performance_indicator|
-            %dt Perfomance indicator description
-            %dd= performance_indicator.description
-            %dt Perfomance indicator definition
-            %dd= performance_indicator.definition
-            %dt Chart type
-            %dd= performance_indicator.chart_type.humanize(capitalize: false)
-            %dt Numerator label
-            %dd= performance_indicator.numerator_label
-            %dt Denominator label
-            %dd= performance_indicator.denominator_label
-      .text-center
-        = link_to "Edit", edit_evaluative_question_path(@evaluative_question), class: "btn btn-default"
-  .text-center
-    = link_to 'View framework', framework_path(@evaluative_question.framework), class: "btn btn-default"
-    = link_to 'Add evaluative question', new_evaluative_question_path( framework_id: @evaluative_question.framework), class: "btn btn-success"
+  %h3 Evaluative question
+  %dl.dl-horizontal
+    %dt Category
+    %dd= @evaluative_question.category.capitalize
+    %dt Description
+    %dd= @evaluative_question.description
+    - @evaluative_question.performance_indicators.each do |performance_indicator|
+      %dt Perfomance indicator description
+      %dd= performance_indicator.description
+  %p= link_to "Edit current question", edit_evaluative_question_path(@evaluative_question), class: "btn btn-warning"
+  %p= link_to 'Add another evaluative question', new_evaluative_question_path( framework_id: @evaluative_question.framework), class: "btn btn-success"
+  = link_to 'View framework', framework_path(@evaluative_question.framework), class: "btn btn-default"

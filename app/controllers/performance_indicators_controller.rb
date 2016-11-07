@@ -2,6 +2,7 @@ class PerformanceIndicatorsController < ApplicationController
 
   def index
     @evaluative_questions = EvaluativeQuestion.all
+    @performance_indicators = PerformanceIndicator.effectiveness
   end
 
   def edit

@@ -8,15 +8,16 @@ class EvaluativeQuestionsController < ApplicationController
   def new
     @framework = Framework.find(params[:framework_id]) if params[:framework_id]
     @evaluative_question = EvaluativeQuestion.new(framework: @framework)
-    @evaluative_question.sub_questions.build
+    # @evaluative_question.sub_questions.build
+    @evaluative_question.performance_indicators.build
   end
 
   def create
     @evaluative_question = EvaluativeQuestion.new(evaluative_question_params)
     if @evaluative_question.save
-      redirect_to edit_performance_indicators_evaluative_question_path(@evaluative_question)
+      redirect_to evaluative_question_path(@evaluative_question)
     else
-      @evaluative_question.sub_questions.build
+      @evaluative_question.performance_indicators.build
       render "new"
     end
   end
@@ -40,6 +41,8 @@ class EvaluativeQuestionsController < ApplicationController
     if @evaluative_question.sub_questions.map { |q| q.performance_indicators }.flatten.empty?
       @evaluative_question.sub_questions.each do |sub_question|
         @performance_indicator = sub_question.performance_indicators.build
+        # @data_question = @performance_indicator.data_questions.build
+        # @option = @data_question.options.build
       end
     end
   end
@@ -64,23 +67,24 @@ class EvaluativeQuestionsController < ApplicationController
       :category,
       :description,
       :framework_id,
-      sub_questions_attributes:
+      performance_indicators_attributes:
       [
         :id,
         :description,
-        :monitoring_information,
+        :definition,
         :_destroy,
-        performance_indicators_attributes:
+        data_questions_attributes:
         [
           :id,
           :description,
-          :definition,
-          :numerator,
-          :denominator,
-          :numerator_label,
-          :denominator_label,
-          :chart_type,
-          :_destroy
+          :question_type,
+          :_destroy,
+          options_attributes:
+          [
+            :id,
+            :description,
+            :_destroy
+          ]
         ]
       ]
     )

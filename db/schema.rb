@@ -10,13 +10,24 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20161014053438) do
+ActiveRecord::Schema.define(version: 20161106211558) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
   enable_extension "hstore"
   enable_extension "pgcrypto"
   enable_extension "tablefunc"
+
+  create_table "data_questions", force: :cascade do |t|
+    t.text     "description"
+    t.string   "question_type"
+    t.integer  "performance_indicator_id"
+    t.datetime "created_at",               null: false
+    t.datetime "updated_at",               null: false
+    t.integer  "survey_template_id"
+    t.index ["performance_indicator_id"], name: "index_data_questions_on_performance_indicator_id", using: :btree
+    t.index ["survey_template_id"], name: "index_data_questions_on_survey_template_id", using: :btree
+  end
 
   create_table "evaluative_questions", force: :cascade do |t|
     t.string   "category"
@@ -33,17 +44,28 @@ ActiveRecord::Schema.define(version: 20161014053438) do
     t.datetime "updated_at", null: false
   end
 
+  create_table "options", force: :cascade do |t|
+    t.text     "description"
+    t.integer  "data_question_id"
+    t.datetime "created_at",       null: false
+    t.datetime "updated_at",       null: false
+    t.boolean  "selected"
+    t.index ["data_question_id"], name: "index_options_on_data_question_id", using: :btree
+  end
+
   create_table "performance_indicators", force: :cascade do |t|
     t.text     "description"
     t.text     "definition"
     t.integer  "numerator"
     t.integer  "denominator"
     t.integer  "sub_question_id"
-    t.datetime "created_at",        null: false
-    t.datetime "updated_at",        null: false
+    t.datetime "created_at",             null: false
+    t.datetime "updated_at",             null: false
     t.string   "numerator_label"
     t.string   "denominator_label"
     t.string   "chart_type"
+    t.integer  "evaluative_question_id"
+    t.index ["evaluative_question_id"], name: "index_performance_indicators_on_evaluative_question_id", using: :btree
     t.index ["sub_question_id"], name: "index_performance_indicators_on_sub_question_id", using: :btree
   end
 
@@ -56,7 +78,20 @@ ActiveRecord::Schema.define(version: 20161014053438) do
     t.index ["evaluative_question_id"], name: "index_sub_questions_on_evaluative_question_id", using: :btree
   end
 
+  create_table "survey_templates", force: :cascade do |t|
+    t.string   "name"
+    t.integer  "evaluative_question_id"
+    t.datetime "created_at",             null: false
+    t.datetime "updated_at",             null: false
+    t.index ["evaluative_question_id"], name: "index_survey_templates_on_evaluative_question_id", using: :btree
+  end
+
+  add_foreign_key "data_questions", "performance_indicators"
+  add_foreign_key "data_questions", "survey_templates"
   add_foreign_key "evaluative_questions", "frameworks"
+  add_foreign_key "options", "data_questions"
+  add_foreign_key "performance_indicators", "evaluative_questions"
   add_foreign_key "performance_indicators", "sub_questions"
   add_foreign_key "sub_questions", "evaluative_questions"
+  add_foreign_key "survey_templates", "evaluative_questions"
 end

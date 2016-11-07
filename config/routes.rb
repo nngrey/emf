@@ -15,4 +15,5 @@ Rails.application.routes.draw do
     end
   end
   resources :performance_indicators, only: [:index, :edit, :update]
+  resources :survey_templates
 end

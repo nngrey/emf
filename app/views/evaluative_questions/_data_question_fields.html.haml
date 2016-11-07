@@ -1,0 +1,10 @@
+/ .nested-fields
+/   = f.inputs do
+/     = f.input :description, :label => 'Question', hint: 'Create a question to capture survey or observational data. (For example: "Are you using the filter?" or "Is there water in the filter?")', :input_html => { :rows => 3 }
+/     = f.input :question_type, :as => :select, :collection => ['Yes / No', 'True / False', 'Multiple choice', 'An amount or quantity', 'Open-ended response'], :input_html => { :id => "question_type" }
+/     .well#add-option{:style => "background:white;"}
+/       = f.semantic_fields_for :options do |option|
+/         = render 'option_fields', f: option
+/       .links
+/         %p= link_to_add_association "<button, class='btn btn-default btn-xs'>Add another</button>".html_safe, f, :options
+/     %p= link_to_remove_association "<button, class='btn btn-default btn-xs'>Remove this data-question</button>".html_safe, f

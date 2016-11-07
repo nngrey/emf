@@ -1,11 +1,20 @@
 .nested-fields
-  %hr
+  %h3 Add performance indicators
   = f.inputs do
-    = f.input :description, :input_html => { :rows => 3 }
-    = f.input :definition, :input_html => { :rows => 3 }
-    = f.input :chart_type, as: :select, collection: { 'bar chart' => 'bar_chart', 'pie chart' => 'pie_chart' }
-    %p{ :style=>"border:1px; border-style:solid; padding: 1em;" }
-      Add labels for two categories in a pie graph. The first label should be the number of things that meet a certain criterium (e.g., "working filters"). The second label should be the number of things that do not meet the critirium (e.g., "malfunctioning filters"). The actual number of filters in each category will be entered later.
-    = f.input :numerator_label, label: "Primary label (e.g., # of working filters)"
-    = f.input :denominator_label, :label => "Secondary label (e.g., #of malfunctioning filters)"
-    %p= link_to_remove_association "<button, class='btn btn-default btn-xs'>Remove performance indicator</button>".html_safe, f
+    = f.input :description, label: "Performance indicator description", :input_html => { :rows => 3 }
+    / .well
+    /   %h4 Track this performance indicator with survey questions and/or observational data
+    /   = f.semantic_fields_for :data_questions do |data_question|
+    /     = render 'data_question_fields', f: data_question
+    /   .links
+    /     %p= link_to_add_association "<button, class='btn btn-default btn-xs'>Add another data-question</button>".html_safe, f, :data_questions
+    / / = f.input :definition, :input_html => { :rows => 3 }
+    / = f.input :chart_type, as: :select, collection: { 'bar chart' => 'bar_chart', 'pie chart' => 'pie_chart' }
+    / %p{ :style=>"border:1px; border-style:solid; padding: 1em;" }
+    /   Add labels for two categories in a pie graph. The first label should be the number of things that meet a certain criterium (e.g., "working filters"). The second label should be the number of things that do not meet the critirium (e.g., "malfunctioning filters"). The actual number of filters in each category will be entered later.
+    / = f.input :numerator_label, label: "Primary label (e.g., # of working filters)"
+    / = f.input :denominator_label, :label => "Secondary label (e.g., #of malfunctioning filters)"
+
+
+
+    %p= link_to_remove_association "<button, class='btn btn-warning'>Remove this performance indicator</button>".html_safe, f

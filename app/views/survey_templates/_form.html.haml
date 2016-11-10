@@ -1,6 +1,6 @@
-= semantic_form_for @survey_template do |f|
+= semantic_form_for [@framework, @survey_template] do |f|
   = f.input :name, label: "Survey title"
-  = f.input :evaluative_question, :as => :select, :collection => EvaluativeQuestion.where(category: 'effectiveness').pluck(:description, :id), :input_html => { :id => "evaluative-question" }
+  / = f.input :evaluative_question, :as => :select, :collection => @evaluative_question.pluck(:description, :id), :input_html => { :id => "evaluative-question" }
   / = f.input :evaluative_question, :as => :select, :collection => EvaluativeQuestion.where(category: 'effectiveness').map{|question| question.description.truncate_words(10)}, :input_html => { :id => "evaluative-question" }
   = f.semantic_fields_for :data_questions do |data_question|
     = render 'data_question_fields', f: data_question

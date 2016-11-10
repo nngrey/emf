@@ -6,6 +6,9 @@
         = framework.name
         = link_to "View", framework_path(framework), :class => "btn btn-default btn-xs"
         = link_to "Edit name", edit_framework_path(framework), :class => "btn btn-default btn-xs"
+        - if framework.evaluative_questions.find_by(category: "effectiveness").performance_indicators.any?
+          = link_to "Create a survey template", new_framework_survey_template_path(framework), :class => "btn btn-default btn-xs"
+
   - else
     %p No frameworks have been created.
   %hr

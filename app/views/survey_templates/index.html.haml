@@ -1,0 +1,5 @@
+.container
+  - @survey_templates.each do |survey|
+    %br
+    = survey.name
+    = link_to "Create a survey", new_survey_template_survey_path(survey), :class => "btn btn-default btn-xs"

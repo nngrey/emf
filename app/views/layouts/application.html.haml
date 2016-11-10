@@ -30,8 +30,8 @@
                 %a{:href => new_evaluative_question_path} Add evaluative question
             - if PerformanceIndicator.count > 0
               %li
-                %a{:href => new_survey_template_path} Create Survey
-            - if PerformanceIndicator.count > 0
-              %li
                 %a{:href => performance_indicators_path} Data entry
+            - if SurveyTemplate.any?
+              %li
+                %a{:href => survey_templates_path} New survey
     = yield

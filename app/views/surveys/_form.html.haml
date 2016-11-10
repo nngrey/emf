@@ -1,0 +1,13 @@
+= semantic_form_for [@survey_template, @survey] do |f|
+  = f.semantic_fields_for :data_questions do |data_question|
+    - @survey_template.data_questions.each_with_index do |question, index|
+      = "#{index + 1}. #{question.description}"
+      = data_question.input :id, :as => :hidden, :input_html => {:value => question.id}
+      - if ['Yes / No', 'True / False', 'Multiple choice'].include? question.question_type
+        = data_question.input :correct_answer, label: false, :as => :radio, :collection => question.options.pluck(:description, :id)
+      - elsif question.question_type == 'An amount or quantity'
+        = data_question.input :correct_answer, label: false
+      - else
+        = data_question.input :correct_answer, label: false, as: :text
+
+  = f.action :submit, label: "Submit", :button_html => { :class => 'btn btn-success' }

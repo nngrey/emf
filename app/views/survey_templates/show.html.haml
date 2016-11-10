@@ -1,1 +1,9 @@
-%h1 Survey Template
+.container
+  %h2= @survey_template.name
+  - @survey_template.data_questions.each do |question|
+    %ol
+      %li= question.description
+      - question.options.each do |option|
+        %ul
+          %li= option.description
+

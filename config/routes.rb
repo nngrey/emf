@@ -3,11 +3,19 @@ Rails.application.routes.draw do
 
   root 'home#home'
 
-  get 'home/home' => "pages#show"
+  get 'home/home' => 'pages#show'
+
+  get 'survey_templates' => 'survey_templates#index'
 
   get 'performance_indicators/dashboard' => "performance_indicators#dashboard"
 
-  resources :frameworks
+  resources :survey_templates, only: [:index] do
+    resources :surveys, only: [:new, :create]
+  end
+
+  resources :frameworks do
+    resources :survey_templates, only: [:new, :create, :edit, :update, :show]
+  end
   resources :evaluative_questions do
     member do
       get 'edit_performance_indicators'
@@ -15,5 +23,4 @@ Rails.application.routes.draw do
     end
   end
   resources :performance_indicators, only: [:index, :edit, :update]
-  resources :survey_templates
 end

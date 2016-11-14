@@ -1,0 +1,5 @@
+.nested-fields
+  = f.inputs do
+    = question.description
+    = f.semantic_fields_for :correct_answers do |correct_answer|
+      = render 'correct_answers_fields', f: correct_answer

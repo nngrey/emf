@@ -18,6 +18,8 @@ $(document).on('turbolinks:load', function(){
   $('#survey-questions')
     .on("cocoon:before-insert", function(e, added_question) {
     toggleFields();
+    // var inputField = added_question.find('#perf-ind');
+    // inputField.value = 'hi';
     added_question.find('#performance-indicators').hide();
     added_question.find('#add-option').hide();
   });

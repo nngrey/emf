@@ -1,7 +1,7 @@
 .nested-fields
   %h3 Add performance indicators
   = f.inputs do
-    = f.input :description, label: "Performance indicator description", :input_html => { :rows => 3 }
+    = f.input :description, label: "Performance indicator description", :input_html => { :rows => 3, :id => 'perf-ind' }
     / .well
     /   %h4 Track this performance indicator with survey questions and/or observational data
     /   = f.semantic_fields_for :data_questions do |data_question|

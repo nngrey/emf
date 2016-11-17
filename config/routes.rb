@@ -7,10 +7,13 @@ Rails.application.routes.draw do
 
   get 'survey_templates' => 'survey_templates#index'
 
+  get 'results_index' => 'survey_templates#results_index'
+
   get 'performance_indicators/dashboard' => "performance_indicators#dashboard"
 
   resources :survey_templates, only: [:index] do
-    resources :surveys, only: [:new, :create]
+    resources :surveys, only: [:new, :create, :show]
+    get 'results', on: :member
   end
 
   resources :frameworks do

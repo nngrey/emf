@@ -1,0 +1,16 @@
+.container
+  %h2 Results
+
+  %ol
+    - @survey_template.data_questions.each do |question|
+      %li= question.description
+      %ul
+        - question.options.each do |option|
+          %li
+            = "#{option.description} - "
+            - if ['Yes / No', 'True / False', 'Multiple choice'].include? question.question_type
+              = CorrectAnswer.where(data_question_id: question.id, input_value: option.description).count
+            - else
+              %ol
+                - CorrectAnswer.where(data_question_id: question.id).each do |answer|
+                %li= answer.input_value

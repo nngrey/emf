@@ -1,0 +1,6 @@
+.container
+  %h2 Surveys
+
+  - @survey_templates.each do |template|
+    = template.name
+    = link_to "<button, class='btn btn-default btn-xs'>View results</button>".html_safe, results_survey_template_path(template)

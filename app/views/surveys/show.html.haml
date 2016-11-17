@@ -1,0 +1,7 @@
+.container
+  - @survey.survey_questions.each do |question|
+    %p
+      = question.description
+    %ul
+      - question.correct_answers.each do |answer|
+        %li= answer.input_value

@@ -26,6 +26,14 @@ class SurveyTemplatesController < ApplicationController
     @survey_templates = SurveyTemplate.all
   end
 
+  def results_index
+    @survey_templates = SurveyTemplate.all
+  end
+
+  def results
+    @survey_template = SurveyTemplate.find(params[:id])
+  end
+
   private
 
   def survey_template_params

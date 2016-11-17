@@ -19,9 +19,12 @@ ActiveRecord::Schema.define(version: 20161114052647) do
   enable_extension "tablefunc"
 
   create_table "correct_answers", force: :cascade do |t|
+    t.text     "input_value"
     t.integer  "survey_question_id"
+    t.integer  "data_question_id"
     t.datetime "created_at",         null: false
     t.datetime "updated_at",         null: false
+    t.index ["data_question_id"], name: "index_correct_answers_on_data_question_id", using: :btree
     t.index ["survey_question_id"], name: "index_correct_answers_on_survey_question_id", using: :btree
   end
 
@@ -111,6 +114,7 @@ ActiveRecord::Schema.define(version: 20161114052647) do
     t.index ["survey_template_id"], name: "index_surveys_on_survey_template_id", using: :btree
   end
 
+  add_foreign_key "correct_answers", "data_questions"
   add_foreign_key "correct_answers", "survey_questions"
   add_foreign_key "data_questions", "performance_indicators"
   add_foreign_key "data_questions", "survey_templates"

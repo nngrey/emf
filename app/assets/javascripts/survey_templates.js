@@ -2,24 +2,28 @@ $(document).on('turbolinks:load', function(){
   toggleFields();
   $('#add-option').hide();
   $('#performance-indicators').hide();
-
   $("#question-type").change(function () {
     toggleFields();
   });
 
-  $('#foo').change(function() {
-    if ($(this).val() === 'Yes') {
-      $('#performance-indicators').show();
-    } else {
-      $('#performance-indicators').remove();
-    }
+  // $('#foo').change(function() {
+  //   if ($(this).val() === 'Yes') {
+  //     $('#performance-indicators').show();
+  //   } else {
+  //     $('#performance-indicators').remove();
+  //   }
+  // });
+
+  $('#indicators')
+    .on("cocoon:before-insert", function(e, added_indicator) {
+    added_indicator.find('#indicator').val('');
   });
 
   $('#survey-questions')
     .on("cocoon:before-insert", function(e, added_question) {
     toggleFields();
-    // var inputField = added_question.find('#perf-ind');
-    // inputField.value = 'hi';
+    // added_question.find('#new_question').val(added_question.find('#new_question').val().replace(/\s+/g, ''));
+    added_question.find('#new_question').val('');
     added_question.find('#performance-indicators').hide();
     added_question.find('#add-option').hide();
   });

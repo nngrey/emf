@@ -7,7 +7,7 @@
         = f.input :performance_indicator, :as => :select, :collection => @evaluative_question.performance_indicators.map{|indicator| indicator.description.truncate_words(10) }
       = f.input :question_type, :as => :select, :collection => ['Yes / No', 'True / False', 'Multiple choice', 'An amount or quantity', 'Open-ended response'], :input_html => { :id => "question-type" }
       .well
-        = f.input :description, :label => 'Question', hint: 'Create a question to capture survey or observational data. (For example: "Are you using the filter?" or "Is there water in the filter?")', :input_html => { :rows => 3, :autofocus => true }
+        = f.input :description, :label => 'Question', hint: 'Create a question to capture survey or observational data. (For example: "Are you using the filter?" or "Is there water in the filter?")', :input_html => { :rows => 3, :id => 'new_question' }
         #add-option
           = f.semantic_fields_for :options do |option|
             = render 'option_fields', f: option

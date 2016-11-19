@@ -1,14 +1,15 @@
-= semantic_form_for @evaluative_question do |f|
-  = f.input :framework, :as => :select, :collection => Framework.all
-  = f.input :category, :as => :select, :collection => ['appropriateness', 'effectiveness', 'efficiency', 'impact', 'sustainability']
-  = f.input :description, label: "Evaluative question description", :input_html => { :rows => 3 }
-  / = f.semantic_fields_for :sub_questions do |sub_question|
-  /   = render 'sub_question_fields', f: sub_question
-  / .links
-  /   %p= link_to_add_association "<button, class='btn btn-default btn-xs'>Add sub-question</button>".html_safe, f, :sub_questions
-  %hr
-  = f.semantic_fields_for :performance_indicators do |performance_indicator|
-    = render 'performance_indicator_fields', f: performance_indicator
-  .links
-    %p= link_to_add_association "<button, class='btn btn-success'>Add another performance indicator</button>".html_safe, f, :performance_indicators
-  .pull-right= f.action :submit, label: 'Save and continue', :button_html => { :class => 'btn btn-success' }
+#indicators
+  = semantic_form_for @evaluative_question do |f|
+    = f.input :framework, :as => :select, :collection => Framework.all
+    = f.input :category, :as => :select, :collection => ['appropriateness', 'effectiveness', 'efficiency', 'impact', 'sustainability']
+    = f.input :description, label: "Evaluative question description", :input_html => { :rows => 3 }
+    / = f.semantic_fields_for :sub_questions do |sub_question|
+    /   = render 'sub_question_fields', f: sub_question
+    / .links
+    /   %p= link_to_add_association "<button, class='btn btn-default btn-xs'>Add sub-question</button>".html_safe, f, :sub_questions
+    %hr
+    = f.semantic_fields_for :performance_indicators do |performance_indicator|
+      = render 'performance_indicator_fields', f: performance_indicator
+    .links
+      %p= link_to_add_association "<button, class='btn btn-success'>Add another performance indicator</button>".html_safe, f, :performance_indicators
+    .pull-right= f.action :submit, label: 'Save and continue', :button_html => { :class => 'btn btn-success' }

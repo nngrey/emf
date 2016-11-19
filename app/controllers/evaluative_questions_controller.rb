@@ -17,7 +17,9 @@ class EvaluativeQuestionsController < ApplicationController
     if @evaluative_question.save
       redirect_to evaluative_question_path(@evaluative_question)
     else
-      @evaluative_question.performance_indicators.build
+      if @evaluative_question.performance_indicators.blank?
+        @evaluative_question.performance_indicators.build
+      end
       render "new"
     end
   end

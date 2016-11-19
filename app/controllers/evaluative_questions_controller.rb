@@ -30,36 +30,39 @@ class EvaluativeQuestionsController < ApplicationController
   def update
     @evaluative_question = EvaluativeQuestion.find(params[:id])
     if @evaluative_question.update_attributes(evaluative_question_params)
-      redirect_to edit_performance_indicators_evaluative_question_path(@evaluative_question)
+      redirect_to evaluative_question_path(@evaluative_question)
     else
       render 'edit'
     end
   end
 
-  def edit_performance_indicators
-    @evaluative_question = EvaluativeQuestion.find(params[:id])
-    if @evaluative_question.sub_questions.map { |q| q.performance_indicators }.flatten.empty?
-      @evaluative_question.sub_questions.each do |sub_question|
-        @performance_indicator = sub_question.performance_indicators.build
+  # def edit_performance_indicators
+  #   @evaluative_question = EvaluativeQuestion.find(params[:id])
+  #   if @evaluative_question.update_attributes(evaluative_question_params)
+      # redirect_to edit_performance_indicators_evaluative_question_path(@evaluative_question)
+    # if @evaluative_question.sub_questions.map { |q| q.performance_indicators }.flatten.empty?
+    #   @evaluative_question.sub_questions.each do |sub_question|
+    #     @performance_indicator = sub_question.performance_indicators.build
         # @data_question = @performance_indicator.data_questions.build
         # @option = @data_question.options.build
-      end
-    end
-  end
+  #   else
+  #     render 'edit'
+  #   end
+  # end
 
-  def update_performance_indicators
-    @evaluative_question = EvaluativeQuestion.find(params[:id])
-    if @evaluative_question.update_attributes(evaluative_question_params)
-      redirect_to evaluative_question_path(@evaluative_question)
-    else
-      @evaluative_question.sub_questions.each do |sub_question|
-        if sub_question.errors[:performance_indicators].first == "can't be blank"
-          @performance_indicator = sub_question.performance_indicators.build
-        end
-      end
-      render 'edit_performance_indicators'
-    end
-  end
+  # def update_performance_indicators
+  #   @evaluative_question = EvaluativeQuestion.find(params[:id])
+  #   if @evaluative_question.update_attributes(evaluative_question_params)
+  #     redirect_to evaluative_question_path(@evaluative_question)
+  #   else
+  #     @evaluative_question.sub_questions.each do |sub_question|
+  #       if sub_question.errors[:performance_indicators].first == "can't be blank"
+  #         @performance_indicator = sub_question.performance_indicators.build
+  #       end
+  #     end
+  #     render 'edit_performance_indicators'
+  #   end
+  # end
 
   private
   def evaluative_question_params
@@ -73,19 +76,19 @@ class EvaluativeQuestionsController < ApplicationController
         :description,
         :definition,
         :_destroy,
-        data_questions_attributes:
-        [
-          :id,
-          :description,
-          :question_type,
-          :_destroy,
-          options_attributes:
-          [
-            :id,
-            :description,
-            :_destroy
-          ]
-        ]
+        # data_questions_attributes:
+        # [
+        #   :id,
+        #   :description,
+        #   :question_type,
+        #   :_destroy,
+        #   options_attributes:
+        #   [
+        #     :id,
+        #     :description,
+        #     :_destroy
+        #   ]
+        # ]
       ]
     )
   end

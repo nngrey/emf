@@ -1,14 +1,14 @@
-.nested-fields
-  .lead= "Sub-question: #{ f.object.description }"
-  %hr
-  = f.inputs do
-    %h3 Add performance indicator
-    %br
-    - if f.object.errors[:performance_indicators].first == "can't be blank"
-      .alert.alert-danger{:role => "alert"}
-        %ul
-          %li Performance indicator can't be blank
-    = f.semantic_fields_for :performance_indicators do |performance_indicator|
-      = render 'performance_indicator_fields', f: performance_indicator
-    .links
-      %p= link_to_add_association "<button, class='btn btn-default btn-xs'>Add another performance indicator</button>".html_safe, f, :performance_indicators
+/ .nested-fields
+/   .lead= "Sub-question: #{ f.object.description }"
+/   %hr
+/   = f.inputs do
+/     %h3 Add performance indicator
+/     %br
+/     - if f.object.errors[:performance_indicators].first == "can't be blank"
+/       .alert.alert-danger{:role => "alert"}
+/         %ul
+/           %li Performance indicator can't be blank
+/     = f.semantic_fields_for :performance_indicators do |performance_indicator|
+/       = render 'performance_indicator_fields', f: performance_indicator
+/     .links
+/       %p= link_to_add_association "<button, class='btn btn-default btn-xs'>Add another performance indicator</button>".html_safe, f, :performance_indicators

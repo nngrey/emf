@@ -1,6 +1,6 @@
 .nested-fields
   = f.inputs do
     = question.description
-    = f.semantic_fields_for :correct_answers do |correct_answer|
-      = render 'correct_answers_fields', f: correct_answer, question: question
+    = f.semantic_fields_for :survey_responses do |survey_response|
+      = render 'survey_responses_fields', f: survey_response, question: question
 

@@ -3,5 +3,5 @@
     %p
       = question.description
     %ul
-      - question.correct_answers.each do |answer|
-        %li= answer.input_value
+      - question.survey_responses.each do |response|
+        %li= response.input_value

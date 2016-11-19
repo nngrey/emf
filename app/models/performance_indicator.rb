@@ -1,6 +1,5 @@
 class PerformanceIndicator < ApplicationRecord
   has_many :data_questions, inverse_of: :performance_indicator
-  # belongs_to :sub_question, inverse_of: :performance_indicators
   belongs_to :evaluative_question, inverse_of: :performance_indicators
 
   accepts_nested_attributes_for :data_questions, reject_if: :all_blank, allow_destroy: true

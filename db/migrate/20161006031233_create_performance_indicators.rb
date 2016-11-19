@@ -5,7 +5,6 @@ class CreatePerformanceIndicators < ActiveRecord::Migration[5.0]
       t.text :definition
       t.integer :numerator
       t.integer :denominator
-      t.references :sub_question, foreign_key: true
 
       t.timestamps
     end

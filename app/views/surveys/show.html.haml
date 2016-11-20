@@ -5,3 +5,6 @@
     %ul
       - question.survey_responses.each do |response|
         %li= response.input_value
+
+  / Not sure if we want to allow surveys to be edited
+  / = link_to "Edit", edit_survey_template_survey_path(@survey_template, @survey), :class => "btn btn-default btn-xs"

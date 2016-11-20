@@ -3,19 +3,21 @@
 
   %ol
     - @survey_template.data_questions.each do |question|
-      %li= question.description
-      %ul
-        - data_hash = {}
-        - question.options.each do |option|
-          %li
-            = "#{option.description} - "
-            - if ['Yes / No', 'True / False', 'Multiple choice'].include? question.question_type
-              - survey_response = SurveyResponse.where(data_question_id: question.id, input_value: option.description).count
-              = survey_response
-              - data_hash[option.description] = survey_response
-            - else
-              %ol
-                - SurveyResponse.where(data_question_id: question.id).each do |answer|
-                  %li= answer.input_value
+      - data_hash = {}
+      %li
+        = question.description
+        %ul
+          - question.options.each do |option|
+            %li
+              = "#{option.description} - "
+              - if ['Yes / No', 'True / False', 'Multiple choice'].include? question.question_type
+                - survey_response = SurveyResponse.response_total(question.id, option.description)
+                = survey_response
+                - data_hash[option.description] = survey_response
+              - else
+                %ol
+                  - SurveyResponse.where(data_question_id: question.id).each do |answer|
+                    %li= answer.input_value
         - if data_hash.any?
-          = pie_chart data_hash, width: "300px"
+          = pie_chart data_hash, width: "100px", height: "100px"
+      %hr

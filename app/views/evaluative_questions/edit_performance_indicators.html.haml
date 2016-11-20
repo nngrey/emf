@@ -1,6 +1,0 @@
-/ .container
-/   .lead= "Evaluative question: #{ @evaluative_question.description }"
-/   = semantic_form_for @evaluative_question, :url => update_performance_indicators_evaluative_question_path(@evaluative_question), :html => {:method => :put} do |f|
-/     = f.semantic_fields_for :sub_questions do |sub_question|
-/       = render 'edit_sub_question_fields', f: sub_question
-/     .pull-right= f.action :submit, label: 'Finish', :button_html => { :class => 'btn btn-success' }

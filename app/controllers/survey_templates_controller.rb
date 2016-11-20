@@ -9,10 +9,10 @@ class SurveyTemplatesController < ApplicationController
   end
 
   def create
-    framework_id = params[:framework_id]
-    @survey_template = SurveyTemplate.new(survey_template_params)
+    @framework = Framework.find(params[:framework_id])
+    @survey_template = @framework.survey_templates.new(survey_template_params)
     if @survey_template.save
-      redirect_to framework_survey_template_path(framework_id, @survey_template)
+      redirect_to framework_survey_template_path(@framework, @survey_template)
     else
       render "new"
     end

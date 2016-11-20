@@ -1,4 +1,5 @@
 $(document).on('turbolinks:load', function(){
+  $('.dropdown-toggle').dropdown();
   toggleFields();
   $('#add-option').hide();
   $('#performance-indicators').hide();
@@ -6,13 +7,13 @@ $(document).on('turbolinks:load', function(){
     toggleFields();
   });
 
-  // $('#foo').change(function() {
-  //   if ($(this).val() === 'Yes') {
-  //     $('#performance-indicators').show();
-  //   } else {
-  //     $('#performance-indicators').remove();
-  //   }
-  // });
+  $('#foo').change(function() {
+    if ($(this).val() === 'Yes') {
+      $('#performance-indicators').show();
+    } else {
+      $('#performance-indicators').hide();
+    }
+  });
 
   $('#indicators')
     .on("cocoon:before-insert", function(e, added_indicator) {
@@ -24,6 +25,7 @@ $(document).on('turbolinks:load', function(){
     toggleFields();
     // added_question.find('#new_question').val(added_question.find('#new_question').val().replace(/\s+/g, ''));
     added_question.find('#new_question').val('');
+    added_question.find('#option').val('');
     added_question.find('#performance-indicators').hide();
     added_question.find('#add-option').hide();
   });
@@ -65,24 +67,3 @@ function toggleFields() {
     $("#add-option").hide();
   }
 }
-
-// $(document).on('turbolinks:load', function(){
-//   $('#survey-questions')
-//     .on("cocoon:before-insert", function(e, added_question) {
-//     added_question.find('#performance-indicators').hide();
-//   });
-// });
-
-// $(document).ready(function() {
-//   $('#survey-question')
-//     .on('cocoon:after-insert', function() {
-//       toggleFields();
-//       $('#add-option').hide();
-//       $('#performance-indicators').hide();
-//     });
-// });
-
-// $('#evaluative-question').change(function() {
-//   var q = $(this).val();
-//   console.log(q);
-// });

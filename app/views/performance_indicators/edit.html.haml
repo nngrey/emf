@@ -8,28 +8,5 @@
         = "#{index + 1}. #{question.description}"
         - if question.type = 'Yes / No'
           - question.options.each do |option|
-
-
-        / = f.input :numerator, :label => "#{ f.object.numerator_label }"
-        / = f.input :denominator, :label => "#{ f.object.denominator_label }"
-        / = f.action :submit, label: 'Submit changes'
-
   - else
     %p This is where data will be entered after performance indicators have been created.
-
-
-/ .container
-
-/   %h3 Performance Indicators
-
-/   - if @performance_indicators.any?
-
-/     - @performance_indicators.each do |indicator|
-/       %dl.dl-horizontal
-/         %dt Performance Indicator
-/         %dd= indicator.description
-/         - indicator.data_questions.each do |question|
-/           %dt Question
-/           %dd= question.description
-/           %dd{ :style=>"margin-top: 10px;"}= link_to "Input data", edit_performance_indicator_path(indicator), :class => "btn btn-default btn-sm"
-/           %hr

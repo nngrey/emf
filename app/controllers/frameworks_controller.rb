@@ -15,7 +15,8 @@ class FrameworksController < ApplicationController
   end
 
   def create
-    @framework = Framework.new(framework_params)
+    @organization = Organization.first
+    @framework = @organization.frameworks.new(framework_params)
     if @framework.save
       redirect_to new_evaluative_question_path(framework_id: @framework.id)
     else
@@ -34,6 +35,12 @@ class FrameworksController < ApplicationController
     else
       render 'edit'
     end
+  end
+
+  def dashboard
+    framework = Framework.find(params[:id])
+    # TODO how do we compile data from multiple survey templates???
+    @survey_template = framework.survey_templates.first
   end
 
   private

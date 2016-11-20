@@ -18,16 +18,22 @@
           %a.navbar-brand{:href => "/"} EMF
         #bs-example-navbar-collapse-1.collapse.navbar-collapse
           %ul.nav.navbar-nav
-            %li
-              %a{:href => performance_indicators_dashboard_path} Dashboard
-            - if Framework.count > 0
+            - if Organization.count == 0
               %li
-                %a{:href => frameworks_path} View frameworks
-            %li
-              %a{:href => new_framework_path} Create framework
-            - if Framework.count > 0
+                %a{:href => new_organization_path} Set up
+            - else
               %li
-                %a{:href => new_evaluative_question_path} Add evaluative question
+                %a{:href => organization_path(Organization.first)}
+                  = Organization.first.name
+            - if EvaluativeQuestion.count > 0
+              - Framework.all.each do |framework|
+                %li
+                  %a{:href => dashboard_framework_path(framework)}
+                    = framework.name
+
+            - if Organization.count > 0
+              %li
+                %a{:href => frameworks_path} Program frameworks
             - if SurveyTemplate.any?
               %li
                 %a{:href => survey_templates_path} New survey

@@ -17,7 +17,7 @@ class SurveysController < ApplicationController
     @survey_template.data_questions.each do |question|
       @survey.survey_questions.build(data_question_id: question.id, description: question.description, question_type: question.question_type)
     end
-    if @survey.save(survey_params)&& create_survey_responses
+    if @survey.save(survey_params) && create_survey_responses
       redirect_to survey_template_survey_path(@survey_template, @survey)
     else
       # flash
@@ -26,7 +26,15 @@ class SurveysController < ApplicationController
   end
 
   def show
+    @survey_template = SurveyTemplate.find(params[:survey_template_id])
     @survey = Survey.find(params[:id])
+  end
+
+  def edit
+    @survey = Survey.find(params[:id])
+  end
+
+  def update
   end
 
   private
@@ -34,7 +42,7 @@ class SurveysController < ApplicationController
   def survey_params
     params.require(:survey).permit(
       survey_questions_attributes: [:id,
-        survey_responses:[:input_value, :data_question_id]]
+        survey_responses:[:id, :input_value, :data_question_id]]
     )
   end
 
@@ -42,9 +50,17 @@ class SurveysController < ApplicationController
     survey_params[:survey_questions_attributes].each do |k, v|
       data_question_id = v[:survey_responses][:data_question_id]
       survey_question = SurveyQuestion.find_by(data_question_id: data_question_id)
-      survey_question.survey_responses.create(v[:survey_responses])
+      response = survey_question.survey_responses.create(v[:survey_responses])
+      response
     end
   end
 
-
+  def update_survey_responses
+    survey_params[:survey_questions_attributes].each do |k, v|
+      data_question_id = v[:survey_responses][:data_question_id]
+      survey_question = SurveyQuestion.find_by(data_question_id: data_question_id)
+      response = survey_question.survey_responses.create(v[:survey_responses])
+      response
+    end
+  end
 end

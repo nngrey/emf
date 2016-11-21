@@ -1,5 +1,5 @@
 .container
-  %h3 Frameworks
+  %h3 Evaluative Frameworks
   - if @frameworks.any?
     - @frameworks.each do |framework|
       .dropdown.closed
@@ -7,11 +7,11 @@
         %button#dropdownMenuButton.btn.btn-default.btn-sm.dropdown-toggle{"aria-expanded" => "false", "aria-haspopup" => "true", "data-toggle" => "dropdown", :type => "button"}
           Actions
         .dropdown-menu{"aria-labelledby" => "dropdownMenuButton"}
-          %ul.list-unstyled
+          %ul.list-unstyled{:style => "padding: 0px 10px 0px 10px", }
             %li
-              %a.dropdown-item{:href => framework_path(framework)} View
+              %a.dropdown-item{:href => framework_path(framework)} View framework
             %li
-              %a.dropdown-item{:href => edit_framework_path(framework)} Edit name
+              %a.dropdown-item{:href => edit_framework_path(framework)} Edit framework name
             %li
               %a.dropdown-item{:href => new_evaluative_question_path} Add evaluative question
             - if framework.evaluative_questions.any?

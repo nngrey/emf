@@ -1,11 +1,19 @@
 .container
-  %h3 Dashboard
-  - @survey_template.data_questions.each do |question|
-    - data_hash = {}
-    - question.options.each do |option|
-      - if ['Yes / No', 'True / False', 'Multiple choice'].include? question.question_type
-        - survey_response = SurveyResponse.response_total(question.id, option.description)
-        - data_hash[option.description] = survey_response
-    - if data_hash.any?
-      = pie_chart data_hash, width: "200px", height: "200px"
-  %hr
+  %h3= "Dashboard for #{@framework.name}"
+
+  - if @framework.survey_templates.any?
+    - if @survey_template.has_responses?
+      .panel.panel-default{:style => "width: 100%"}
+        .panel-heading
+          %h3.panel-title Effectivness
+        .panel-body
+          - @survey_template.data_questions.each do |question|
+            - data_hash = {}
+            - question.options.each do |option|
+              - if ['Yes / No', 'True / False', 'Multiple choice'].include? question.question_type
+                - survey_response = SurveyResponse.response_total(question.id, option.description)
+                - data_hash[option.description] = survey_response
+            - if data_hash.any?
+              = pie_chart data_hash, width: "200px", height: "200px"
+  - else
+    %p Your dashboard will appear here when data has been entered.

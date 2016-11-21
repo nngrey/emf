@@ -1,4 +1,4 @@
 #indicators
   = semantic_form_for @organization do |f|
-    = f.input :name
+    = f.input :name, label: 'Organization name'
     .pull-right= f.action :submit, :button_html => { :class => 'btn btn-success' }

@@ -49,7 +49,7 @@ $(document).on('turbolinks:load', function(){
       var selected = $(this).val();
       var addOption = added_question.find('#add-option');
       var addQuestionButton = added_question.find('#add-question-button');
-      if (selected === 'Multiple choice' || selected === 'Yes / No' || selected === "True / False"){
+      if (selected === 'Multiple choice'){
         addOption.show();
         addQuestionButton.trigger('click');
       } else {
@@ -61,7 +61,7 @@ $(document).on('turbolinks:load', function(){
 
 function toggleFields() {
   var selected = $("#question-type").val();
-  if (selected === 'Multiple choice' || selected === 'Yes / No' || selected === "True / False") {
+  if (selected === 'Multiple choice') {
     $("#add-option").show();
   } else {
     $("#add-option").hide();

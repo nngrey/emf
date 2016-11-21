@@ -38,9 +38,9 @@ class FrameworksController < ApplicationController
   end
 
   def dashboard
-    framework = Framework.find(params[:id])
+    @framework = Framework.find(params[:id])
     # TODO how do we compile data from multiple survey templates???
-    @survey_template = framework.survey_templates.first
+    @survey_template = @framework.survey_templates.first if @framework.survey_templates.any?
   end
 
   private

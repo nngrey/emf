@@ -1,5 +1,14 @@
 .container
-  - @survey_templates.each do |survey|
-    %br
-    = survey.name
-    = link_to "Create a survey", new_survey_template_survey_path(survey), :class => "btn btn-default btn-xs"
+  - if @survey_templates.any?
+    - @survey_templates.each do |template|
+      .dropdown.closed
+        = template.name
+        %button#dropdownMenuButton.btn.btn-default.btn-sm.dropdown-toggle{"aria-expanded" => "false", "aria-haspopup" => "true", "data-toggle" => "dropdown", :type => "button"}
+          Actions
+        .dropdown-menu{"aria-labelledby" => "dropdownMenuButton"}
+          %ul.list-unstyled{:style => "padding: 0px 10px 0px 10px", }
+            %li
+              %a.dropdown-item{:href => new_survey_template_survey_path(template)} Administer a survey
+            %li
+              %a.dropdown-item{:href => results_survey_template_path(template)} View survey results
+

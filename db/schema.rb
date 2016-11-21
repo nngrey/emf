@@ -51,7 +51,6 @@ ActiveRecord::Schema.define(version: 20161120001107) do
     t.integer  "data_question_id"
     t.datetime "created_at",       null: false
     t.datetime "updated_at",       null: false
-    t.boolean  "selected"
     t.index ["data_question_id"], name: "index_options_on_data_question_id", using: :btree
   end
 
@@ -63,9 +62,6 @@ ActiveRecord::Schema.define(version: 20161120001107) do
 
   create_table "performance_indicators", force: :cascade do |t|
     t.text     "description"
-    t.text     "definition"
-    t.integer  "numerator"
-    t.integer  "denominator"
     t.datetime "created_at",             null: false
     t.datetime "updated_at",             null: false
     t.string   "chart_type"

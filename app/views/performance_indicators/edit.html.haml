@@ -1,12 +1,12 @@
-.container
-  %h3 CHP Diary
+/ .container
+/   %h3 CHP Diary
 
-  - if @performance_indicators.any?
+/   - if @performance_indicators.any?
 
-    - @performance_indicators.each do |indicator|
-      - indicator.data_questions.each_with_index do |question, index|
-        = "#{index + 1}. #{question.description}"
-        - if question.type = 'Yes / No'
-          - question.options.each do |option|
-  - else
-    %p This is where data will be entered after performance indicators have been created.
+/     - @performance_indicators.each do |indicator|
+/       - indicator.data_questions.each_with_index do |question, index|
+/         = "#{index + 1}. #{question.description}"
+/         - if question.type = 'Yes / No'
+/           - question.options.each do |option|
+/   - else
+/     %p This is where data will be entered after performance indicators have been created.

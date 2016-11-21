@@ -8,6 +8,14 @@
     - @evaluative_question.performance_indicators.each do |performance_indicator|
       %dt Perfomance indicator description
       %dd= performance_indicator.description
-  %p= link_to "Edit current question", edit_evaluative_question_path(@evaluative_question), class: "btn btn-warning"
-  %p= link_to 'Add another evaluative question', new_evaluative_question_path( framework_id: @evaluative_question.framework), class: "btn btn-success"
-  = link_to 'View framework', framework_path(@evaluative_question.framework), class: "btn btn-default"
+  .dropdown.closed
+    %button#dropdownMenuButton.btn.btn-default.btn-sm.dropdown-toggle{"aria-expanded" => "false", "aria-haspopup" => "true", "data-toggle" => "dropdown", :type => "button"}
+      Actions
+    .dropdown-menu{"aria-labelledby" => "dropdownMenuButton"}
+      %ul.list-unstyled{:style => "padding: 0px 10px 0px 10px", }
+        %li
+          %a.dropdown-item{:href => edit_evaluative_question_path(@evaluative_question)} Edit current question
+        %li
+          %a.dropdown-item{:href => new_evaluative_question_path( framework_id: @evaluative_question.framework)} Add another evaluative question
+        %li
+          %a.dropdown-item{:href => framework_path(@evaluative_question.framework)} View #{@evaluative_question.framework.name.downcase} framework

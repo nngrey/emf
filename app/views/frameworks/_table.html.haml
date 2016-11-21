@@ -10,7 +10,7 @@
           %tr
             %td
               = question.description
-            %td
-            - question.performance_indicators.each do |performance_indicator|
+            %tr
+              - question.performance_indicators.each do |performance_indicator|
                 %td
                 %td= performance_indicator.description

@@ -12,6 +12,7 @@ class SurveyTemplatesController < ApplicationController
     @framework = Framework.find(params[:framework_id])
     @survey_template = @framework.survey_templates.new(survey_template_params)
     if @survey_template.save
+      @survey_template.build_options
       redirect_to framework_survey_template_path(@framework, @survey_template)
     else
       render "new"
@@ -34,8 +35,10 @@ class SurveyTemplatesController < ApplicationController
     @survey_template = SurveyTemplate.find(params[:id])
   end
 
-  private
 
+
+
+  private
   def survey_template_params
     params.require(:survey_template).permit(
       :name,

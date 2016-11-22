@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20161120001107) do
+ActiveRecord::Schema.define(version: 20161122024215) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -22,9 +22,10 @@ ActiveRecord::Schema.define(version: 20161120001107) do
     t.text     "description"
     t.string   "question_type"
     t.integer  "performance_indicator_id"
-    t.datetime "created_at",               null: false
-    t.datetime "updated_at",               null: false
+    t.datetime "created_at",                                          null: false
+    t.datetime "updated_at",                                          null: false
     t.integer  "survey_template_id"
+    t.string   "display_value",            default: "Do not display"
     t.index ["performance_indicator_id"], name: "index_data_questions_on_performance_indicator_id", using: :btree
     t.index ["survey_template_id"], name: "index_data_questions_on_survey_template_id", using: :btree
   end

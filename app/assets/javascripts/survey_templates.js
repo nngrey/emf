@@ -57,6 +57,23 @@ $(document).on('turbolinks:load', function(){
       }
     });
   });
+
+
+  $('.display_format').change(function() {
+    var selected = $(this).val();
+    var id = $(this).data("id");
+    url = "/data_questions/" + id;
+    $.ajax({
+      type: "POST",
+      url: url,
+      data: { _method:'PUT', display_value: selected },
+      dataType: 'json',
+      success: function(msg) {
+        alert( "Display setting has been updated" );
+      }
+    });
+  });
+
 });
 
 function toggleFields() {

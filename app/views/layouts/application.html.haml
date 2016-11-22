@@ -19,14 +19,14 @@
             %a.navbar-brand{:href => new_organization_path} Set up
           - else
             %a.navbar-brand{:href => organization_path(Organization.first)}
-              = Organization.first.name
+              = Organization.first.name.titleize
         #bs-example-navbar-collapse-1.collapse.navbar-collapse
           %ul.nav.navbar-nav
             - if EvaluativeQuestion.count > 0
               - Framework.all.each do |framework|
                 %li
                   %a{:href => dashboard_framework_path(framework)}
-                    = framework.name
+                    = framework.name.titleize
 
             - if Organization.count > 0
               %li

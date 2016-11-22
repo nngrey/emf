@@ -35,8 +35,9 @@ class SurveyTemplatesController < ApplicationController
     @survey_template = SurveyTemplate.find(params[:id])
   end
 
-
-
+  def update_results
+    binding.pry
+  end
 
   private
   def survey_template_params

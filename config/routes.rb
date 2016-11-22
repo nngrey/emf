@@ -9,6 +9,8 @@ Rails.application.routes.draw do
 
   get 'results_index' => 'survey_templates#results_index'
 
+  resources :data_questions, only: [:update]
+
   get 'performance_indicators/dashboard' => "performance_indicators#dashboard"
 
   resources :survey_templates, only: [:index] do

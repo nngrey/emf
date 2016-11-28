@@ -1,14 +1,13 @@
 .container
   - if @survey_templates.any?
     - @survey_templates.each do |template|
-      .dropdown.closed
+      .dropdown
         = template.name
-        %button#dropdownMenuButton.btn.btn-default.btn-sm.dropdown-toggle{"aria-expanded" => "false", "aria-haspopup" => "true", "data-toggle" => "dropdown", :type => "button"}
-          Actions
-        .dropdown-menu{"aria-labelledby" => "dropdownMenuButton"}
-          %ul.list-unstyled{:style => "padding: 0px 10px 0px 10px", }
-            %li
-              %a.dropdown-item{:href => new_survey_template_survey_path(template)} Administer a survey
-            %li
-              %a.dropdown-item{:href => results_survey_template_path(template)} View survey results
-
+        %button#dropdownMenu1.btn.btn-default.btn-sm.dropdown-toggle{"aria-expanded" => "true", "aria-haspopup" => "true", "data-toggle" => "dropdown", :type => "button"}
+          Dropdown
+          %span.caret
+        %ul.dropdown-menu{"aria-labelledby" => "dropdownMenu1"}
+          %li
+            %a{:href => new_survey_template_survey_path(template)} Administer a survey
+          %li
+            %a{:href => results_survey_template_path(template)} View survey results

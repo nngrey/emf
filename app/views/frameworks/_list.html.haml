@@ -9,16 +9,15 @@
         - question.performance_indicators.each do |performance_indicator|
           %dt Perfomance indicator description
           %dd= performance_indicator.description
-      .dropdown.closed
-        %button#dropdownMenuButton.btn.btn-default.btn-sm.dropdown-toggle{"aria-expanded" => "false", "aria-haspopup" => "true", "data-toggle" => "dropdown", :type => "button"}
-          Actions
-        .dropdown-menu{"aria-labelledby" => "dropdownMenuButton"}
-          %ul.list-unstyled{:style => "padding: 0px 10px 0px 10px"}
+      .dropdown
+        %button#dropdownMenu1.btn.btn-default.btn-sm.dropdown-toggle{"aria-expanded" => "true", "aria-haspopup" => "true", "data-toggle" => "dropdown", :type => "button"}
+          Dropdown
+          %span.caret
+        %ul.dropdown-menu{"aria-labelledby" => "dropdownMenu1"}
+          %li
+            %a{:href => edit_evaluative_question_path(question)} Edit evaluative question
+          %li
+            %a{:href => new_evaluative_question_path} Add evaluative question
+          - if @framework.evaluative_questions.find_by(category: "effectiveness").performance_indicators.any?
             %li
-              %a.dropdown-item{:href => edit_evaluative_question_path(question)} Edit evaluative question
-            %li
-              %a.dropdown-item{:href => new_evaluative_question_path} Add evaluative question
-            - if @framework.evaluative_questions.any?
-              - if @framework.evaluative_questions.find_by(category: "effectiveness").performance_indicators.any?
-                %li
-                  %a.dropdown-item{:href => new_framework_survey_template_path(@framework)} Create a survey template
+              %a{:href => new_framework_survey_template_path(@framework)} Create a survey template

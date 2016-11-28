@@ -1,5 +1,8 @@
 .container
   %h2 Results
+  / = link_to 'Add advanced analysis', edit_survey_template_path(@survey_template)
+  = link_to 'Add advanced analysis', new_survey_template_data_combination_path(@survey_template)
+
   .row
     .col-sm-4
       %h4 Response totals
@@ -37,4 +40,32 @@
           .col-sm-4
             = bar_chart data_hash, width: "175px", height: "175px"
 
+  %br
+  %h3 Advanced analyses
+  .row
+    .col-sm-4
+      %h4 Response totals
+    .col-sm-4
+      %h4 View as pie chart
+    .col-sm-4
+      %h4 View as bar chart
+  %br
+  %ul
+    - @analyses.each do |analysis|
+      .row
+        .col-sm-4
+          %h4= analysis.title
+          %p= analysis.description
+          .container
+            - data_hash = analysis.build_data_hash
+            - data_hash.each do |key, value|
+              %li= "#{key}: #{value}"
+          %br
+          = semantic_form_for analysis do |f|
+            = f.input :display_value, label: "Display on dashboard as:", :as => :select, :collection => ['Do not display', 'Text', 'Pie chart', 'Bar chart'], :input_html => {:class => 'analysis_display_format', data: {id: analysis.id} }
+
+        .col-sm-4
+          = pie_chart data_hash, width: "175px", height: "175px"
+        .col-sm-4
+          = bar_chart data_hash, width: "175px", height: "175px"
       %hr

@@ -3,6 +3,10 @@ $(document).on('turbolinks:load', function(){
   toggleFields();
   $('#add-option').hide();
   $('#performance-indicators').hide();
+  $('.options1').hide();
+  $('.options2').hide();
+
+  // $('#label').hide();
   $("#question-type").change(function () {
     toggleFields();
   });
@@ -73,6 +77,60 @@ $(document).on('turbolinks:load', function(){
       }
     });
   });
+
+  $('.analysis_display_format').change(function() {
+    var selected = $(this).val();
+    var id = $(this).data("id");
+    url = "/analyses/" + id;
+    $.ajax({
+      type: "POST",
+      url: url,
+      data: { _method:'PUT', display_value: selected },
+      dataType: 'json',
+      success: function(msg) {
+        alert( "Display setting has been updated" );
+      }
+    });
+  });
+
+  $('#bar').change(function() {
+    $('.options1').hide();
+    $("#label1").show();
+    var questionIds = $('#blah').val().split(' ');
+    var questionId = $(this).val();
+    var index = questionIds.indexOf(questionId);
+    if (index > -1) {
+        questionIds.splice(index, 1);
+    }
+    var arrayLength = questionIds.length;
+    for (var i = 0; i < arrayLength; i++) {
+        $("#options1_for_" + questionIds[i]).remove();
+    }
+    $("#options1_for_" + questionId).show();
+    $("#options1_for_" + questionId).change(function() {
+      var optionId = $(this).val();
+    });
+  });
+
+  $('#baz').change(function() {
+    $('.options2').hide();
+    $("#label2").show();
+    var questionIds2 = $('#blah').val().split(' ');
+    var questionId2 = $(this).val();
+    var index = questionIds2.indexOf(questionId2);
+    if (index > -1) {
+        questionIds2.splice(index, 1);
+    }
+    var arrayLength = questionIds2.length;
+    for (var i = 0; i < arrayLength; i++) {
+        $("#options2_for_" + questionIds2[i]).remove();
+    }
+    $("#options2_for_" + questionId2).show();
+    $("#options2_for_" + questionId2).change(function() {
+      var optionId2 = $(this).val();
+    });
+  });
+
 
 });
 

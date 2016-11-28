@@ -10,13 +10,39 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20161122024215) do
+ActiveRecord::Schema.define(version: 20161127192102) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
   enable_extension "hstore"
   enable_extension "pgcrypto"
   enable_extension "tablefunc"
+
+  create_table "analyses", force: :cascade do |t|
+    t.string   "display_value",       default: "Do not display"
+    t.string   "title"
+    t.text     "description"
+    t.integer  "data_combination_id"
+    t.datetime "created_at",                                     null: false
+    t.datetime "updated_at",                                     null: false
+    t.index ["data_combination_id"], name: "index_analyses_on_data_combination_id", using: :btree
+  end
+
+  create_table "data_combinations", force: :cascade do |t|
+    t.string   "title"
+    t.text     "description"
+    t.integer  "survey_template_id"
+    t.string   "criterion_1"
+    t.string   "criterion_2"
+    t.string   "data_question_1_id"
+    t.string   "data_question_2_id"
+    t.string   "display_value"
+    t.string   "data_label_1"
+    t.string   "data_label_2"
+    t.datetime "created_at",         null: false
+    t.datetime "updated_at",         null: false
+    t.index ["survey_template_id"], name: "index_data_combinations_on_survey_template_id", using: :btree
+  end
 
   create_table "data_questions", force: :cascade do |t|
     t.text     "description"
@@ -106,6 +132,8 @@ ActiveRecord::Schema.define(version: 20161122024215) do
     t.index ["survey_template_id"], name: "index_surveys_on_survey_template_id", using: :btree
   end
 
+  add_foreign_key "analyses", "data_combinations"
+  add_foreign_key "data_combinations", "survey_templates"
   add_foreign_key "data_questions", "performance_indicators"
   add_foreign_key "data_questions", "survey_templates"
   add_foreign_key "evaluative_questions", "frameworks"

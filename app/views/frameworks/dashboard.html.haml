@@ -14,9 +14,36 @@
                 - if ['Yes / No', 'True / False', 'Multiple choice'].include? question.question_type
                   - survey_response = SurveyResponse.response_total(question.id, option.description)
                   - data_hash[option.description] = survey_response
-              - if data_hash.any?
+              - if data_hash.present?
+                - unless question.display_value == 'Do not display'
+                  .col-sm-4
+                    %h4= question.description
+                    - if question.display_value == 'Pie chart'
+                      = pie_chart data_hash, width: "200px", height: "200px"
+                    - elsif question.display_value == 'Bar chart'
+                      = bar_chart data_hash, width: "200px", height: "200px"
+                    - elsif question.display_value == 'Text'
+                      %ul
+                        - question.options.each do |option|
+                          %li
+                            = "#{option.description} - "
+                            - if ['Yes / No', 'True / False', 'Multiple choice'].include? question.question_type
+                              - survey_response = SurveyResponse.response_total(question.id, option.description)
+                              = survey_response
+                              - data_hash[option.description] = survey_response
+            - @analyses.each do |analysis|
+              - unless analysis.display_value == 'Do not display'
                 .col-sm-4
-                  %h4= question.description
-                  = pie_chart data_hash, width: "200px", height: "200px"
+                  - data_hash = analysis.build_data_hash
+                  %h4= analysis.title
+                  %p= analysis.description
+                  - if analysis.display_value == 'Pie chart'
+                    = pie_chart data_hash, width: "200px", height: "200px"
+                  - elsif analysis.display_value == 'Bar chart'
+                    = bar_chart data_hash, width: "200px", height: "200px"
+                  - elsif analysis.display_value == 'Text'
+                    .container
+                      - data_hash.each do |key, value|
+                        %li= "#{key}: #{value}"
   - else
     %p Your dashboard will appear here when data has been entered.

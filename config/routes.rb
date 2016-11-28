@@ -11,15 +11,18 @@ Rails.application.routes.draw do
 
   resources :data_questions, only: [:update]
 
+  resources :analyses, only: [:update]
+
   get 'performance_indicators/dashboard' => "performance_indicators#dashboard"
 
-  resources :survey_templates, only: [:index] do
+  resources :survey_templates, only: [:index, :edit, :update] do
+    resources :data_combinations
     resources :surveys, only: [:new, :create, :show, :edit, :update]
     get 'results', on: :member
   end
 
   resources :frameworks do
-    resources :survey_templates, only: [:new, :create, :edit, :update, :show]
+    resources :survey_templates, only: [:new, :create, :show]
     get 'dashboard', on: :member
   end
 

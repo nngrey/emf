@@ -33,10 +33,7 @@ class SurveyTemplatesController < ApplicationController
 
   def results
     @survey_template = SurveyTemplate.find(params[:id])
-  end
-
-  def update_results
-    binding.pry
+    @analyses = @survey_template.data_combinations.map{|dc| dc.analyses}.flatten
   end
 
   private
@@ -58,5 +55,4 @@ class SurveyTemplatesController < ApplicationController
       ]
     )
   end
-
 end

@@ -22,11 +22,11 @@
               = Organization.first.name.titleize
         #bs-example-navbar-collapse-1.collapse.navbar-collapse
           %ul.nav.navbar-nav
-            - if EvaluativeQuestion.count > 0
-              - Framework.all.each do |framework|
+            - if Program.count > 0
+              - Program.all.each do |program|
                 %li
-                  %a{:href => dashboard_framework_path(framework)}
-                    = framework.name.titleize
+                  %a{:href => dashboard_framework_path(program.framework)}
+                    = program.name.titleize
 
             - if Organization.count > 0
               %li

@@ -1,8 +1,6 @@
 class Analysis < ApplicationRecord
   belongs_to :data_combination, inverse_of: :analyses
 
-  scope :display, -> { where.not(display_value: 'Do not display') }
-
   def build_data_hash
     combination = self.data_combination
     survey_template = data_combination.survey_template

@@ -1,0 +1,32 @@
+#indicators
+  = semantic_form_for [@program, @logic_model] do |f|
+    #inputs
+      = f.semantic_fields_for :logic_model_inputs do |logic_model_input|
+        = render 'logic_model_input_fields', f: logic_model_input
+      .links
+        %p= link_to_add_association "<button, class='btn btn-success'>Add another input</button>".html_safe, f, :logic_model_inputs
+    #activities
+      = f.semantic_fields_for :activities do |activity|
+        = render 'activity_fields', f: activity
+      .links
+        %p= link_to_add_association "<button, class='btn btn-success'>Add another activity</button>".html_safe, f, :activities
+    #outputs
+      = f.semantic_fields_for :outputs do |output|
+        = render 'output_fields', f: output
+      .links
+        %p= link_to_add_association "<button, class='btn btn-success'>Add another output</button>".html_safe, f, :outputs
+    #outcomes
+      = f.semantic_fields_for :outcomes do |outcome|
+        = render 'outcome_fields', f: outcome
+      .links
+        %p= link_to_add_association "<button, class='btn btn-success'>Add another outcome</button>".html_safe, f, :outcomes
+    #impacts
+      = f.semantic_fields_for :impacts do |impact|
+        = render 'impact_fields', f: impact
+      .links
+        %p= link_to_add_association "<button, class='btn btn-success'>Add another impact</button>".html_safe, f, :impacts
+
+    .pull-right{:style => "margin-left: 3px"}
+      = button_tag "Previous", :id => "previous-button", :class => "btn btn-default", :type => "button"
+      = button_tag "Next", :id => "next-button", :class => "btn btn-default", :type => "button"
+      = f.action :submit, label: 'Finish', :button_html => { :class => 'btn btn-success', :id => "submit-button" }

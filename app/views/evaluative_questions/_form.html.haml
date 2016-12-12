@@ -1,6 +1,5 @@
 #indicators
-  = semantic_form_for @evaluative_question do |f|
-    = f.input :framework, :as => :select, :collection => Framework.all
+  = semantic_form_for [@framework, @evaluative_question] do |f|
     = f.input :category, :as => :select, :collection => ['appropriateness', 'effectiveness', 'efficiency', 'impact', 'sustainability']
     = f.input :description, label: "Evaluative question description", :input_html => { :rows => 3 }
     %hr

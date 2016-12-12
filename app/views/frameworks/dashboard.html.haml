@@ -1,49 +1,27 @@
 .container
-  %h3= "Dashboard for #{@framework.name}"
-
-  - if @framework.survey_templates.any?
-    - if @survey_template.has_responses?
-      .panel.panel-default{:style => "width: 100%"}
-        .panel-heading
-          %h3.panel-title Effectivness
-        .panel-body
-          .row
-            - @survey_template.data_questions.each do |question|
-              - data_hash = {}
-              - question.options.each do |option|
-                - if ['Yes / No', 'True / False', 'Multiple choice'].include? question.question_type
-                  - survey_response = SurveyResponse.response_total(question.id, option.description)
-                  - data_hash[option.description] = survey_response
-              - if data_hash.present?
-                - unless question.display_value == 'Do not display'
-                  .col-sm-4
-                    %h4= question.description
-                    - if question.display_value == 'Pie chart'
-                      = pie_chart data_hash, width: "200px", height: "200px"
-                    - elsif question.display_value == 'Bar chart'
-                      = bar_chart data_hash, width: "200px", height: "200px"
-                    - elsif question.display_value == 'Text'
-                      %ul
-                        - question.options.each do |option|
-                          %li
-                            = "#{option.description} - "
-                            - if ['Yes / No', 'True / False', 'Multiple choice'].include? question.question_type
-                              - survey_response = SurveyResponse.response_total(question.id, option.description)
-                              = survey_response
-                              - data_hash[option.description] = survey_response
-            - @analyses.each do |analysis|
-              - unless analysis.display_value == 'Do not display'
-                .col-sm-4
-                  - data_hash = analysis.build_data_hash
-                  %h4= analysis.title
-                  %p= analysis.description
-                  - if analysis.display_value == 'Pie chart'
-                    = pie_chart data_hash, width: "200px", height: "200px"
-                  - elsif analysis.display_value == 'Bar chart'
-                    = bar_chart data_hash, width: "200px", height: "200px"
-                  - elsif analysis.display_value == 'Text'
-                    .container
-                      - data_hash.each do |key, value|
-                        %li= "#{key}: #{value}"
-  - else
-    %p Your dashboard will appear here when data has been entered.
+  .dropdown
+    .row{:style => "margin-bottom: 10px"}
+      .col-sm-4
+        %h3= "Dashboard for #{@framework.program.name}"
+      .col-sm-offset-6.col-sm-2
+        %button#dropdownMenu1.btn.btn-success.dropdown-toggle.btn-block{"aria-expanded" => "true", "aria-haspopup" => "true", "data-toggle" => "dropdown", :type => "button"}
+          Actions
+          %span.caret
+        %ul.dropdown-menu{"aria-labelledby" => "dropdownMenu1"}
+          %li
+            %a{:href => logic_model_path(@framework.program.logic_model)} View logic model
+          %li
+            %a{:href => framework_path(@framework)} View framework
+          %li
+            %a{:href => edit_framework_path(@framework)} Edit framework name
+          %li
+            %a{:href => new_framework_evaluative_question_path(@framework)} Add evaluative question
+          - if @framework.evaluative_questions.any?
+            - if @framework.evaluative_questions.find_by(category: "effectiveness").performance_indicators.any?
+              %li
+                %a{:href => new_framework_survey_template_path(@framework)} Create a survey template
+  = render 'relevance'
+  = render 'efficiency'
+  = render 'effectiveness'
+  = render 'impact'
+  = render 'sustainability'

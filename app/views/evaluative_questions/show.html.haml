@@ -16,6 +16,6 @@
         %li
           %a.dropdown-item{:href => edit_evaluative_question_path(@evaluative_question)} Edit current question
         %li
-          %a.dropdown-item{:href => new_evaluative_question_path( framework_id: @evaluative_question.framework)} Add another evaluative question
+          %a.dropdown-item{:href => new_framework_evaluative_question_path(@evaluative_question.framework)} Add another evaluative question
         %li
           %a.dropdown-item{:href => framework_path(@evaluative_question.framework)} View #{@evaluative_question.framework.name.downcase} framework

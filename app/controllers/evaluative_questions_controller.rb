@@ -6,13 +6,20 @@ class EvaluativeQuestionsController < ApplicationController
   end
 
   def new
-    @framework = Framework.find(params[:framework_id]) if params[:framework_id]
-    @evaluative_question = EvaluativeQuestion.new(framework: @framework)
+    if params[:program_id]
+      @program = Program.find(params[:program_id])
+      @evaluative_question = @program.framework.evaluative_questions.new
+    elsif params[:framework_id]
+      @framework = Framework.find(params[:framework_id])
+      @program = @framework.program
+      @evaluative_question = @framework.evaluative_questions.new
+    end
     @evaluative_question.performance_indicators.build
   end
 
   def create
-    @evaluative_question = EvaluativeQuestion.new(evaluative_question_params)
+    @framework = Framework.find(params[:framework_id])
+    @evaluative_question = @framework.evaluative_questions.new(evaluative_question_params)
     if @evaluative_question.save
       redirect_to evaluative_question_path(@evaluative_question)
     else

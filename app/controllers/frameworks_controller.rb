@@ -41,7 +41,9 @@ class FrameworksController < ApplicationController
     @framework = Framework.find(params[:id])
     # TODO how do we compile data from multiple survey templates???
     @survey_template = @framework.survey_templates.first if @framework.survey_templates.any?
-    @analyses = @survey_template.data_combinations.map{|dc| dc.analyses}.flatten
+    if @survey_template.present? && @survey_template.data_combinations.any?
+      @analyses = @survey_template.data_combinations.map{|dc| dc.analyses}.flatten
+    end
   end
 
   private

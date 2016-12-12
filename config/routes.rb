@@ -23,12 +23,22 @@ Rails.application.routes.draw do
 
   resources :frameworks do
     resources :survey_templates, only: [:new, :create, :show]
+    resources :evaluative_questions, shallow: true
     get 'dashboard', on: :member
   end
 
-  resources :organizations, only: [:new, :create, :edit, :update, :show]
+  resources :organizations, only: [:new, :create, :edit, :update, :show] do
+    resources :programs, only: [:new]
+  end
 
-  resources :evaluative_questions do
+
+  resources :programs, only: [:create] do
+    resources :logic_models, only: [:new, :create]
+  end
+
+  resources :logic_models, only: [:show]
+
+  resources :evaluative_questions, except: [:index, :new, :create] do
     member do
       get 'edit_performance_indicators'
       put 'update_performance_indicators'

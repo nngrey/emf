@@ -1,5 +1,4 @@
 .nested-fields
-  %h3 Add performance indicators
   = f.inputs do
-    = f.input :description, label: "Performance indicator description", :input_html => { :rows => 3, :id => 'indicator'}
+    = f.input :description, label: "Performance indicator", :input_html => { :rows => 3, :id => 'indicator'}
     %p= link_to_remove_association "<button, class='btn btn-warning'>Remove this performance indicator</button>".html_safe, f

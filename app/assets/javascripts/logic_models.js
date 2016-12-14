@@ -8,7 +8,7 @@ $(document).on('turbolinks:load', function(){
   $('#submit-button').hide();
 
   $('#next-button').click(function () {
-    next = nextStep(current)
+    next = nextStep(current);
     $(current).hide();
     $(next).show();
     current = next;
@@ -16,9 +16,8 @@ $(document).on('turbolinks:load', function(){
   });
 
   $('#previous-button').click(function () {
-    previous = previousStep(current)
+    previous = previousStep(current);
     $(current).hide();
-    if(current)
     $(previous).show();
     current = previous;
     showCorrectButtons(current);

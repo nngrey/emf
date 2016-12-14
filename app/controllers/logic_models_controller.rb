@@ -20,6 +20,19 @@ class LogicModelsController < ApplicationController
     end
   end
 
+  def edit
+    @logic_model = LogicModel.find(params[:id])
+  end
+
+  def update
+    @logic_model = LogicModel.find(params[:id])
+    if @logic_model.update_attributes(logic_model_params)
+      redirect_to logic_model_path(@logic_model)
+    else
+      render 'edit'
+    end
+  end
+
   def show
     @logic_model = LogicModel.find(params[:id])
   end

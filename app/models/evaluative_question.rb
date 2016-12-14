@@ -6,8 +6,9 @@ class EvaluativeQuestion < ApplicationRecord
 
   validates :category, presence: true
   validates :description, presence: true
-  validates_associated :framework
-  # validates_presence_of :framework
+  # validates_associated :framework
+  validates_associated :performance_indicators
+  validates_presence_of :performance_indicators
 
   def has_performance_indicators?
     self.sub_questions.map{ |q| q.performance_indicators }.flatten.any?

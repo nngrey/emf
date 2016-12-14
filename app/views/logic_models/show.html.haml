@@ -31,4 +31,6 @@
             %ul
               - @logic_model.impacts.each do |impact|
                 %ol= impact.description
+  - if @logic_model.program.framework.evaluative_questions.blank?
+    = link_to "Create evaluative framework", new_framework_evaluative_question_path(@logic_model.program.framework), :class => "btn btn-default"
 

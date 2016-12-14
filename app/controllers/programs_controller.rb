@@ -8,7 +8,7 @@ class ProgramsController < ApplicationController
     @organization = Organization.first
     @program = @organization.programs.new(program_params)
     if @program.save
-      framework = @program.framework || @program.create_framework(name: "Framework for #{@program.name}")
+      @program.create_framework(name: "Framework for #{@program.name}")
       # logic_model = @program.logic_model || @program.create_logic_model
       redirect_to new_program_logic_model_path(@program)
       # redirect_to new_framework_evaluative_question_path(@framework)

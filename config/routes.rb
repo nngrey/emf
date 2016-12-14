@@ -23,7 +23,7 @@ Rails.application.routes.draw do
 
   resources :frameworks do
     resources :survey_templates, only: [:new, :create, :show]
-    resources :evaluative_questions, shallow: true
+    resources :evaluative_questions, only: [:index, :new, :create, :update]
     get 'dashboard', on: :member
   end
 
@@ -36,7 +36,7 @@ Rails.application.routes.draw do
     resources :logic_models, only: [:new, :create]
   end
 
-  resources :logic_models, only: [:show]
+  resources :logic_models, only: [:show, :edit, :update]
 
   resources :evaluative_questions, except: [:index, :new, :create] do
     member do

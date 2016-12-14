@@ -1,10 +1,17 @@
 .container
-  %h2= @framework.name
   - if @evaluative_questions.any?
-    .text-center
-      .btn-group
-        = link_to 'View as list', framework_path(@framework, view_as: 'list'), class: "btn btn-default"
-        = link_to 'View as table', framework_path(@framework, view_as: 'table'), class: "btn btn-default"
-    = render partial: @view_as
+    .pull-right.dropdown
+      %button#dropdownMenu1.btn.btn-default.btn-sm.dropdown-toggle{"aria-expanded" => "true", "aria-haspopup" => "true", "data-toggle" => "dropdown", :type => "button"}
+        Actions
+        %span.caret
+      %ul.dropdown-menu{"aria-labelledby" => "dropdownMenu1"}
+        %li
+          %a{:href => edit_evaluative_question_path(@evaluative_questions.first)} Edit evaluative question
+    %h2= "Evaluative framework for #{@framework.program.name}"
+    / .text-center
+    /   .btn-group
+    /     = link_to 'View as list', framework_path(@framework, view_as: 'list'), class: "btn btn-default"
+    /     = link_to 'View as table', framework_path(@framework, view_as: 'table'), class: "btn btn-default"
+    = render partial: 'table'
   - else
     %p This is where the evaluative framework will appear after it has been built.

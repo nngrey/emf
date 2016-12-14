@@ -8,6 +8,15 @@ class FrameworksController < ApplicationController
     @view_as = params[:view_as] || 'list'
     @framework = Framework.find(params[:id])
     @evaluative_questions = @framework.evaluative_questions
+    ##TODO use a join
+    @create_survey = false
+    if @framework.evaluative_questions.any?
+      if @framework.evaluative_questions.find_by(category: "effectiveness").present?
+        if @framework.evaluative_questions.find_by(category: "effectiveness").performance_indicators.any?
+          @create_survey = true
+        end
+      end
+    end
   end
 
   def new
@@ -39,6 +48,15 @@ class FrameworksController < ApplicationController
 
   def dashboard
     @framework = Framework.find(params[:id])
+    ##TODO use a join
+    @create_survey = false
+    if @framework.evaluative_questions.any?
+      if @framework.evaluative_questions.find_by(category: "effectiveness").present?
+        if @framework.evaluative_questions.find_by(category: "effectiveness").performance_indicators.any?
+          @create_survey = true
+        end
+      end
+    end
     # TODO how do we compile data from multiple survey templates???
     @survey_template = @framework.survey_templates.first if @framework.survey_templates.any?
     if @survey_template.present? && @survey_template.data_combinations.any?

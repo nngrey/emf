@@ -18,6 +18,6 @@
             %a{:href => edit_evaluative_question_path(question)} Edit evaluative question
           %li
             %a{:href => new_framework_evaluative_question_path(@framework)} Add evaluative question
-          - if @framework.evaluative_questions.find_by(category: "effectiveness").performance_indicators.any?
+          - if @create_survey
             %li
               %a{:href => new_framework_survey_template_path(@framework)} Create a survey template

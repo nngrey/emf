@@ -19,7 +19,7 @@
             %a.navbar-brand{:href => new_organization_path} Set up
           - else
             %a.navbar-brand{:href => organization_path(Organization.first)}
-              = Organization.first.name.titleize
+              = Organization.first.name.upcase
         #bs-example-navbar-collapse-1.collapse.navbar-collapse
           %ul.nav.navbar-nav
             - if Program.count > 0

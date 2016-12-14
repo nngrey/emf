@@ -1,6 +1,10 @@
 .container
-  %h3 Overview
-  %h4= @organization.name
-  %p Orgnaizational information will go here.
+  %h3= "Dashboard for #{@organization.name}"
+  - @organization.programs.each do |program|
+    .row
+      .col-sm-4
+        %h4= program.name
+      .col-sm-2
+        %td= link_to "View program", new_organization_program_path(@organization), :class => "btn btn-default btn-sm"
   %p= link_to "New program", new_organization_program_path(@organization), :class => "btn btn-default"
 

@@ -16,15 +16,22 @@
               %a{:href => logic_model_path(@framework.program.logic_model)} View logic model
             %li
               %a{:href => edit_logic_model_path(@framework.program.logic_model)} Edit logic model
-          %li
-            %a{:href => framework_path(@framework)} View framework
-          %li
-            %a{:href => edit_framework_path(@framework)} Edit framework name
-          %li
-            %a{:href => new_framework_evaluative_question_path(@framework)} Add evaluative question
+          - if @framework.program.framework.evaluative_questions.blank? && @framework.program.logic_model.present?
+            %li
+              %a{:href => new_framework_evaluative_question_path(@framework.program.framework)} Create Framework
+          - if @framework.program.framework.evaluative_questions.any? && @framework.program.logic_model.present?
+
+            %li
+              %a{:href => framework_path(@framework)} View framework
+            %li
+              %a{:href => edit_evaluative_question_path(@framework.evaluative_questions.first)} Edit framework
           - if @create_survey
             %li
               %a{:href => new_framework_survey_template_path(@framework)} Create a survey template
+          - if @framework.survey_templates.any?
+            %li
+              %a{:href => framework_survey_templates_path(@framework)} Survey Templates and Surveys
+
   = render 'relevance'
   = render 'efficiency'
   = render 'effectiveness'

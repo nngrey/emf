@@ -1,5 +1,7 @@
 .nested-fields
-  %h3 Add inputs
-  = f.inputs do
-    = f.input :description, label: "Input description", :input_html => { :rows => 3, :id => 'input'}
-    %p= link_to_remove_association "<button, class='btn btn-warning'>Remove this input</button>".html_safe, f
+  .row
+    .col-sm-3
+      = f.inputs do
+        = f.input :description, :placeholder => '"Staff" (for example)', label: "Input description", :input_html => { :rows => 1, :id => 'input'}
+  .help-block Inputs include the resources that are necessary to carry out the program, such as staff, volunteers, time, facilities, equipment, and supplies. Enter each input separately.
+  %p{:style => "margin-top: 20px"}= link_to_remove_association "<button, class='btn btn-warning'>Remove this input</button>".html_safe, f

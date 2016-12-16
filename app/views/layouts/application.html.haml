@@ -28,10 +28,10 @@
                   %a{:href => dashboard_framework_path(program.framework)}
                     = program.name.titleize
 
-            - if Organization.count > 0
-              %li
-                %a{:href => frameworks_path} Frameworks
-            - if SurveyTemplate.any?
-              %li
-                %a{:href => survey_templates_path} Surveys
+            / - if Organization.count > 0
+            /   %li
+            /     %a{:href => frameworks_path} Frameworks
+            / - if SurveyTemplate.any?
+            /   %li
+            /     %a{:href => survey_templates_path} Surveys
     = yield

@@ -24,7 +24,8 @@ class SurveyTemplatesController < ApplicationController
   end
 
   def index
-    @survey_templates = SurveyTemplate.all
+    framework = Framework.find(params[:framework_id])
+    @survey_templates = framework.survey_templates
   end
 
   def results_index

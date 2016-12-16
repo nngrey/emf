@@ -2,6 +2,10 @@
   = semantic_form_for [@program, @logic_model] do |f|
     #inputs
       = f.semantic_fields_for :logic_model_inputs do |logic_model_input|
+        .row
+          .col-sm-3
+            = logic_model_input.input :budget
+        .help-block Enter a whole number representing the estimated budget for the program.
         = render 'logic_model_input_fields', f: logic_model_input
       .links
         %p= link_to_add_association "<button, class='btn btn-success'>Add another input</button>".html_safe, f, :logic_model_inputs

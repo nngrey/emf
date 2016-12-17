@@ -4,3 +4,11 @@
 .panel .dl-horizontal dt {
     white-space: normal;
 }
+
+#analysis_display_value, #data_question_display_value {
+  width: 150px;
+}
+
+#logic_model_logic_model_inputs_attributes_0_description_input, #logic_model_logic_model_inputs_attributes_0_budget_input {
+  margin-bottom: 0;
+}

@@ -1,0 +1,8 @@
+.container
+  %h3 Create advanced analysis
+  = semantic_form_for @survey_template do |f|
+    = f.semantic_fields_for :data_combinations do |data_combination|
+      = render 'data_combination_fields', f: data_combination
+    = f.action :submit, label: 'Save and continue', :button_html => { :class => 'btn btn-success' }
+    .links
+      %div{:style => "margin-top: 10px", }= link_to_add_association "Add another analysis", f, :data_combinations

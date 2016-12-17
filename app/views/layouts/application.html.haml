@@ -8,27 +8,30 @@
     = csrf_meta_tags
   %body
     %nav.navbar.navbar-default
-      .container-fluid
+      .container-fluid{:style => "padding-left: 40px"}
         .navbar-header
           %button.navbar-toggle.collapsed{"aria-expanded" => "false", "data-target" => "#bs-example-navbar-collapse-1", "data-toggle" => "collapse", :type => "button"}
             %span.sr-only Toggle navigation
             %span.icon-bar
             %span.icon-bar
             %span.icon-bar
-          %a.navbar-brand{:href => "/"} EMF
+          - if Organization.count == 0
+            %a.navbar-brand{:href => new_organization_path} Set up
+          - else
+            %a.navbar-brand{:href => organization_path(Organization.first)}
+              = Organization.first.name.upcase
         #bs-example-navbar-collapse-1.collapse.navbar-collapse
           %ul.nav.navbar-nav
-            %li
-              %a{:href => performance_indicators_dashboard_path} Dashboard
-            - if Framework.count > 0
-              %li
-                %a{:href => frameworks_path} View frameworks
-            %li
-              %a{:href => new_framework_path} Create framework
-            - if Framework.count > 0
-              %li
-                %a{:href => new_evaluative_question_path} Add evaluative question
-            - if PerformanceIndicator.count > 0
-              %li
-                %a{:href => performance_indicators_path} Data entry
+            - if Program.count > 0
+              - Program.all.each do |program|
+                %li
+                  %a{:href => dashboard_framework_path(program.framework)}
+                    = program.name.titleize
+
+            / - if Organization.count > 0
+            /   %li
+            /     %a{:href => frameworks_path} Frameworks
+            / - if SurveyTemplate.any?
+            /   %li
+            /     %a{:href => survey_templates_path} Surveys
     = yield

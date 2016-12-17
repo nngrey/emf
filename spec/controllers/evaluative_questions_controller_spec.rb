@@ -44,7 +44,7 @@ RSpec.describe EvaluativeQuestionsController, type: :controller do
 
     context "valid attributes" do
       let(:framework) { FactoryGirl.create(:framework) }
-      let(:sub_question) { FactoryGirl.create(:sub_question) }
+      # let(:sub_question) { FactoryGirl.create(:sub_question) }
       let(:performance_indicator) { FactoryGirl.create(:performance_indicator) }
 
       it "creates a new evaluative_question" do
@@ -53,10 +53,9 @@ RSpec.describe EvaluativeQuestionsController, type: :controller do
             :category => "efficiency",
             :description => "Porro ullam reiciendis est consequatur quia minus possimus odit.",
             :framework_id => framework.id,
-            sub_questions_attributes:
             [
-              :description => sub_question.description,
-              :monitoring_information => sub_question.monitoring_information
+              :description,
+              :definition,
             ]
           }
         expect{

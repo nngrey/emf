@@ -2,29 +2,22 @@
   .panel-body
     - @evaluative_questions.each do |question|
       %h4= "Evaluative question - #{ question.category.capitalize }"
-      - if !question.has_performance_indicators?
-        .alert.alert-danger{:role => "alert"}
-          %p Please add at least one performance indicator
       %dl.dl-horizontal
         %dt Description
         %dd= question.description
         %br
-        - question.sub_questions.each do |sub_question|
-          %dt Sub-question description
-          %dd= sub_question.description
-          %dt Monitoring information
-          %dd= sub_question.monitoring_information
-          %br
-          - sub_question.performance_indicators.each do |performance_indicator|
-            %dt Perfomance indicator description
-            %dd= performance_indicator.description
-            %dt Perfomance indicator definition
-            %dd= performance_indicator.definition
-            %dt Chart type
-            %dd= performance_indicator.chart_type.humanize(capitalize: false)
-            %dt Numerator label
-            %dd= performance_indicator.numerator_label
-            %dt Denominator label
-            %dd= performance_indicator.denominator_label
-      = link_to "Edit", edit_evaluative_question_path(question), :class => "btn btn-default"
-      %hr
+        - question.performance_indicators.each do |performance_indicator|
+          %dt Perfomance indicator description
+          %dd= performance_indicator.description
+      .dropdown
+        %button#dropdownMenu1.btn.btn-default.btn-sm.dropdown-toggle{"aria-expanded" => "true", "aria-haspopup" => "true", "data-toggle" => "dropdown", :type => "button"}
+          Actions
+          %span.caret
+        %ul.dropdown-menu{"aria-labelledby" => "dropdownMenu1"}
+          %li
+            %a{:href => edit_evaluative_question_path(question)} Edit evaluative question
+          %li
+            %a{:href => new_framework_evaluative_question_path(@framework)} Add evaluative question
+          - if @create_survey
+            %li
+              %a{:href => new_framework_survey_template_path(@framework)} Create a survey template

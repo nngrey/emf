@@ -1,0 +1,17 @@
+.container
+  %h3 Surveys
+  - if @survey_templates.any?
+    - @survey_templates.each do |template|
+      .dropdown
+        .row{:style => "margin-bottom: 10px"}
+          .col-sm-2
+            = template.name
+          .col-sm-1
+            %button#dropdownMenu1.btn.btn-default.btn-sm.dropdown-toggle{"aria-expanded" => "true", "aria-haspopup" => "true", "data-toggle" => "dropdown", :type => "button"}
+              Actions
+              %span.caret
+            %ul.dropdown-menu{"aria-labelledby" => "dropdownMenu1"}
+              %li
+                %a{:href => new_survey_template_survey_path(template)} Administer a survey
+              %li
+                %a{:href => results_survey_template_path(template)} View survey results

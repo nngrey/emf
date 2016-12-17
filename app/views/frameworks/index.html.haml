@@ -1,12 +1,27 @@
 .container
-  %h3 Frameworks
+  %h3 Evaluative Frameworks
   - if @frameworks.any?
     - @frameworks.each do |framework|
-      %p
-        = framework.name
-        = link_to "View", framework_path(framework), :class => "btn btn-default btn-xs"
-        = link_to "Edit name", edit_framework_path(framework), :class => "btn btn-default btn-xs"
+      .dropdown
+        .row{:style => "margin-bottom: 10px"}
+          .col-sm-2
+            = framework.name
+          .col-sm-1
+            %button#dropdownMenu1.btn.btn-default.btn-sm.dropdown-toggle{"aria-expanded" => "true", "aria-haspopup" => "true", "data-toggle" => "dropdown", :type => "button"}
+              Actions
+              %span.caret
+            %ul.dropdown-menu{"aria-labelledby" => "dropdownMenu1"}
+              %li
+                %a{:href => framework_path(framework)} View framework
+              %li
+                %a{:href => edit_framework_path(framework)} Edit framework name
+              %li
+                %a{:href => new_framework_evaluative_question_path(framework)} Add evaluative question
+              - if framework.evaluative_questions.any?
+                - if framework.evaluative_questions.find_by(category: "effectiveness").performance_indicators.any?
+                  %li
+                    %a{:href => new_framework_survey_template_path(framework)} Create a survey template
   - else
     %p No frameworks have been created.
   %hr
-  %p= link_to "Create new framework", new_framework_path, :class => "btn btn-default"
+  %p= link_to "New framework", new_framework_path, :class => "btn btn-default"

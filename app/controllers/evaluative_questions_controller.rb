@@ -6,55 +6,77 @@ class EvaluativeQuestionsController < ApplicationController
   end
 
   def new
-    @framework = Framework.find(params[:framework_id]) if params[:framework_id]
-    @evaluative_question = EvaluativeQuestion.new(framework: @framework)
-    @evaluative_question.sub_questions.build
+    ##TODO clean up this mess
+    # if params[:program_id]
+    #   @program = Program.find(params[:program_id])
+    #   @category = @program.question_category
+    #   if @category == 'complete'
+    #     redirect_to framework_path(@program.framework)
+    #   else
+    #     @evaluative_question = @program.framework.evaluative_questions.new
+    #   end
+    # elsif params[:framework_id]
+    @framework = Framework.find(params[:framework_id])
+    @program = @framework.program
+    @category = @program.question_category
+    @button_text = @category == 'sustainability' ? 'Finish' : 'Save and continue'
+    if @category == 'complete'
+      redirect_to framework_path(@program.framework)
+    else
+      @evaluative_question = @program.framework.evaluative_questions.new
+      @evaluative_question.performance_indicators.build
+    end
+    # end
   end
 
   def create
-    @evaluative_question = EvaluativeQuestion.new(evaluative_question_params)
-    if @evaluative_question.save
-      redirect_to edit_performance_indicators_evaluative_question_path(@evaluative_question)
+    ##TODO refactor like update
+    @framework = Framework.find(params[:framework_id])
+    @program = @framework.program
+    @category = @program.question_category
+    @evaluative_question = @framework.evaluative_questions.new(evaluative_question_params)
+    if @evaluative_question.save && @category != 'complete'
+      redirect_to new_framework_evaluative_question_path(@framework)
+    elsif @evaluative_question.save && @category == 'complete'
+      redirect_to framework_path(@program.framework)
     else
-      @evaluative_question.sub_questions.build
+      if @evaluative_question.performance_indicators.blank?
+        @evaluative_question.performance_indicators.build
+      end
+      @program = @framework.program
       render "new"
     end
   end
 
   def edit
-    @evaluative_question = EvaluativeQuestion.find(params[:id])
-    @framework = @evaluative_question.framework
+    if params[:category].blank?
+      evaluative_question = EvaluativeQuestion.find(params[:id])
+      @framework = evaluative_question.framework
+      @program = @framework.program
+      @category = 'appropriateness'
+      @evaluative_question = @framework.evaluative_questions.find_by(category: @category)
+    else
+      evaluative_question = EvaluativeQuestion.find(params[:id])
+      @framework = evaluative_question.framework
+      @program = @framework.program
+      @category = @program.correct_category(params[:category])
+      @evaluative_question = @framework.evaluative_questions.find_by(category: @category)
+    end
+    @button_text = @category == 'sustainability' ? 'Finish' : 'Save and continue'
+    if @category == 'complete'
+      redirect_to framework_path(@program.framework)
+    end
   end
 
   def update
+    category = evaluative_question_params[:category]
     @evaluative_question = EvaluativeQuestion.find(params[:id])
-    if @evaluative_question.update_attributes(evaluative_question_params)
-      redirect_to edit_performance_indicators_evaluative_question_path(@evaluative_question)
+    if @evaluative_question.update_attributes(evaluative_question_params) && category != 'complete'
+      redirect_to edit_evaluative_question_path(@evaluative_question, category: category)
+    elsif @evaluative_question.save && category == 'complete'
+      redirect_to framework_path(@evaluative_question.framework)
     else
       render 'edit'
-    end
-  end
-
-  def edit_performance_indicators
-    @evaluative_question = EvaluativeQuestion.find(params[:id])
-    if @evaluative_question.sub_questions.map { |q| q.performance_indicators }.flatten.empty?
-      @evaluative_question.sub_questions.each do |sub_question|
-        @performance_indicator = sub_question.performance_indicators.build
-      end
-    end
-  end
-
-  def update_performance_indicators
-    @evaluative_question = EvaluativeQuestion.find(params[:id])
-    if @evaluative_question.update_attributes(evaluative_question_params)
-      redirect_to evaluative_question_path(@evaluative_question)
-    else
-      @evaluative_question.sub_questions.each do |sub_question|
-        if sub_question.errors[:performance_indicators].first == "can't be blank"
-          @performance_indicator = sub_question.performance_indicators.build
-        end
-      end
-      render 'edit_performance_indicators'
     end
   end
 
@@ -64,24 +86,12 @@ class EvaluativeQuestionsController < ApplicationController
       :category,
       :description,
       :framework_id,
-      sub_questions_attributes:
+      performance_indicators_attributes:
       [
         :id,
         :description,
-        :monitoring_information,
-        :_destroy,
-        performance_indicators_attributes:
-        [
-          :id,
-          :description,
-          :definition,
-          :numerator,
-          :denominator,
-          :numerator_label,
-          :denominator_label,
-          :chart_type,
-          :_destroy
-        ]
+        :definition,
+        :_destroy
       ]
     )
   end

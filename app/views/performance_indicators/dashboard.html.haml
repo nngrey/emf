@@ -1,15 +1,23 @@
-.container
-  .row
-    %h2 Dashboard
-    - if @performance_indicators.any?
-      - @performance_indicators.each do |performance_indicator|
-        - if performance_indicator.numerator.present? && performance_indicator.denominator.present? && performance_indicator.numerator < performance_indicator.denominator
-          %h4{:align => "center"}= performance_indicator.description
-          = send(performance_indicator.chart_type, ({ performance_indicator.numerator_label => performance_indicator.numerator, performance_indicator.denominator_label => performance_indicator.denominator }))
-        - else
-          .alert.alert-danger{:role => "alert"}
-            %p= "No data has been entered for #{ performance_indicator.description }"
-        %hr
-    - else
-      %p This is where the dashboard will appear after the framework has been built and data has been entered.
+/ .container
+/   .row
+/     - if @performance_indicators.any?
+/       - PerformanceIndicator.categories.each do |category|
+/         - @performance_indicators.send(category).in_groups_of(2) do |indicator_1, indicator_2|
+/           - if indicator_1.present?
+/             %h2= category.titleize
+/           - if indicator_1.numerator.present? && indicator_1.denominator.present? && indicator_1.numerator < indicator_1.denominator
+/             %div.col-xs-6
+/               %h4{:align => "center"}= indicator_1.description
+/               = send(indicator_1.chart_type, ({ indicator_1.numerator_label => indicator_1.numerator, indicator_1.denominator_label => indicator_1.denominator }))
+/             - if indicator_2.present?
+/               %div.col-xs-6
+/                 - if indicator_2.numerator.present? && indicator_2.denominator.present? && indicator_2.numerator < indicator_2.denominator
+/                   %h4{:align => "center"}= indicator_2.description
+/                   = send(indicator_2.chart_type, ({ indicator_2.numerator_label => indicator_2.numerator, indicator_2.denominator_label => indicator_1.denominator }))
+/           - else
+/             .alert.alert-danger{:role => "alert"}
+/               %p= "No data has been entered for #{ indicator_1.description }"
+/         %hr
+/     - else
+/       %p This is where the dashboard will appear after the framework has been built and data has been entered.
 

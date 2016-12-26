@@ -1,4 +1,10 @@
 .nested-fields
   = f.inputs do
     = f.input :description, label: "Performance indicator", :input_html => { :rows => 3, :id => 'indicator'}
+    = f.input :data_source, hint: "Your data source might be a survey or an observation or a clinical record."
+    = f.semantic_fields_for :collection_dates do |date|
+      = render 'collection_date_fields', f: date
+    .links
+      %p= link_to_add_association "<button, class='btn btn-default'>Add another collection date</button>".html_safe, f, :collection_dates
+  %hr
     %p= link_to_remove_association "<button, class='btn btn-warning'>Remove this performance indicator</button>".html_safe, f

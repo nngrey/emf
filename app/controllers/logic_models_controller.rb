@@ -3,7 +3,9 @@ class LogicModelsController < ApplicationController
   def new
     @program = Program.find(params[:program_id])
     @logic_model = @program.build_logic_model
-    @logic_model_input = @logic_model.logic_model_inputs.new
+    ["community support and engagement", "staff", "volunteers", "funding"].each do |input|
+      @logic_model_input = @logic_model.logic_model_inputs.build(description: input)
+    end
     @activity = @logic_model.activities.new
     @output = @logic_model.outputs.new
     @outcome = @logic_model.outcomes.new

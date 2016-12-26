@@ -7,20 +7,19 @@
         %ul
           - if(category == 'appropriateness')
             %li Is the target population concerned about the issue that has been identified?
-            %li Does the target population support the proposed intervantion?
+            %li Does the target population support the proposed intervention?
           - elsif(category == 'efficiency')
-            %li What are the costs of the intervention?
-            %li Was the intervention implemented on time and within budget?
+            %li What are the costs of the intervention (the inputs and activities)?
+            %li Was the intervention (its activities) implemented on time and within budget?
           -elsif(category == 'effectiveness')
-            %li How well was the intervention implemented?
             %li What are the outputs of the intervention?
             %li How many people have been affected?
           -elsif(category == 'impact')
-            %li How has the population's health changed as a result of the intervention?
+            %li What has changed as a result of the intervention (the outcomes)?
             %li How many people have been affected?
           -else
             %li Is the target population satisfied with the results of the intervention?
-            %li To what extent will the intervention be maintained once support is withdrawn?
+            %li Will the intervention be maintained in the future?
     .row
       - if @survey_template.present? && @survey_template.has_responses?
         - @survey_template.data_questions.send(category).each do |question|

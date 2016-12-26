@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20161211212145) do
+ActiveRecord::Schema.define(version: 20161226040739) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -34,6 +34,14 @@ ActiveRecord::Schema.define(version: 20161211212145) do
     t.datetime "created_at",                                     null: false
     t.datetime "updated_at",                                     null: false
     t.index ["data_combination_id"], name: "index_analyses_on_data_combination_id", using: :btree
+  end
+
+  create_table "collection_dates", force: :cascade do |t|
+    t.string   "date"
+    t.integer  "performance_indicator_id"
+    t.datetime "created_at",               null: false
+    t.datetime "updated_at",               null: false
+    t.index ["performance_indicator_id"], name: "index_collection_dates_on_performance_indicator_id", using: :btree
   end
 
   create_table "data_combinations", force: :cascade do |t|
@@ -136,6 +144,7 @@ ActiveRecord::Schema.define(version: 20161211212145) do
 
   create_table "performance_indicators", force: :cascade do |t|
     t.text     "description"
+    t.string   "data_source"
     t.datetime "created_at",             null: false
     t.datetime "updated_at",             null: false
     t.string   "chart_type"
@@ -190,6 +199,7 @@ ActiveRecord::Schema.define(version: 20161211212145) do
 
   add_foreign_key "activities", "logic_models"
   add_foreign_key "analyses", "data_combinations"
+  add_foreign_key "collection_dates", "performance_indicators"
   add_foreign_key "data_combinations", "survey_templates"
   add_foreign_key "data_questions", "performance_indicators"
   add_foreign_key "data_questions", "survey_templates"

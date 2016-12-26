@@ -1,26 +1,36 @@
 #indicators
   = semantic_form_for [@program, @logic_model] do |f|
     #inputs
+      %h3 Add inputs
+      .help-block Inputs include the resources that are necessary to carry out the program, such as staff, volunteers, and funding. We have prepopulated several inputs for you to consider. You may delete or modify these suggestions and add additional inputs.
       = f.semantic_fields_for :logic_model_inputs do |logic_model_input|
         = render 'logic_model_input_fields', f: logic_model_input
       .links
         %p= link_to_add_association "<button, class='btn btn-success'>Add another input</button>".html_safe, f, :logic_model_inputs
     #activities
+      %h3 Add activities
+      .help-block Activities represent the work you will do to implement your program. They might include educational events, providing a services or distributing a product.
       = f.semantic_fields_for :activities do |activity|
         = render 'activity_fields', f: activity
       .links
         %p= link_to_add_association "<button, class='btn btn-success'>Add another activity</button>".html_safe, f, :activities
     #outputs
+      %h3 Add outputs
+      .help-block Outputs are the results of your activities. They represent what you did, for example, the number of people you trained or distributed a product to. You do not have to set numeric targets for your outputs (e.g. 20 people were trained.) For now, you can just list the outputs that will be measured.
       = f.semantic_fields_for :outputs do |output|
         = render 'output_fields', f: output
       .links
         %p= link_to_add_association "<button, class='btn btn-success'>Add another output</button>".html_safe, f, :outputs
     #outcomes
+      %h3 Add outcomes
+      .help-block Outcomes represent how the participants were affected by your activities in the near term. These can be changes in behavior or knowledge, for example, the number or percentage of people using bednets or increases in awareness about the benefits of hand washing. Again you do not have to set numeric targets. You can just list the outcomes that will be measured.
       = f.semantic_fields_for :outcomes do |outcome|
         = render 'outcome_fields', f: outcome
       .links
         %p= link_to_add_association "<button, class='btn btn-success'>Add another outcome</button>".html_safe, f, :outcomes
     #impacts
+      %h3 Add impacts
+      .help-block Impacts represent long-term changes in a community. They are the goals of your program, for example a reduction in cases of malaria or diarrheal diseases.
       = f.semantic_fields_for :impacts do |impact|
         = render 'impact_fields', f: impact
       .links

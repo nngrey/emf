@@ -24,7 +24,8 @@ class EvaluativeQuestionsController < ApplicationController
       redirect_to framework_path(@program.framework)
     else
       @evaluative_question = @program.framework.evaluative_questions.new
-      @evaluative_question.performance_indicators.build
+      @performance_indicator = @evaluative_question.performance_indicators.build
+      @performance_indicator.collection_dates.build
     end
     # end
   end
@@ -90,7 +91,7 @@ class EvaluativeQuestionsController < ApplicationController
       [
         :id,
         :description,
-        :definition,
+        :data_source,
         :_destroy
       ]
     )

@@ -6,6 +6,5 @@
     = render 'performance_indicator_fields', f: performance_indicator
   .links
     %p= link_to_add_association "<button, class='btn btn-success'>Add another performance indicator</button>".html_safe, f, :performance_indicators
-
   .pull-right{:style => "margin-left: 3px"}
     = f.action :submit, label: @button_text, :button_html => { :class => 'btn btn-success' }

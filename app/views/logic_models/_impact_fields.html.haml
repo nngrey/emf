@@ -1,5 +1,4 @@
 .nested-fields
-  %h3 Add impacts
   = f.inputs do
-    = f.input :description, label: "Impact description", :input_html => { :rows => 2, :id => 'impact'}
+    = f.input :description, :input_html => { :rows => 2, :id => 'impact'}
     %p= link_to_remove_association "<button, class='btn btn-warning'>Remove this impact</button>".html_safe, f

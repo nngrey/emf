@@ -1,31 +1,6 @@
-// $(document).on('turbolinks:load', function(){
-//   var current = '#appropriateness';
-//   $('#effectiveness').hide();
-//   $('#efficiency').hide();
-//   $('#impact').hide();
-//   $('#sustainability').hide();
-//   $('#previous-button').hide();
-//   $('#submit-button').hide();
-
-//   $('#next-button').click(function () {
-//     next = nextStepLogicModel(current);
-//     console.log(current);
-//     console.log(next);
-
-//     $(current).hide();
-//     $(next).show();
-//     current = next;
-//     showCorrectButtonsLogicModel(current);
-//   });
-
-//   $('#previous-button').click(function () {
-//     previous = previousStepLogicModel(current);
-//     $(current).hide();
-//     $(previous).show();
-//     current = previous;
-//     showCorrectButtonsLogicModel(current);
-//   });
-// });
+$(document).on('turbolinks:load', function(){
+  $("#datepicker").datepicker();
+});
 
 // function nextStepLogicModel(current) {
 //   var next = ''

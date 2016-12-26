@@ -12,6 +12,8 @@
               %span.caret
             %ul.dropdown-menu{"aria-labelledby" => "dropdownMenu1"}
               %li
+                %a{:href => survey_template_path(template)} Edit survey template
+              %li
                 %a{:href => new_survey_template_survey_path(template)} Administer a survey
               %li
                 %a{:href => results_survey_template_path(template)} View survey results

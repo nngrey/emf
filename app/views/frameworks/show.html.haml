@@ -7,6 +7,8 @@
       %ul.dropdown-menu{"aria-labelledby" => "dropdownMenu1"}
         %li
           %a{:href => edit_evaluative_question_path(@evaluative_questions.first)} Edit evaluative question
+        %li
+          %a{:href => new_framework_survey_template_path(@framework)} Create a survey template
     %h2= "Evaluative framework for #{@framework.program.name}"
     / .text-center
     /   .btn-group

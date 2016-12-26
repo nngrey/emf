@@ -2,4 +2,5 @@
   %h3 Add a program
   = semantic_form_for @program do |f|
     = f.input :name, :label => 'Program name'
+    = f.input :budget, :hint => 'Enter a whole number representing the estimated budget for the program.'
     = f.action :submit, label: 'Save and continue', :button_html => { :class => 'btn btn-success' }

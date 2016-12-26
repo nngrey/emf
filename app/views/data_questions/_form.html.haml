@@ -1,0 +1,17 @@
+= semantic_form_for [@survey_template, @data_question] do |f|
+  = f.inputs do
+    %h3 Add a question
+    = f.input :foo, label: "Is this question associated with a performance indicator?", :as => :select, :collection => ['Yes', 'No'], :input_html => { :id => "foo" }
+    #performance-indicators
+      = f.input :performance_indicator, :as => :select, :collection => option_groups_from_collection_for_select(@evaluative_questions, :performance_indicators, :description, :id, :description)
+    = f.input :question_type, :as => :select, :collection => ['Yes / No', 'True / False', 'Multiple choice', 'An amount or quantity', 'Open-ended response'], :input_html => { :id => "question-type" }
+    .well
+      = f.input :description, :label => 'Question', hint: 'Create a question to capture survey or observational data. (For example: "Are you using the filter?" or "Is there water in the filter?")', :input_html => { :rows => 3, :id => 'new_question' }
+      #add-option
+        = f.semantic_fields_for :options do |option|
+          = render 'option_fields', f: option
+        .links
+          %p= link_to_add_association "<button, id='add-question-button' class='btn btn-success btn-xs'>Add another option</button>".html_safe, f, :options
+
+  .pull-left= f.action :submit, label: 'Add another question', status: 'continue', :button_html => { :class => 'btn btn-success' }
+  .pull-right= f.action :submit, label: 'Finish', status: 'complete', :button_html => { :class => 'btn btn-default' }, data: { confirm: 'Are you done?' }

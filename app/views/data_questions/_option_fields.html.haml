@@ -1,0 +1,4 @@
+.nested-fields
+  = f.inputs do
+    = f.input :description, label: "Add an option", :input_html => { :rows => 1, :id => 'option' }, hint: 'List each possible option to your question seperately, e.g., "yes", "no", "true, "false", etc.'
+    %p= link_to_remove_association "<button, class='btn btn-default btn-xs'>Remove this option</button>".html_safe, f

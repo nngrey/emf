@@ -22,6 +22,11 @@ class LogicModelsController < ApplicationController
 
   def edit
     @logic_model = LogicModel.find(params[:id])
+    @logic_model_input = @logic_model.logic_model_inputs.new unless @logic_model.logic_model_inputs.any?
+    @activity = @logic_model.activities.new unless @logic_model.activities.any?
+    @output = @logic_model.outputs.new
+    @outcome = @logic_model.outcomes.new
+    @impact = @logic_model.impacts.new
   end
 
   def update
@@ -39,6 +44,7 @@ class LogicModelsController < ApplicationController
 
   def logic_model_params
     params.require(:logic_model).permit(
+      :budget, :_destroy,
       logic_model_inputs_attributes:
         [:id, :description],
       activities_attributes:

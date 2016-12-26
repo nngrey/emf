@@ -1,0 +1,42 @@
+.container
+  .dropdown
+    .row{:style => "margin-bottom: 10px"}
+      .col-sm-4
+        %h3= "Dashboard for #{@program.name}"
+      .col-sm-offset-6.col-sm-2
+        %button#dropdownMenu1.btn.btn-success.dropdown-toggle.btn-block{"aria-expanded" => "true", "aria-haspopup" => "true", "data-toggle" => "dropdown", :type => "button"}
+          Actions
+          %span.caret
+        %ul.dropdown-menu{"aria-labelledby" => "dropdownMenu1"}
+          - if @program.logic_model.blank?
+            %li
+              %a{:href => new_program_logic_model_path(@program)} Create logic model
+          - else
+            %li
+              %a{:href => logic_model_path(@program.logic_model)} View logic model
+            %li
+              %a{:href => edit_logic_model_path(@program.logic_model)} Edit logic model
+          - if @program.framework.evaluative_questions.blank? && @program.logic_model.present?
+            %li
+              %a{:href => new_framework_evaluative_question_path(@program.framework)} Create Framework
+          - if @program.framework.evaluative_questions.any? && @program.logic_model.present?
+
+            %li
+              %a{:href => framework_path(@program.framework)} View framework
+            %li
+              %a{:href => edit_evaluative_question_path(@program.framework.evaluative_questions.first)} Edit framework
+          - if @program.framework.evaluative_questions.any?
+            %li
+              %a{:href => new_framework_survey_template_path(@program.framework)} Create a survey template
+          - if @program.framework.survey_templates.any?
+            %li
+              %a{:href => framework_survey_templates_path(@program.framework)} Survey Templates and Surveys
+
+  - @categories.each do |category|
+    = render 'category', category: category
+
+  / = render 'relevance'
+  / = render 'efficiency'
+  / = render 'effectiveness'
+  / = render 'impact'
+  / = render 'sustainability'

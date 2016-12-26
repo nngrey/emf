@@ -3,6 +3,8 @@ class Program < ApplicationRecord
   has_one :framework
   has_one :logic_model
 
+  validates :name, uniqueness: true
+
   def question_category
     category = 'appropriateness'
     if self.framework.evaluative_questions.any?

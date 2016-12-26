@@ -1,39 +1,39 @@
-.container
-  .dropdown
-    .row{:style => "margin-bottom: 10px"}
-      .col-sm-4
-        %h3= "Dashboard for #{@framework.program.name}"
-      .col-sm-offset-6.col-sm-2
-        %button#dropdownMenu1.btn.btn-success.dropdown-toggle.btn-block{"aria-expanded" => "true", "aria-haspopup" => "true", "data-toggle" => "dropdown", :type => "button"}
-          Actions
-          %span.caret
-        %ul.dropdown-menu{"aria-labelledby" => "dropdownMenu1"}
-          - if @framework.program.logic_model.blank?
-            %li
-              %a{:href => new_program_logic_model_path(@framework.program)} Create logic model
-          - else
-            %li
-              %a{:href => logic_model_path(@framework.program.logic_model)} View logic model
-            %li
-              %a{:href => edit_logic_model_path(@framework.program.logic_model)} Edit logic model
-          - if @framework.program.framework.evaluative_questions.blank? && @framework.program.logic_model.present?
-            %li
-              %a{:href => new_framework_evaluative_question_path(@framework.program.framework)} Create Framework
-          - if @framework.program.framework.evaluative_questions.any? && @framework.program.logic_model.present?
+/ .container
+/   .dropdown
+/     .row{:style => "margin-bottom: 10px"}
+/       .col-sm-4
+/         %h3= "Dashboard for #{@framework.program.name}"
+/       .col-sm-offset-6.col-sm-2
+/         %button#dropdownMenu1.btn.btn-success.dropdown-toggle.btn-block{"aria-expanded" => "true", "aria-haspopup" => "true", "data-toggle" => "dropdown", :type => "button"}
+/           Actions
+/           %span.caret
+/         %ul.dropdown-menu{"aria-labelledby" => "dropdownMenu1"}
+/           - if @framework.program.logic_model.blank?
+/             %li
+/               %a{:href => new_program_logic_model_path(@framework.program)} Create logic model
+/           - else
+/             %li
+/               %a{:href => logic_model_path(@framework.program.logic_model)} View logic model
+/             %li
+/               %a{:href => edit_logic_model_path(@framework.program.logic_model)} Edit logic model
+/           - if @framework.program.framework.evaluative_questions.blank? && @framework.program.logic_model.present?
+/             %li
+/               %a{:href => new_framework_evaluative_question_path(@framework.program.framework)} Create Framework
+/           - if @framework.program.framework.evaluative_questions.any? && @framework.program.logic_model.present?
 
-            %li
-              %a{:href => framework_path(@framework)} View framework
-            %li
-              %a{:href => edit_evaluative_question_path(@framework.evaluative_questions.first)} Edit framework
-          - if @create_survey
-            %li
-              %a{:href => new_framework_survey_template_path(@framework)} Create a survey template
-          - if @framework.survey_templates.any?
-            %li
-              %a{:href => framework_survey_templates_path(@framework)} Survey Templates and Surveys
+/             %li
+/               %a{:href => framework_path(@framework)} View framework
+/             %li
+/               %a{:href => edit_evaluative_question_path(@framework.evaluative_questions.first)} Edit framework
+/           - if @create_survey
+/             %li
+/               %a{:href => new_framework_survey_template_path(@framework)} Create a survey template
+/           - if @framework.survey_templates.any?
+/             %li
+/               %a{:href => framework_survey_templates_path(@framework)} Survey Templates and Surveys
 
-  = render 'relevance'
-  = render 'efficiency'
-  = render 'effectiveness'
-  = render 'impact'
-  = render 'sustainability'
+/   = render 'relevance'
+/   = render 'efficiency'
+/   = render 'effectiveness'
+/   = render 'impact'
+/   = render 'sustainability'

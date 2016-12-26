@@ -2,17 +2,20 @@ class SurveyTemplatesController < ApplicationController
 
   def new
     @framework = Framework.find(params[:framework_id])
-    @evaluative_question = @framework.evaluative_questions.find_by(category: 'effectiveness')
+    # @evaluative_question = @framework.evaluative_questions.find_by(category: 'effectiveness')
     @survey_template = @framework.survey_templates.new
-    @data_question = @survey_template.data_questions.build
-    @option = @data_question.options.build
+    # @data_question = @survey_template.data_questions.build
+    # @option = @data_question.options.build
   end
 
   def create
     @framework = Framework.find(params[:framework_id])
     @survey_template = @framework.survey_templates.new(survey_template_params)
-    if @survey_template.save
-      @survey_template.build_options
+    if @survey_template.save && (params['commit'] == "Continue")
+      redirect_to new_survey_template_data_question_path(@survey_template)
+    elsif @survey_template.save && (params['commit'] == "Done")
+
+      # @survey_template.build_options
       redirect_to framework_survey_template_path(@framework, @survey_template)
     else
       render "new"

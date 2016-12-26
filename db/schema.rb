@@ -91,7 +91,6 @@ ActiveRecord::Schema.define(version: 20161211212145) do
 
   create_table "logic_model_inputs", force: :cascade do |t|
     t.text     "description"
-    t.integer  "budget"
     t.integer  "logic_model_id"
     t.datetime "created_at",     null: false
     t.datetime "updated_at",     null: false
@@ -146,6 +145,7 @@ ActiveRecord::Schema.define(version: 20161211212145) do
 
   create_table "programs", force: :cascade do |t|
     t.string   "name"
+    t.integer  "budget"
     t.integer  "organization_id"
     t.datetime "created_at",      null: false
     t.datetime "updated_at",      null: false

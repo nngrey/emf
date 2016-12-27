@@ -1,44 +1,37 @@
 class EvaluativeQuestionsController < ApplicationController
 
   def show
-    @view_as = params[:view_as] || 'list'
+    # @view_as = params[:view_as] || 'list'
     @evaluative_question = EvaluativeQuestion.find(params[:id])
+    @framework = @evaluative_question.framework
+    @button_text = @evaluative_question.category == 'sustainability' ? 'Finish' : 'Continue'
   end
 
   def new
-    ##TODO clean up this mess
-    # if params[:program_id]
-    #   @program = Program.find(params[:program_id])
-    #   @category = @program.question_category
-    #   if @category == 'complete'
-    #     redirect_to framework_path(@program.framework)
-    #   else
-    #     @evaluative_question = @program.framework.evaluative_questions.new
-    #   end
-    # elsif params[:framework_id]
     @framework = Framework.find(params[:framework_id])
     @program = @framework.program
-    @category = @program.question_category
+    @category = @program.correct_category(params[:current_category], params[:step])
+    @question_hints = @program.question_hints(@category)
+    @indicator_hints = @program.indicator_hints(@category)
     @button_text = @category == 'sustainability' ? 'Finish' : 'Save and continue'
-    if @category == 'complete'
+    if params[:commit] == 'Finish'
       redirect_to framework_path(@program.framework)
     else
       @evaluative_question = @program.framework.evaluative_questions.new
       @performance_indicator = @evaluative_question.performance_indicators.build
       @performance_indicator.collection_dates.build
     end
-    # end
   end
 
   def create
     ##TODO refactor like update
     @framework = Framework.find(params[:framework_id])
     @program = @framework.program
-    @category = @program.question_category
+    @category = params['commit']
     @evaluative_question = @framework.evaluative_questions.new(evaluative_question_params)
-    if @evaluative_question.save && @category != 'complete'
-      redirect_to new_framework_evaluative_question_path(@framework)
-    elsif @evaluative_question.save && @category == 'complete'
+    if @evaluative_question.save && @category != 'Finish'
+      redirect_to evaluative_question_path(@evaluative_question)
+    elsif @evaluative_question.save && @category == 'Finish'
       redirect_to framework_path(@program.framework)
     else
       if @evaluative_question.performance_indicators.blank?
@@ -92,7 +85,13 @@ class EvaluativeQuestionsController < ApplicationController
         :id,
         :description,
         :data_source,
-        :_destroy
+        :_destroy,
+        collection_dates_attributes:
+        [
+          :id,
+          :date,
+          :_destroy
+        ]
       ]
     )
   end

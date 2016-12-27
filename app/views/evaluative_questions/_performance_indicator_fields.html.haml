@@ -1,10 +1,14 @@
 .nested-fields
   = f.inputs do
-    = f.input :description, label: "Performance indicator", :input_html => { :rows => 3, :id => 'indicator'}
+    = f.input :description, label: 'Indicator', :input_html => { :rows => 3, :id => 'indicator'}
     = f.input :data_source, hint: "Your data source might be a survey or an observation or a clinical record."
-    = f.semantic_fields_for :collection_dates do |date|
-      = render 'collection_date_fields', f: date
-    .links
-      %p= link_to_add_association "<button, class='btn btn-default'>Add another collection date</button>".html_safe, f, :collection_dates
-  %hr
+    .panel.panel-default{:style => "width: 100%"}
+      .panel-heading
+        .panel-title Collection dates
+      .panel-body
+        .help-block Input the date when you will collect data from this source. If you will collect data on more than one occasion (for example, pre- and post surveys), add another date. If you are collecting data on an ongoing basis, enter "ongoing".
+        = f.semantic_fields_for :collection_dates do |date|
+          = render 'collection_date_fields', f: date
+        .links
+          %p= link_to_add_association "<button class='btn btn-default'>Add another collection date</button>".html_safe, f, :collection_dates
     %p= link_to_remove_association "<button, class='btn btn-warning'>Remove this performance indicator</button>".html_safe, f

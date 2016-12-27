@@ -1,21 +1,25 @@
 .container
-  %h3 Evaluative question
+  %h3 Review
   %dl.dl-horizontal
     %dt Category
     %dd= @evaluative_question.category.capitalize
     %dt Description
     %dd= @evaluative_question.description
+    %h4 Performance indicators
     - @evaluative_question.performance_indicators.each do |performance_indicator|
       %dt Perfomance indicator description
       %dd= performance_indicator.description
-  .dropdown.closed
-    %button#dropdownMenuButton.btn.btn-default.btn-sm.dropdown-toggle{"aria-expanded" => "false", "aria-haspopup" => "true", "data-toggle" => "dropdown", :type => "button"}
-      Actions
-    .dropdown-menu{"aria-labelledby" => "dropdownMenuButton"}
-      %ul.list-unstyled{:style => "padding: 0px 10px 0px 10px"}
-        %li
-          %a.dropdown-item{:href => edit_evaluative_question_path(@evaluative_question)} Edit current question
-        %li
-          %a.dropdown-item{:href => new_framework_evaluative_question_path(@evaluative_question.framework)} Add another evaluative question
-        %li
-          %a.dropdown-item{:href => framework_path(@evaluative_question.framework)} View #{@evaluative_question.framework.name.downcase} framework
+      %dt Data source
+      %dd= performance_indicator.data_source
+      %dt Collection dates
+      - performance_indicator.collection_dates.each do |collection_date|
+        %dd
+          =collection_date.date
+          %br
+  .div{:style => "margin-top: 50px"}
+    %h5= link_to "Add another question in the #{@evaluative_question.category} category", new_framework_evaluative_question_path(@framework, current_category: @evaluative_question.category, step: 'current'), method: :get
+    .pull-right= link_to "#{@button_text}", new_framework_evaluative_question_path(@framework, current_category: @evaluative_question.category, step: 'next'), {class: 'btn btn-success', method: :get}
+
+  / %p= link_to_add_association "<button, id='add-question-button' class='btn btn-success btn-xs'>Add another option</button>".html_safe, f, :options
+
+  / edit_evaluative_question_path(@evaluative_question)

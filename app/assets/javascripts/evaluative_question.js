@@ -1,6 +1,31 @@
-$(document).on('turbolinks:load', function(){
-  $("#datepicker").datepicker();
-});
+// $(document).on('turbolinks:load', function(){
+//   $('.datepicker').datepicker();
+//   // $('#collection_date').on('cocoon:before-insert', function(e, insertedItem) {
+//   //   $('.datepicker').removeClass('hasDatepicker').datepicker();
+//   //   insertedItem.find('.datepicker').datepicker();
+//   // });
+// });
+
+// $('#indicators')
+//   .on("cocoon:before-insert", function(e, added_indicator) {
+//   added_indicator.find('#indicator').val('');
+// });
+
+// $(document).on('focus',".datepicker_recurring_start", function(){
+//     $(this).datepicker();
+// });
+
+
+  // $('#ui-datepicker-div').removeClass('ui-helper-hidden-accessible');
+  //   $(".datepicker").datepicker("refresh")
+  // });
+
+  // $(".datepicker").datepicker({
+  //     onSelect: function(dateText, inst) {
+  //       $(".datepicker").removeClass('hasDatepicker').datepicker();
+  //       $.datepicker.initialized = true;
+  //     }
+  // });
 
 // function nextStepLogicModel(current) {
 //   var next = ''

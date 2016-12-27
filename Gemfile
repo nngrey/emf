@@ -19,6 +19,7 @@ gem "chartkick"
 gem 'formtastic', '~> 3.0'
 gem 'formtastic-bootstrap'
 gem "cocoon"
+gem 'bootstrap-datepicker-rails'
 
 group :development, :test do
   gem 'ffaker'

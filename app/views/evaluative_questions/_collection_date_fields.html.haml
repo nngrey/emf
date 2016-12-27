@@ -1,4 +1,6 @@
 .nested-fields
   = f.inputs do
-    = f.input :date, label: "Estimated collection date", hint: "When will you gather this data?", :input_html => { :id => 'datepicker'}
-    %p= link_to_remove_association "<button, class='btn btn-default'>Remove this date</button>".html_safe, f
+    .row
+      .col-sm-2
+        = f.input :date, :input_html => {"data-provide" => "datepicker", "data-date-autoclose" => true}
+    %p= link_to_remove_association "Remove this date", f

@@ -8,6 +8,7 @@ class FrameworksController < ApplicationController
     @view_as = params[:view_as] || 'list'
     @framework = Framework.find(params[:id])
     @evaluative_questions = @framework.evaluative_questions
+    @categories = ['appropriateness', 'efficiency', 'effectiveness', 'impact', 'sustainability']
     ##TODO use a join
     # @create_survey = false
     # if @framework.evaluative_questions.any?

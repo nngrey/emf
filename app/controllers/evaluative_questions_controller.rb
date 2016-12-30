@@ -43,32 +43,34 @@ class EvaluativeQuestionsController < ApplicationController
   end
 
   def edit
-    if params[:category].blank?
-      evaluative_question = EvaluativeQuestion.find(params[:id])
-      @framework = evaluative_question.framework
-      @program = @framework.program
-      @category = 'appropriateness'
-      @evaluative_question = @framework.evaluative_questions.find_by(category: @category)
-    else
-      evaluative_question = EvaluativeQuestion.find(params[:id])
-      @framework = evaluative_question.framework
-      @program = @framework.program
-      @category = @program.correct_category(params[:category])
-      @evaluative_question = @framework.evaluative_questions.find_by(category: @category)
-    end
-    @button_text = @category == 'sustainability' ? 'Finish' : 'Save and continue'
-    if @category == 'complete'
-      redirect_to framework_path(@program.framework)
-    end
+    # if params[:category].blank?
+    @evaluative_question = EvaluativeQuestion.find(params[:id])
+    @category = @evaluative_question.category
+    #   @framework = evaluative_question.framework
+    #   @program = @framework.program
+    #   @category = 'appropriateness'
+    #   @evaluative_question = @framework.evaluative_questions.find_by(category: @category)
+    # else
+    #   evaluative_question = EvaluativeQuestion.find(params[:id])
+    #   @framework = evaluative_question.framework
+    #   @program = @framework.program
+    #   @category = @program.correct_category(params[:category])
+    #   @evaluative_question = @framework.evaluative_questions.find_by(category: @category)
+    # end
+    # @button_text = @category == 'sustainability' ? 'Finish' : 'Save and continue'
+    # if @category == 'complete'
+    #   redirect_to framework_path(@program.framework)
+    # end
   end
 
   def update
-    category = evaluative_question_params[:category]
     @evaluative_question = EvaluativeQuestion.find(params[:id])
-    if @evaluative_question.update_attributes(evaluative_question_params) && category != 'complete'
-      redirect_to edit_evaluative_question_path(@evaluative_question, category: category)
-    elsif @evaluative_question.save && category == 'complete'
+    # category = evaluative_question_params[:category]
+    binding.pry
+    if @evaluative_question.update_attributes(evaluative_question_params)# && category != 'complete'
       redirect_to framework_path(@evaluative_question.framework)
+    # elsif @evaluative_question.save && category == 'complete'
+    #   redirect_to framework_path(@evaluative_question.framework)
     else
       render 'edit'
     end

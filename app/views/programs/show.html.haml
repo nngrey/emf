@@ -23,8 +23,8 @@
 
             %li
               %a{:href => framework_path(@program.framework)} View framework
-            %li
-              %a{:href => edit_evaluative_question_path(@program.framework.evaluative_questions.first)} Edit framework
+            / %li
+            /   %a{:href => edit_evaluative_question_path(@program.framework.evaluative_questions.first)} Edit framework
           - if @program.framework.evaluative_questions.any?
             %li
               %a{:href => new_framework_survey_template_path(@program.framework)} Create a survey template

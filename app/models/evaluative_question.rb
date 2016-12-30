@@ -10,6 +10,12 @@ class EvaluativeQuestion < ApplicationRecord
   validates_associated :performance_indicators
   validates_presence_of :performance_indicators
 
+  scope :appropriateness, -> { where(category: 'appropriateness') }
+  scope :efficiency, -> { where(category: 'efficiency') }
+  scope :effectiveness, -> { where(category: 'effectiveness') }
+  scope :impact, -> { where(category: 'impact') }
+  scope :sustainability, ->{ where(category: 'sustainability') }
+
   def has_performance_indicators?
     self.sub_questions.map{ |q| q.performance_indicators }.flatten.any?
   end

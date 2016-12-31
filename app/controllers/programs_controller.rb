@@ -20,10 +20,11 @@ class ProgramsController < ApplicationController
   def show
     @categories = ['appropriateness', 'efficiency', 'effectiveness', 'impact', 'sustainability']
     @program = Program.find(params[:id])
-    @analyses = []
+    # @analyses = []
     @survey_template = @program.framework.survey_templates.first if @program.framework.survey_templates.any?
     if @survey_template.present? && @survey_template.data_combinations.any?
-      @analyses = @survey_template.data_combinations.map{|dc| dc.analyses}.flatten
+      @data_combinations = @survey_template.data_combinations
+      # @analyses = @survey_template.data_combinations.map{|dc| dc.analyses}.flatten
     end
   end
 

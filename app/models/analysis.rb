@@ -1,6 +1,12 @@
 class Analysis < ApplicationRecord
   belongs_to :data_combination, inverse_of: :analyses
 
+  scope :appropriateness, -> { where(category: 'appropriateness') }
+  scope :efficiency, -> { where(category: 'efficiency') }
+  scope :effectiveness, -> { where(category: 'effectiveness') }
+  scope :impact, -> { where(category: 'impact') }
+  scope :sustainability, ->{ where(category: 'sustainability') }
+
   def build_data_hash
     combination = self.data_combination
     survey_template = data_combination.survey_template

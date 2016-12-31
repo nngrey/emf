@@ -10,43 +10,44 @@
         %th{:style => "border: 0"}
       %tbody
         - @categories.each do |category|
-          - num1 = @evaluative_questions.send(category).map{|q| q.performance_indicators}.flatten.count
-          - num2 = @evaluative_questions.send(category).first.performance_indicators.count
-          %tr
-            %td{:rowspan=>num1.to_s}
-              = category.titleize
-            %td{:rowspan=>num2.to_s}
-              = @evaluative_questions.send(category).first.description
-            %td
-              = @evaluative_questions.send(category).first.performance_indicators.first.description
-            %td
-              = @evaluative_questions.send(category).first.performance_indicators.first.data_source
-            %td
-              = @evaluative_questions.send(category).first.performance_indicators.first.collection_dates.map{|d| d.date}.join(', ')
-            %td{:style => "border: 0"}
-              = link_to 'Edit', edit_evaluative_question_path(@evaluative_questions.send(category).first), class: "btn btn-default btn-xs"
-              - @evaluative_questions.send(category).first.performance_indicators.drop(1).each do |performance_indicator|
-                %tr
-                  %td= performance_indicator.description
-                  %td= performance_indicator.data_source
-                  %td= performance_indicator.collection_dates.map{|d| d.date}.join(', ')
-                  %td{:style => "border: 0"}
-          - @evaluative_questions.send(category).drop(1).each_with_index do |question|
-            - num3 = question.performance_indicators.count
+          - if @evaluative_questions.send(category).any?
+            - num1 = @evaluative_questions.send(category).map{|q| q.performance_indicators}.flatten.count
+            - num2 = @evaluative_questions.send(category).first.performance_indicators.count
             %tr
-              %td{:rowspan=>num3.to_s}
-                = question.description
+              %td{:rowspan=>num1.to_s}
+                = category.titleize
+              %td{:rowspan=>num2.to_s}
+                = @evaluative_questions.send(category).first.description
               %td
-                = question.performance_indicators.first.description
+                = @evaluative_questions.send(category).first.performance_indicators.first.description
               %td
-                = question.performance_indicators.first.data_source
+                = @evaluative_questions.send(category).first.performance_indicators.first.data_source
               %td
-                = question.performance_indicators.first.collection_dates.map{|d| d.date}.join(', ')
+                = @evaluative_questions.send(category).first.performance_indicators.first.collection_dates.map{|d| d.date}.join(', ')
               %td{:style => "border: 0"}
-                = link_to 'Edit', edit_evaluative_question_path(question), class: "btn btn-default btn-xs"
-              - question.performance_indicators.drop(1).each do |performance_indicator|
-                %tr
-                  %td= performance_indicator.description
-                  %td= performance_indicator.data_source
-                  %td= performance_indicator.collection_dates.map{|d| d.date}.join(', ')
-                  %td{:style => "border: 0"}
+                = link_to 'Edit', edit_evaluative_question_path(@evaluative_questions.send(category).first), class: "btn btn-default btn-xs"
+                - @evaluative_questions.send(category).first.performance_indicators.drop(1).each do |performance_indicator|
+                  %tr
+                    %td= performance_indicator.description
+                    %td= performance_indicator.data_source
+                    %td= performance_indicator.collection_dates.map{|d| d.date}.join(', ')
+                    %td{:style => "border: 0"}
+            - @evaluative_questions.send(category).drop(1).each_with_index do |question|
+              - num3 = question.performance_indicators.count
+              %tr
+                %td{:rowspan=>num3.to_s}
+                  = question.description
+                %td
+                  = question.performance_indicators.first.description
+                %td
+                  = question.performance_indicators.first.data_source
+                %td
+                  = question.performance_indicators.first.collection_dates.map{|d| d.date}.join(', ')
+                %td{:style => "border: 0"}
+                  = link_to 'Edit', edit_evaluative_question_path(question), class: "btn btn-default btn-xs"
+                - question.performance_indicators.drop(1).each do |performance_indicator|
+                  %tr
+                    %td= performance_indicator.description
+                    %td= performance_indicator.data_source
+                    %td= performance_indicator.collection_dates.map{|d| d.date}.join(', ')
+                    %td{:style => "border: 0"}

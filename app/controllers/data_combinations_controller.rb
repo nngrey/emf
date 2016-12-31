@@ -22,6 +22,7 @@ class DataCombinationsController < ApplicationController
     params.require(:data_combination).permit(
       :id,
       :title,
+      :category,
       :description,
       :criterion_1,
       :criterion_2,

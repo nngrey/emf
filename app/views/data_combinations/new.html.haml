@@ -13,6 +13,7 @@
       %span.options2#label2 Select option
       - @survey_template.data_questions.each do |question|
         = f.input :criterion_2, label: false, :as => :select, :collection => question.options.pluck(:description, :id), :input_html => { :class => "options2", :id => "options2_for_#{question.id}"}
+      = f.input :category, :as => :select, :collection => ['appropriateness', 'efficiency', 'effectiveness', 'impact', 'sustainability']
       = f.input :data_label_1
       = f.input :data_label_2
     = f.action :submit, label: 'Save and continue', :button_html => { :class => 'btn btn-success' }

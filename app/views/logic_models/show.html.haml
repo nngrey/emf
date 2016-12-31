@@ -15,37 +15,37 @@
             %ul
               - if @logic_model.logic_model_inputs.any?
                 - @logic_model.logic_model_inputs.each do |input|
-                  %ol= input.description
+                  %li= input.description
               - else
-                %ol TBD
+                %li TBD
           %td
             %ul
               - if @logic_model.activities.any?
                 - @logic_model.activities.each do |activity|
-                  %ol= activity.description
+                  %li= activity.description
               - else
-                %ol TBD
+                %li TBD
           %td
             %ul
               - if @logic_model.outputs.any?
                 - @logic_model.outputs.each do |output|
-                  %ol= output.description
+                  %li= output.description
               - else
-                %ol TBD
+                %li TBD
           %td
             %ul
               - if @logic_model.outcomes.any?
                 - @logic_model.outcomes.each do |outcome|
-                  %ol= outcome.description
+                  %li= outcome.description
               - else
-                %ol TBD
+                %li TBD
           %td
             %ul
               - if @logic_model.impacts.any?
                 - @logic_model.impacts.each do |impact|
-                  %ol= impact.description
+                  %li= impact.description
               - else
-                %ol TBD
+                %li TBD
   - if @logic_model.program.framework.evaluative_questions.blank?
     = link_to "Create evaluative framework", new_framework_evaluative_question_path(@logic_model.program.framework), :class => "btn btn-default"
 

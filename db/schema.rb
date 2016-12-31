@@ -55,6 +55,7 @@ ActiveRecord::Schema.define(version: 20161226040739) do
     t.string   "display_value"
     t.string   "data_label_1"
     t.string   "data_label_2"
+    t.string   "category"
     t.datetime "created_at",         null: false
     t.datetime "updated_at",         null: false
     t.index ["survey_template_id"], name: "index_data_combinations_on_survey_template_id", using: :btree

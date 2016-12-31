@@ -11,6 +11,7 @@ class CreateDataCombinations < ActiveRecord::Migration[5.0]
       t.string :display_value
       t.string :data_label_1
       t.string :data_label_2
+      t.string :category
       t.timestamps
     end
   end

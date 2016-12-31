@@ -66,7 +66,6 @@ class EvaluativeQuestionsController < ApplicationController
   def update
     @evaluative_question = EvaluativeQuestion.find(params[:id])
     # category = evaluative_question_params[:category]
-    binding.pry
     if @evaluative_question.update_attributes(evaluative_question_params)# && category != 'complete'
       redirect_to framework_path(@evaluative_question.framework)
     # elsif @evaluative_question.save && category == 'complete'

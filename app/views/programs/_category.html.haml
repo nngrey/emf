@@ -45,18 +45,19 @@
                           - survey_response = SurveyResponse.response_total(question.id, option.description)
                           = survey_response
                           - data_hash[option.description] = survey_response
-          - if @analyses.any?
-            - @analyses.each do |analysis|
-              - unless analysis.display_value == 'Do not display'
-                .col-sm-4
-                  - data_hash = analysis.build_data_hash
-                  %h4= analysis.title
-                  %p= analysis.description
-                  - if analysis.display_value == 'Pie chart'
-                    = pie_chart data_hash, width: "200px", height: "200px"
-                  - elsif analysis.display_value == 'Bar chart'
-                    = bar_chart data_hash, width: "200px", height: "200px"
-                  - elsif analysis.display_value == 'Text'
-                    .container
-                      - data_hash.each do |key, value|
-                        %li= "#{key}: #{value}"
+        - if @data_combinations.send(category).any?
+          - analyses = @survey_template.data_combinations.send(category).map{|dc| dc.analyses}.flatten
+          - analyses.each do |analysis|
+            - unless analysis.display_value == 'Do not display'
+              .col-sm-4
+                - data_hash = analysis.build_data_hash
+                %h4= analysis.title
+                %p= analysis.description
+                - if analysis.display_value == 'Pie chart'
+                  = pie_chart data_hash, width: "200px", height: "200px"
+                - elsif analysis.display_value == 'Bar chart'
+                  = bar_chart data_hash, width: "200px", height: "200px"
+                - elsif analysis.display_value == 'Text'
+              / .container
+              /   - data_hash.each do |key, value|
+              /     %li= "#{key}: #{value}"

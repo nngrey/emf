@@ -25,6 +25,7 @@ class ProgramsController < ApplicationController
   end
 
   def overview
+    @tab = params[:tab].present? ? params[:tab] : 'details'
     @program = Program.find(params[:id])
     @categories = ['appropriateness', 'efficiency', 'effectiveness', 'impact', 'sustainability']
     @survey_template = @program.framework.survey_templates.first if @program.framework.survey_templates.any?

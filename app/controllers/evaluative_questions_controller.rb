@@ -31,7 +31,7 @@ class EvaluativeQuestionsController < ApplicationController
     if @evaluative_question.save && @category != 'Finish'
       redirect_to evaluative_question_path(@evaluative_question)
     elsif @evaluative_question.save && @category == 'Finish'
-      redirect_to framework_path(@program.framework)
+      redirect_to overview_program_path(@program)
     else
       if @evaluative_question.performance_indicators.blank?
         @evaluative_question.performance_indicators.build
@@ -49,7 +49,7 @@ class EvaluativeQuestionsController < ApplicationController
   def update
     @evaluative_question = EvaluativeQuestion.find(params[:id])
     if @evaluative_question.update_attributes(evaluative_question_params)# && category != 'complete'
-      redirect_to framework_path(@evaluative_question.framework)
+      redirect_to overview_program_path(@evaluative_question.framework.program, tab: "framework")
     else
       @category = @evaluative_question.category
       render 'edit'

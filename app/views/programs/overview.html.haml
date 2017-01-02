@@ -15,13 +15,13 @@
 
     / Tab panes
     .tab-content
-      #details.tab-pane.active{:role => "tabpanel"}
+      #details.tab-pane{:role => "tabpanel", :class => @tab == "details" ? "active" : ""}
         = render partial: 'program_detail'
       #results.tab-pane{:role => "tabpanel"}
         = render partial: 'results'
       #logic-model.tab-pane{:role => "tabpanel"}
         = render partial: 'logic_model'
-      #framework.tab-pane{:role => "tabpanel"}
+      #framework.tab-pane{:role => "tabpanel", :class => @tab == "framework" ? "active" : ""}
         = render partial: 'framework'
       #templates.tab-pane{:role => "tabpanel"}
         = render partial: 'templates'

@@ -66,13 +66,13 @@ $(document).on('turbolinks:load', function(){
   $('.display_format').change(function() {
     var selected = $(this).val();
     var id = $(this).data("id");
-    url = "/data_questions/" + id;
+    var url = "/data_questions/" + id;
     $.ajax({
       type: "POST",
       url: url,
       data: { _method:'PUT', display_value: selected },
       dataType: 'json',
-      success: function(msg) {
+      success: function() {
         alert( "Display setting has been updated" );
       }
     });
@@ -81,13 +81,13 @@ $(document).on('turbolinks:load', function(){
   $('.analysis_display_format').change(function() {
     var selected = $(this).val();
     var id = $(this).data("id");
-    url = "/analyses/" + id;
+    var url = "/analyses/" + id;
     $.ajax({
       type: "POST",
       url: url,
       data: { _method:'PUT', display_value: selected },
       dataType: 'json',
-      success: function(msg) {
+      success: function() {
         alert( "Display setting has been updated" );
       }
     });
@@ -131,7 +131,19 @@ $(document).on('turbolinks:load', function(){
     });
   });
 
-
+  $('.question-list').sortable({
+    axis: 'y',
+    update: function() {
+      var data = $(this).sortable('serialize');
+      $.ajax({
+        type: "POST",
+        url: '/data_questions/sort',
+        data: data,
+        dataType: 'json',
+        success: function() {}
+      });
+    }
+  });
 });
 
 function toggleFields() {

@@ -25,13 +25,6 @@
             - if Program.count > 0
               - Program.all.each do |program|
                 %li
-                  %a{:href => program_path(program)}
+                  %a{:href => overview_program_path(program)}
                     = program.name.titleize
-
-            / - if Organization.count > 0
-            /   %li
-            /     %a{:href => frameworks_path} Frameworks
-            / - if SurveyTemplate.any?
-            /   %li
-            /     %a{:href => survey_templates_path} Surveys
     = yield

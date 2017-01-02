@@ -8,7 +8,7 @@ $(document).on('turbolinks:load', function(){
   $('#submit-button').hide();
 
   $('#next-button').click(function () {
-    next = nextStep(current);
+    var next = nextStep(current);
     $(current).hide();
     $(next).show();
     current = next;
@@ -16,7 +16,7 @@ $(document).on('turbolinks:load', function(){
   });
 
   $('#previous-button').click(function () {
-    previous = previousStep(current);
+    var previous = previousStep(current);
     $(current).hide();
     $(previous).show();
     current = previous;
@@ -25,7 +25,7 @@ $(document).on('turbolinks:load', function(){
 });
 
 function nextStep(current) {
-  var next = ''
+  var next = '';
   switch (current) {
     case '#inputs':
       next = '#activities';
@@ -47,7 +47,7 @@ function nextStep(current) {
 }
 
 function previousStep(current) {
-  var previous = ''
+  var previous = '';
   switch (current) {
     case '#inputs':
       previous = '#inputs';

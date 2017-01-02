@@ -25,28 +25,6 @@ class Program < ApplicationRecord
     hint
   end
 
-  # def question_category
-  #   category = 'appropriateness'
-  #   if self.framework.evaluative_questions.any?
-  #     if self.framework.evaluative_questions.find_by(category: 'appropriateness').present?
-  #       category = 'effectiveness'
-  #     end
-  #     if self.framework.evaluative_questions.find_by(category: 'effectiveness').present?
-  #       category = 'efficiency'
-  #     end
-  #     if self.framework.evaluative_questions.find_by(category: 'efficiency').present?
-  #       category = 'impact'
-  #     end
-  #     if self.framework.evaluative_questions.find_by(category: 'impact').present?
-  #       category = 'sustainability'
-  #     end
-  #     if self.framework.evaluative_questions.find_by(category: 'sustainability').present?
-  #       category = 'complete'
-  #     end
-  #   end
-  #   category
-  # end
-
   def correct_category(current_category, step)
     correct_category = 'appropriateness'
     if step == 'current'

@@ -11,5 +11,4 @@ class LogicModel < ApplicationRecord
   accepts_nested_attributes_for :outputs, reject_if: :all_blank, allow_destroy: true
   accepts_nested_attributes_for :outcomes, reject_if: :all_blank, allow_destroy: true
   accepts_nested_attributes_for :impacts, reject_if: :all_blank, allow_destroy: true
-
 end

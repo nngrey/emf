@@ -19,7 +19,3 @@
   .div{:style => "margin-top: 50px"}
     %h5= link_to "Add another question in the #{@evaluative_question.category} category", new_framework_evaluative_question_path(@framework, current_category: @evaluative_question.category, step: 'current'), method: :get
     .pull-right= link_to "#{@button_text}", new_framework_evaluative_question_path(@framework, current_category: @evaluative_question.category, step: 'next'), {class: 'btn btn-success', method: :get}
-
-  / %p= link_to_add_association "<button, id='add-question-button' class='btn btn-success btn-xs'>Add another option</button>".html_safe, f, :options
-
-  / edit_evaluative_question_path(@evaluative_question)

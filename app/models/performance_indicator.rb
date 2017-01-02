@@ -10,12 +10,6 @@ class PerformanceIndicator < ApplicationRecord
   # validates :definition, presence: true
   # validate :unique_labels
 
-  # scope :appropriateness, -> { joins(sub_question: :evaluative_question).where(evaluative_questions: { category: 'appropriateness' }).order(:created_at) }
-  # scope :effectiveness, -> { joins(sub_question: :evaluative_question).where(evaluative_questions: { category: 'effectiveness' }).order(:created_at) }
-  # scope :efficiency, -> { joins(sub_question: :evaluative_question).where(evaluative_questions: { category: 'efficiency' }).order(:created_at) }
-  # scope :impact, -> { joins(sub_question: :evaluative_question).where(evaluative_questions: { category: 'impact' }).order(:created_at) }
-  # scope :sustainability, -> { joins(sub_question: :evaluative_question).where(evaluative_questions: { category: 'sustainability' }).order(:created_at) }
-
   def self.categories
     ['appropriateness', 'effectiveness', 'efficiency', 'impact', 'sustainability']
   end

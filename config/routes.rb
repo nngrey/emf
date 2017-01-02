@@ -9,17 +9,19 @@ Rails.application.routes.draw do
 
   get 'results_index' => 'survey_templates#results_index'
 
-  resources :data_questions, only: [:update]
-
   resources :analyses, only: [:update]
 
   get 'performance_indicators/dashboard' => "performance_indicators#dashboard"
 
   resources :survey_templates, only: [:edit, :update, :show] do
-    resources :data_questions
+    resources :data_questions, except: [:edit]
     resources :data_combinations
     resources :surveys, only: [:new, :create, :show, :edit, :update]
     get 'results', on: :member
+  end
+
+  resources :data_questions, only: [:edit, :update] do
+    post 'sort', on: :collection
   end
 
   resources :frameworks do
@@ -35,6 +37,7 @@ Rails.application.routes.draw do
 
   resources :programs, only: [:create, :show] do
     resources :logic_models, only: [:new, :create]
+    get 'overview', on: :member
   end
 
   resources :logic_models, only: [:show, :edit, :update]

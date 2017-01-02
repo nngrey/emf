@@ -64,6 +64,7 @@ ActiveRecord::Schema.define(version: 20161226040739) do
   create_table "data_questions", force: :cascade do |t|
     t.text     "description"
     t.string   "question_type"
+    t.integer  "position"
     t.integer  "performance_indicator_id"
     t.datetime "created_at",                                          null: false
     t.datetime "updated_at",                                          null: false

@@ -22,9 +22,37 @@ class DataQuestionsController < ApplicationController
     end
   end
 
+  def edit
+    @data_question = DataQuestion.find(params[:id])
+    if @data_question.performance_indicator.present?
+      @performance_indicator_id = @data_question.performance_indicator.id
+    else
+      @performance_indicator_id = ''
+    end
+    @options = @data_question.options
+    @survey_template = @data_question.survey_template
+    @evaluative_questions = @survey_template.framework.evaluative_questions
+  end
+
   def update
     @data_question = DataQuestion.find(params[:id])
-    @data_question.update(display_value: params[:display_value])
+    @survey_template = @data_question.survey_template
+    if params[:display_value].present?
+      @data_question.update(display_value: params[:display_value])
+    elsif @data_question.update(data_question_params)
+      @data_question.build_options
+      redirect_to survey_template_path(@survey_template)
+    else
+      @options = @data_question.options
+      @evaluative_questions = @survey_template.framework.evaluative_questions
+      render 'edit'
+    end
+  end
+
+  def sort
+    params[:question].each_with_index do | id, index |
+      DataQuestion.find(id).update(position: index + 1)
+    end
   end
 
   private

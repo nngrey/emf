@@ -9,15 +9,6 @@ class FrameworksController < ApplicationController
     @framework = Framework.find(params[:id])
     @evaluative_questions = @framework.evaluative_questions
     @categories = ['appropriateness', 'efficiency', 'effectiveness', 'impact', 'sustainability']
-    ##TODO use a join
-    # @create_survey = false
-    # if @framework.evaluative_questions.any?
-    #   if @framework.evaluative_questions.find_by(category: "effectiveness").present?
-    #     if @framework.evaluative_questions.find_by(category: "effectiveness").performance_indicators.any?
-    #       @create_survey = true
-    #     end
-    #   end
-    # end
   end
 
   def new

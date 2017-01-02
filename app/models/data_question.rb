@@ -19,10 +19,12 @@ class DataQuestion < ApplicationRecord
   scope :sustainability, -> { joins(performance_indicator: :evaluative_question).where('evaluative_questions.category' => 'sustainability') }
 
   def build_options
-    if self.question_type == 'Yes / No'
+    if self.question_type == 'Yes / No' && self.options.count <= 2
+      self.options.destroy_all
       self.options.create(description: 'Yes')
       self.options.create(description: 'No')
-    elsif self.question_type == 'True / False'
+    elsif self.question_type == 'True / False' && self.options.count <= 2
+      self.options.destroy_all
       self.options.create(description: 'True')
       self.options.create(description: 'False')
     end

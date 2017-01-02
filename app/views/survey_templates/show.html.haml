@@ -1,18 +1,31 @@
 .container
-  %h2= @survey_template.name
-  - @survey_template.data_questions.each do |question|
-    %ol
-      %li= question.description
-      - question.options.each do |option|
-        %ul
-          %li= option.description
-  .dropdown
-    %button#dropdownMenu1.btn.btn-success.dropdown-toggle{"aria-expanded" => "true", "aria-haspopup" => "true", "data-toggle" => "dropdown", :type => "button"}
-      Actions
-      %span.caret
-    %ul.dropdown-menu{"aria-labelledby" => "dropdownMenu1"}
-      %li
-        %a{:href => new_survey_template_survey_path(@survey_template)} Administer this survey
-      %li
-        %a{:href => results_survey_template_path(@survey_template)} View survey results
+  .row
+    .col-sm-4
+      %h2= @survey_template.name
+    .col-sm-2
+      .dropdown{:style => "margin-top: 25px"}
+        %button#dropdownMenu1.btn.btn-success.dropdown-toggle{"aria-expanded" => "true", "aria-haspopup" => "true", "data-toggle" => "dropdown", :type => "button"}
+          Actions
+          %span.caret
+        %ul.dropdown-menu{"aria-labelledby" => "dropdownMenu1"}
+          %li
+            %a{:href => new_survey_template_survey_path(@survey_template)} Administer this survey
+          %li
+            %a{:href => results_survey_template_path(@survey_template)} View survey results
+  .help-block (You can reorder questions by dragging and dropping them.)
+  .row
+    %ol.question-list
+      - @data_questions.each_with_index do |question|
+        %li{:id => "question_#{question.id}"}
+          = question.description
+          = link_to 'Edit', edit_data_question_path(question), class: "btn btn-default",  :data => {:confirm => "Editing a survey after it has been administered can affect your results."}
+          %ul
+            - question.options.each do |option|
+              %li
+                = option.description
+
+  = link_to 'Add a question', new_survey_template_data_question_path(@survey_template), class: "btn btn-default"
+
+
+
 

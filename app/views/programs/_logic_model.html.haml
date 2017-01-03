@@ -23,7 +23,7 @@
               %ul
                 - if @logic_model.activities.any?
                   - @logic_model.activities.each do |activity|
-                    %li= activity.description
+                    %li= activity.name
                 - else
                   %li TBD
             %td

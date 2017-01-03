@@ -50,7 +50,7 @@ class LogicModelsController < ApplicationController
       logic_model_inputs_attributes:
         [:id, :description],
       activities_attributes:
-        [:id, :description],
+        [:id, :name, :description, :start_date, :end_date, :budget],
       outputs_attributes:
         [:id, :description],
       outcomes_attributes:

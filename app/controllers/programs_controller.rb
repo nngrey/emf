@@ -2,6 +2,7 @@ class ProgramsController < ApplicationController
 
   def new
     @program = Program.new
+    @budget = @program.budgets.build
   end
 
   def create
@@ -33,6 +34,8 @@ class ProgramsController < ApplicationController
       @data_combinations = @survey_template.data_combinations
     end
     @logic_model = @program.logic_model
+    @timeline_array = @logic_model.present? ? @logic_model.timeline_data : []
+    @budget_array = @program.budget_data
     @framework = @program.framework
     @evaluative_questions = @framework.evaluative_questions
     @survey_templates = @framework.survey_templates

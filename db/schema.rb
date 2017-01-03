@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20161226040739) do
+ActiveRecord::Schema.define(version: 20170102210515) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -19,7 +19,11 @@ ActiveRecord::Schema.define(version: 20161226040739) do
   enable_extension "tablefunc"
 
   create_table "activities", force: :cascade do |t|
+    t.string   "name"
     t.text     "description"
+    t.string   "start_date"
+    t.string   "end_date"
+    t.integer  "budget"
     t.integer  "logic_model_id"
     t.datetime "created_at",     null: false
     t.datetime "updated_at",     null: false
@@ -34,6 +38,24 @@ ActiveRecord::Schema.define(version: 20161226040739) do
     t.datetime "created_at",                                     null: false
     t.datetime "updated_at",                                     null: false
     t.index ["data_combination_id"], name: "index_analyses_on_data_combination_id", using: :btree
+  end
+
+  create_table "budget_entries", force: :cascade do |t|
+    t.integer  "amount"
+    t.string   "date"
+    t.integer  "budget_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["budget_id"], name: "index_budget_entries_on_budget_id", using: :btree
+  end
+
+  create_table "budgets", force: :cascade do |t|
+    t.string   "name"
+    t.integer  "total"
+    t.integer  "program_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["program_id"], name: "index_budgets_on_program_id", using: :btree
   end
 
   create_table "collection_dates", force: :cascade do |t|
@@ -156,7 +178,8 @@ ActiveRecord::Schema.define(version: 20161226040739) do
 
   create_table "programs", force: :cascade do |t|
     t.string   "name"
-    t.integer  "budget"
+    t.string   "start_date"
+    t.string   "end_date"
     t.integer  "organization_id"
     t.datetime "created_at",      null: false
     t.datetime "updated_at",      null: false
@@ -201,6 +224,8 @@ ActiveRecord::Schema.define(version: 20161226040739) do
 
   add_foreign_key "activities", "logic_models"
   add_foreign_key "analyses", "data_combinations"
+  add_foreign_key "budget_entries", "budgets"
+  add_foreign_key "budgets", "programs"
   add_foreign_key "collection_dates", "performance_indicators"
   add_foreign_key "data_combinations", "survey_templates"
   add_foreign_key "data_questions", "performance_indicators"

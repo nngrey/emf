@@ -6,3 +6,12 @@
       Describe the problem you are solving.
       %h3 The solution
       Describe your proposed solution.
+
+  - if @timeline_array.any?
+    %h4 Timeline of activities
+    = javascript_include_tag "//www.google.com/jsapi", "chartkick"
+    = timeline @timeline_array
+
+  %h4 Cumulative budget
+
+  = line_chart @budget_array

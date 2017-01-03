@@ -2,14 +2,54 @@ require 'ffaker'
 
 def seed_framework
   organization = Organization.create(name: 'Communidad Connect')
-  program = organization.programs.create(name: "NicaAgua")
+  program = organization.programs.create(
+    name: "NicaAgua",
+    start_date: "01/05/2017",
+    end_date: "15/11/2017")
+
+  actual_budget = program.budgets.create(name: 'actual', total: 10000)
+
+  ['01/01/2017', '03/02/2017', '01/03/2017', '02/04/2017', '04/05/2017', '01/06/2017'].each do |date|
+    actual_budget.budget_entries.create(amount: (2500 * rand()).round, date: date)
+  end
 
   logic_model = program.create_logic_model
   ['staff', 'funding', 'volunteers'].each do |attr|
     logic_model.logic_model_inputs.create(description: attr)
   end
-  ['trainings', 'distribute filters', 'data_collection'].each do |attr|
-    logic_model.activities.create(description: attr)
+  activity_data =
+    [
+      {
+        name: 'initial training',
+        description: 'Volunteers will be trained to distribute filters.',
+        start_date: "01/05/2017",
+        end_date: "01/05/2017",
+        budget: 1000
+      },
+      {
+        name: 'distribute filters',
+        description: 'Volunteers will distribute filters to the local community.',
+        start_date: "01/15/2017",
+        end_date: "01/25/2017",
+        budget: 2000
+      },
+      {
+        name: 'survey',
+        description: 'Staff will survey households that received filters.',
+        start_date: "02/10/2017",
+        end_date: "02/15/2017",
+        budget: 1500
+      }
+    ]
+
+    # binding.pry
+  activity_data.each do |data|
+    logic_model.activities.create(
+      name: data[:name],
+      description: data[:description],
+      start_date: data[:start_date],
+      end_date: data[:end_date],
+      budget: data[:budget])
   end
   ['trained volunteers', 'households with filters'].each do |attr|
     logic_model.outputs.create(description: attr)

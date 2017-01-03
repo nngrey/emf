@@ -2,5 +2,10 @@
   %h3 Add a program
   = semantic_form_for @program do |f|
     = f.input :name, :label => 'Program name'
-    = f.input :budget, :hint => 'Enter a whole number representing the estimated budget for the program.'
+    = f.semantic_fields_for :budgets do |budget|
+      = budget.inputs do
+        = budget.input :name, :as => :hidden, :input_html => { :value => "Actual" }
+        = budget.input :total, :label => 'Budget', :hint => 'Enter a whole number representing the estimated budget for the program.'
+    = f.input :start_date, :input_html => {"data-provide" => "datepicker", "data-date-autoclose" => true}
+    = f.input :end_date, :input_html => {"data-provide" => "datepicker", "data-date-autoclose" => true}
     = f.action :submit, label: 'Save and continue', :button_html => { :class => 'btn btn-success' }

@@ -69,12 +69,14 @@ class Program < ApplicationRecord
 ####################################################
 #Almost there
 
-    budget.budget_entries.each do |entry|
-      month = Date.parse(entry.date).month
-      year = Date.parse(entry.date).year
-      date = "#{year}-#{month}-01".to_date
+    # budget.budget_entries.each do |entry|
+      first_month = Date.parse(entry.date).month
+      first_year = Date.parse(entry.date).year
+    months.times do
+      date = "#{first_year}-#{first_month}-01".to_date
       average_series[:data][date] = cumulative_budget
       cumulative_budget += average_amount
+      first_month = first_month + 1
     end
     date = average_series[:data].to_a.last[0] + 1.month
     average_series[:data][date] = cumulative_budget

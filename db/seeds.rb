@@ -4,13 +4,13 @@ def seed_framework
   organization = Organization.create(name: 'Communidad Connect')
   program = organization.programs.create(
     name: "NicaAgua",
-    start_date: "01/05/2017",
+    start_date: "01/02/2017",
     end_date: "15/11/2017")
 
   actual_budget = program.budgets.create(name: 'actual', total: 10000)
 
   ['01/01/2017', '03/02/2017', '01/03/2017', '02/04/2017', '04/05/2017', '01/06/2017'].each do |date|
-    actual_budget.budget_entries.create(amount: (2500 * rand()).round, date: date)
+    actual_budget.budget_entries.create(amount: (2000 * rand()).round, date: date)
   end
 
   logic_model = program.create_logic_model
@@ -19,6 +19,13 @@ def seed_framework
   end
   activity_data =
     [
+      {
+        name: 'baseline survey',
+        description: 'Staff will survey households that received filters.',
+        start_date: "01/01/2017",
+        end_date: "01/03/2017",
+        budget: 1500
+      },
       {
         name: 'initial training',
         description: 'Volunteers will be trained to distribute filters.',
@@ -34,10 +41,17 @@ def seed_framework
         budget: 2000
       },
       {
+        name: 'fix filters',
+        description: 'Volunteers will check and fix or replace filters.',
+        start_date: "01/15/2017",
+        end_date: "03/15/2017",
+        budget: 1500
+      },
+      {
         name: 'survey',
         description: 'Staff will survey households that received filters.',
-        start_date: "02/10/2017",
-        end_date: "02/15/2017",
+        start_date: "03/15/2017",
+        end_date: "03/20/2017",
         budget: 1500
       }
     ]

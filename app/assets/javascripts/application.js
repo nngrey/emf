@@ -10,8 +10,8 @@
 // Read Sprockets README (https://github.com/rails/sprockets#sprockets-directives) for details
 // about supported directives.
 //
-//= require highcharts
-//= require highcharts/highcharts-more
+//= require jsapi
+//= require chartkick
 //= require jquery
 //= require jquery-ui
 //= require jquery_ujs
@@ -19,6 +19,5 @@
 //= require bootstrap-sprockets
 //= require turbolinks
 //= require Chart.bundle
-//= require chartkick
 //= require cocoon
 //= require_tree .

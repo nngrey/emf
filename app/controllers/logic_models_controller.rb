@@ -44,6 +44,88 @@ class LogicModelsController < ApplicationController
     @logic_model = LogicModel.find(params[:id])
   end
 
+  def new_inputs
+    @logic_model = LogicModel.find(params[:id])
+    @program = @logic_model.program
+    ["community support and engagement", "staff", "volunteers", "funding"].each do |input|
+      @logic_model_input = @logic_model.logic_model_inputs.build(description: input)
+    end
+  end
+
+  def create_inputs
+    @logic_model = LogicModel.find(params[:id])
+    if @logic_model.update_attributes(logic_model_params)
+      redirect_to new_activities_logic_model_path(@logic_model)
+    else
+      @program = @logic_model.program
+      render 'new_inputs'
+    end
+  end
+
+  def new_activities
+    @logic_model = LogicModel.find(params[:id])
+    @logic_model.activities.new
+  end
+
+  def create_activities
+    @logic_model = LogicModel.find(params[:id])
+    if @logic_model.update_attributes(logic_model_params) && params['commit'] == "Add another activity"
+        redirect_to new_activities_logic_model_path(@logic_model)
+    elsif @logic_model.update_attributes(logic_model_params) && params['commit'] == "Done with activities"
+      redirect_to new_outputs_logic_model_path(@logic_model)
+    else
+      @program = @logic_model.program
+      render 'new_activities'
+    end
+  end
+
+  def new_outputs
+    @logic_model = LogicModel.find(params[:id])
+    @logic_model.outputs.new
+  end
+
+  def create_outputs
+    @logic_model = LogicModel.find(params[:id])
+    if @logic_model.update_attributes(logic_model_params)
+      redirect_to new_outcomes_logic_model_path(@logic_model)
+    else
+      render 'new_outputs'
+    end
+  end
+
+  def new_outcomes
+    @logic_model = LogicModel.find(params[:id])
+    @logic_model.outcomes.new
+  end
+
+  def create_outcomes
+    @logic_model = LogicModel.find(params[:id])
+    if @logic_model.update_attributes(logic_model_params)
+      redirect_to new_impacts_logic_model_path(@logic_model)
+    else
+      render 'new_outcomes'
+    end
+  end
+
+  def new_impacts
+    @logic_model = LogicModel.find(params[:id])
+    @logic_model.impacts.new
+  end
+
+  def create_impacts
+    @logic_model = LogicModel.find(params[:id])
+      binding.pry
+    if @logic_model.update_attributes(logic_model_params)
+      redirect_to logic_model_path(@logic_model)
+    else
+      render 'new_impacts'
+    end
+  end
+
+
+
+  private
+
   def logic_model_params
     params.require(:logic_model).permit(
       :budget, :_destroy,

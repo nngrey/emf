@@ -10,7 +10,8 @@ class ProgramsController < ApplicationController
     @program = @organization.programs.new(program_params)
     if @program.save
       @program.create_framework(name: "Framework for #{@program.name}")
-      redirect_to new_program_logic_model_path(@program)
+      logic_model = @program.create_logic_model
+      redirect_to new_inputs_logic_model_path(logic_model)
     else
       render "new"
     end

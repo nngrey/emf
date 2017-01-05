@@ -1,0 +1,9 @@
+.container
+  = semantic_form_for [:create_outputs, @logic_model] do |f|
+    %h3 Add outputs
+    .help-block Outputs are the results of your activities. They represent what you did, for example, the number of people you trained or distributed a product to. You do not have to set numeric targets for your outputs (e.g. 20 people were trained.) For now, you can just list the outputs that will be measured.
+    = f.semantic_fields_for :outputs do |output|
+      = render 'output_fields', f: output
+    .links
+      %p= link_to_add_association "<button, class='btn btn-success'>Add another output</button>".html_safe, f, :outputs
+    = f.action :submit, label: 'Finish', :button_html => { :class => 'btn btn-success' }

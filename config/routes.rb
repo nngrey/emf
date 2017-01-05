@@ -40,7 +40,20 @@ Rails.application.routes.draw do
     get 'overview', on: :member
   end
 
-  resources :logic_models, only: [:show, :edit, :update]
+  resources :logic_models, only: [:show, :edit, :update] do
+    member do
+      get 'new_inputs'
+      patch 'create_inputs'
+      get 'new_activities'
+      patch 'create_activities'
+      get 'new_outputs'
+      patch 'create_outputs'
+      get 'new_outcomes'
+      patch 'create_outcomes'
+      get 'new_impacts'
+      patch 'create_impacts'
+    end
+  end
 
   resources :evaluative_questions, except: [:index, :new, :create] do
     member do

@@ -1,0 +1,9 @@
+.container
+  = semantic_form_for [:create_impacts, @logic_model] do |f|
+    %h3 Add impacts
+    .help-block Impacts represent long-term changes in a community. They are the goals of your program, for example a reduction in cases of malaria or diarrheal diseases.
+    = f.semantic_fields_for :impacts do |impact|
+      = render 'impact_fields', f: impact
+    .links
+      %p= link_to_add_association "<button, class='btn btn-success'>Add another impact</button>".html_safe, f, :impacts
+    = f.action :submit, label: 'Finish', :button_html => { :class => 'btn btn-success' }

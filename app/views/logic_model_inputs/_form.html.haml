@@ -1,0 +1,10 @@
+#indicators
+  = semantic_form_for [@program, @logic_model], url: url_for(:controller => 'logic_model_inputs', :action => 'create'), method: :post do |f|
+    #inputs
+      %h3 Add inputs
+      .help-block Inputs include the resources that are necessary to carry out the program, such as staff, volunteers, and funding. We have prepopulated several inputs for you to consider. You may delete or modify these suggestions and add additional inputs.
+      = f.semantic_fields_for :logic_model_inputs do |logic_model_input|
+        = render 'logic_model_input_fields', f: logic_model_input
+      .links
+        %p= link_to_add_association "<button, class='btn btn-success'>Add another input</button>".html_safe, f, :logic_model_inputs
+      = f.action :submit, label: 'Finish', :button_html => { :class => 'btn btn-success' }

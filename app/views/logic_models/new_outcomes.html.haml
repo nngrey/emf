@@ -1,0 +1,9 @@
+.container
+  = semantic_form_for [:create_outcomes, @logic_model] do |f|
+    %h3 Add outcomes
+    .help-block Outcomes represent how the participants were affected by your activities in the near term. These can be changes in behavior or knowledge, for example, the number or percentage of people using bednets or increases in awareness about the benefits of hand washing. Again you do not have to set numeric targets. You can just list the outcomes that will be measured.
+    = f.semantic_fields_for :outcomes do |outcome|
+      = render 'outcome_fields', f: outcome
+    .links
+      %p= link_to_add_association "<button, class='btn btn-success'>Add another outcome</button>".html_safe, f, :outcomes
+    = f.action :submit, label: 'Finish', :button_html => { :class => 'btn btn-success' }

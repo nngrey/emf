@@ -8,4 +8,4 @@
         = budget.input :total, :label => 'Budget', :hint => 'Enter a whole number representing the estimated budget for the program.'
     = f.input :start_date, :input_html => {"data-provide" => "datepicker", "data-date-autoclose" => true}
     = f.input :end_date, :input_html => {"data-provide" => "datepicker", "data-date-autoclose" => true}
-    = f.action :submit, label: 'Save and continue', :button_html => { :class => 'btn btn-success' }
+    .pull-right= f.action :submit, label: 'Save and continue', :button_html => { :class => 'btn btn-success' }

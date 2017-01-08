@@ -5,5 +5,6 @@
     = f.semantic_fields_for :outputs do |output|
       = render 'output_fields', f: output
     .links
-      %p= link_to_add_association "<button, class='btn btn-success'>Add another output</button>".html_safe, f, :outputs
-    = f.action :submit, label: 'Finish', :button_html => { :class => 'btn btn-success' }
+      = link_to_add_association "<button, class='btn btn-success'>Add another output</button>".html_safe, f, :outputs
+      .pull-right
+        = f.action :submit, label: 'Save and continue', :button_html => { :class => 'btn btn-success' }

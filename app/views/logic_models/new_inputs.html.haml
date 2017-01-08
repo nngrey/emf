@@ -6,5 +6,6 @@
       = f.semantic_fields_for :logic_model_inputs do |logic_model_input|
         = render 'logic_model_input_fields', f: logic_model_input
       .links
-        %p= link_to_add_association "<button, class='btn btn-success'>Add another input</button>".html_safe, f, :logic_model_inputs
-    = f.action :submit, label: 'Finish', :button_html => { :class => 'btn btn-success' }
+        = link_to_add_association "<button, class='btn btn-success'>Add another input</button>".html_safe, f, :logic_model_inputs
+        .pull-right
+          = f.action :submit, label: 'Save and continue', :button_html => { :class => 'btn btn-success' }

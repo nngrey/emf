@@ -47,41 +47,44 @@ class LogicModelsController < ApplicationController
   def new_inputs
     @logic_model = LogicModel.find(params[:id])
     @program = @logic_model.program
-    ["community support and engagement", "staff", "volunteers", "funding"].each do |input|
-      @logic_model_input = @logic_model.logic_model_inputs.build(description: input)
+    if logic_model.logic_model_inputs.blank?
+      ["community support and engagement", "staff", "volunteers", "funding"].each do |input|
+        @logic_model_input = @logic_model.logic_model_inputs.build(description: input)
+      end
     end
   end
 
   def create_inputs
     @logic_model = LogicModel.find(params[:id])
     if @logic_model.update_attributes(logic_model_params)
-      redirect_to new_activities_logic_model_path(@logic_model)
+      redirect_to new_logic_model_activity_path(@logic_model)
     else
       @program = @logic_model.program
       render 'new_inputs'
     end
   end
 
-  def new_activities
-    @logic_model = LogicModel.find(params[:id])
-    @logic_model.activities.new
-  end
+  # def new_activities
+  #   binding.pry
+  #   @logic_model = LogicModel.find(params[:id])
+  #   @logic_model.activities.new
+  # end
 
-  def create_activities
-    @logic_model = LogicModel.find(params[:id])
-    if @logic_model.update_attributes(logic_model_params) && params['commit'] == "Add another activity"
-        redirect_to new_activities_logic_model_path(@logic_model)
-    elsif @logic_model.update_attributes(logic_model_params) && params['commit'] == "Done with activities"
-      redirect_to new_outputs_logic_model_path(@logic_model)
-    else
-      @program = @logic_model.program
-      render 'new_activities'
-    end
-  end
+  # def create_activities
+  #   @logic_model = LogicModel.find(params[:id])
+  #   if @logic_model.update_attributes(logic_model_params) && params['commit'] == "Add another activity"
+  #       redirect_to new_activities_logic_model_path(@logic_model)
+  #   elsif @logic_model.update_attributes(logic_model_params) && params['commit'] == "Done with activities"
+  #     redirect_to new_outputs_logic_model_path(@logic_model)
+  #   else
+  #     @program = @logic_model.program
+  #     render 'new_activities'
+  #   end
+  # end
 
   def new_outputs
     @logic_model = LogicModel.find(params[:id])
-    @logic_model.outputs.new
+    @logic_model.outputs.new if @logic_model.outputs.blank?
   end
 
   def create_outputs
@@ -95,7 +98,7 @@ class LogicModelsController < ApplicationController
 
   def new_outcomes
     @logic_model = LogicModel.find(params[:id])
-    @logic_model.outcomes.new
+    @logic_model.outcomes.new if @logic_model.outcomes.blank?
   end
 
   def create_outcomes
@@ -109,12 +112,11 @@ class LogicModelsController < ApplicationController
 
   def new_impacts
     @logic_model = LogicModel.find(params[:id])
-    @logic_model.impacts.new
+    @logic_model.impacts.new if @logic_model.impacts.blank?
   end
 
   def create_impacts
     @logic_model = LogicModel.find(params[:id])
-      binding.pry
     if @logic_model.update_attributes(logic_model_params)
       redirect_to logic_model_path(@logic_model)
     else

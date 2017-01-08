@@ -1,0 +1,12 @@
+.container
+  = semantic_form_for [@logic_model, @activity] do |f|
+    %h3 Add activities
+    .help-block Activities represent the work you will do to implement your program. They might include educational events, providing a services or distributing a product.
+    = f.input :name
+    = f.input :description, :input_html => { :rows => 2 }
+    = f.input :start_date, :input_html => {"data-provide" => "datepicker", "data-date-autoclose" => true}
+    = f.input :end_date, :input_html => {"data-provide" => "datepicker", "data-date-autoclose" => true}
+    = f.input :budget
+
+    = f.action :submit, label: 'Add another activity', :button_html => { :class => 'btn btn-success' }
+    .pull-right= f.action :submit, label: 'Save and continue', :button_html => { :class => 'btn btn-success' }

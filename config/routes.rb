@@ -41,11 +41,10 @@ Rails.application.routes.draw do
   end
 
   resources :logic_models, only: [:show, :edit, :update] do
+    resources :activities, only: [:new, :create]
     member do
       get 'new_inputs'
       patch 'create_inputs'
-      get 'new_activities'
-      patch 'create_activities'
       get 'new_outputs'
       patch 'create_outputs'
       get 'new_outcomes'

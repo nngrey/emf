@@ -1,14 +1,14 @@
-.container
-  = semantic_form_for [:create_activities, @logic_model] do |f|
-    %h3 Add activities
-    .help-block Activities represent the work you will do to implement your program. They might include educational events, providing a services or distributing a product.
-    = f.semantic_fields_for :activities do |activity|
-      = activity.inputs do
-        = activity.input :name
-        = activity.input :description, :input_html => { :rows => 2, :id => 'activity'}
-        = activity.input :start_date, :input_html => {"data-provide" => "datepicker", "data-date-autoclose" => true}
-        = activity.input :end_date, :input_html => {"data-provide" => "datepicker", "data-date-autoclose" => true}
-        = activity.input :budget
+/ .container
+/   = semantic_form_for [:create_activities, @logic_model] do |f|
+/     %h3 Add activities
+/     .help-block Activities represent the work you will do to implement your program. They might include educational events, providing a services or distributing a product.
+/     = f.semantic_fields_for :activities do |activity|
+/       = activity.inputs do
+/         = activity.input :name
+/         = activity.input :description, :input_html => { :rows => 2, :id => 'activity'}
+/         = activity.input :start_date, :input_html => {"data-provide" => "datepicker", "data-date-autoclose" => true}
+/         = activity.input :end_date, :input_html => {"data-provide" => "datepicker", "data-date-autoclose" => true}
+/         = activity.input :budget
 
-    = f.action :submit, label: 'Add another activity', :button_html => { :class => 'btn btn-success' }
-    = f.action :submit, label: 'Done with activities', :button_html => { :class => 'btn btn-success' }
+/     = f.action :submit, label: 'Add another activity', :button_html => { :class => 'btn btn-success' }
+/     = f.action :submit, label: 'Done with activities', :button_html => { :class => 'btn btn-success' }

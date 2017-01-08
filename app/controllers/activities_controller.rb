@@ -8,13 +8,16 @@ class ActivitiesController < ApplicationController
   def create
     @logic_model = LogicModel.find(params[:logic_model_id])
     @activity = @logic_model.activities.new(activity_params)
-    if @activity.save && params['commit'] == "Add another activity"
-      redirect_to new_logic_model_activity_path(@logic_model)
-    elsif @activity.save && params['commit'] == "Save and continue"
-      redirect_to new_outputs_logic_model_path(@logic_model)
+    if @activity.save && params['commit'] == "Save and continue"
+      redirect_to activity_path(@activity)
     else
       render 'new'
     end
+  end
+
+  def show
+    @activity = Activity.find(params[:id])
+    @logic_model = @activity.logic_model
   end
 
 private

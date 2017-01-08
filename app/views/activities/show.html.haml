@@ -1,0 +1,17 @@
+.container
+  %h3 Review
+  %dl.dl-horizontal
+    %dt Name
+    %dd= @activity.name.capitalize
+    %dt Description
+    %dd= @activity.description
+    %dt Start date
+    %dd= @activity.start_date
+    %dt End date
+    %dd= @activity.end_date
+    %dt Budget
+    %dd= @activity.budget
+    %bsr
+  .div{:style => "margin-top: 50px"}
+    %h5= link_to "Add another activity", new_logic_model_activity_path(@logic_model)
+    .pull-right= link_to "Continue", new_outputs_logic_model_path(@logic_model), {class: 'btn btn-success', method: :get}

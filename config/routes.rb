@@ -54,6 +54,8 @@ Rails.application.routes.draw do
     end
   end
 
+  resources :activities, only: [:show]
+
   resources :evaluative_questions, except: [:index, :new, :create] do
     member do
       get 'edit_performance_indicators'

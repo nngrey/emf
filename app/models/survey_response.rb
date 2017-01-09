@@ -5,4 +5,15 @@ class SurveyResponse < ApplicationRecord
   def self.response_total(data_question_id, input_value)
     self.where(data_question_id: data_question_id, input_value: input_value).count
   end
+
+  def self.multiple_response_total(data_question_id, input_value)
+    questions = self.where(data_question_id: data_question_id)
+    count = 0
+    questions.each do | question |
+      if question.input_value.include? input_value
+        count += 1
+      end
+    end
+    count
+  end
 end

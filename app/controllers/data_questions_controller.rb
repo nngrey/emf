@@ -62,6 +62,7 @@ class DataQuestionsController < ApplicationController
       :id,
       :description,
       :question_type,
+      :multiple_answers,
       :performance_indicator_id,
       :_destroy,
       options_attributes:

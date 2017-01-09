@@ -2,6 +2,7 @@ $(document).on('turbolinks:load', function(){
   $('.dropdown-toggle').dropdown();
   toggleFields();
   $('#add-option').hide();
+  $('#multiple-answers').hide();
   $('#performance-indicators').hide();
   $('.options1').hide();
   $('.options2').hide();
@@ -24,6 +25,11 @@ $(document).on('turbolinks:load', function(){
     added_indicator.find('#indicator').val('');
   });
 
+  $('#add-option')
+    .on("cocoon:before-insert", function(e, added_option) {
+    added_option.find('#option').val('');
+  });
+
   $('#survey-questions')
     .on("cocoon:before-insert", function(e, added_question) {
     toggleFields();
@@ -32,6 +38,7 @@ $(document).on('turbolinks:load', function(){
     added_question.find('#option').val('');
     added_question.find('#performance-indicators').hide();
     added_question.find('#add-option').hide();
+    // added_question.find('#multiple-answers').hide();
   });
 
   $('#survey-questions')
@@ -52,12 +59,15 @@ $(document).on('turbolinks:load', function(){
     questionType.change(function () {
       var selected = $(this).val();
       var addOption = added_question.find('#add-option');
+      var multipleAnswers = added_question.find('#multiple-answers');
       var addQuestionButton = added_question.find('#add-question-button');
       if (selected === 'Multiple choice'){
+        multipleAnswers.show();
         addOption.show();
         addQuestionButton.trigger('click');
       } else {
         addOption.hide();
+        multipleAnswers.hide();
       }
     });
   });
@@ -150,7 +160,9 @@ function toggleFields() {
   var selected = $("#question-type").val();
   if (selected === 'Multiple choice') {
     $("#add-option").show();
+    $('#multiple-answers').show();
   } else {
     $("#add-option").hide();
+    $('#multiple-answers').hide();
   }
 }

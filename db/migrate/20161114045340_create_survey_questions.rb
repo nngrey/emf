@@ -3,6 +3,7 @@ class CreateSurveyQuestions < ActiveRecord::Migration[5.0]
     create_table :survey_questions do |t|
       t.text :description
       t.string :question_type
+      t.boolean :multiple_answers, :default => false
       t.references :survey, foreign_key: true
       t.references :data_question, foreign_key: true
       t.timestamps

@@ -22,14 +22,18 @@
               - question.options.each do |option|
                 %li
                   = "#{option.description} - "
-                  - if ['Yes / No', 'True / False', 'Multiple choice'].include? question.question_type
-                    - survey_response = SurveyResponse.response_total(question.id, option.description)
+                  - if question.multiple_answers && question.question_type == 'Multiple choice'
+                    - survey_response = SurveyResponse.multiple_response_total(question.id, option.description)
                     = survey_response
-                    - data_hash[option.description] = survey_response
                   - else
-                    %ol
-                      - SurveyResponse.where(data_question_id: question.id).each do |answer|
-                        %li= answer.input_value
+                    - if ['Yes / No', 'True / False', 'Multiple choice'].include? question.question_type
+                      - survey_response = SurveyResponse.response_total(question.id, option.description)
+                      = survey_response
+                      - data_hash[option.description] = survey_response
+                    - else
+                      %ol
+                        - SurveyResponse.where(data_question_id: question.id).each do |answer|
+                          %li= answer.input_value
           %br
           = semantic_form_for question do |f|
             = f.input :display_value, label: "Display on dashboard as:", :as => :select, :collection => ['Do not display', 'Text', 'Pie chart', 'Bar chart'], :input_html => {:class => 'display_format', data: {id: question.id} }

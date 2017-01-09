@@ -86,6 +86,7 @@ ActiveRecord::Schema.define(version: 20170102210515) do
   create_table "data_questions", force: :cascade do |t|
     t.text     "description"
     t.string   "question_type"
+    t.boolean  "multiple_answers",         default: false
     t.integer  "position"
     t.integer  "performance_indicator_id"
     t.datetime "created_at",                                          null: false
@@ -189,10 +190,11 @@ ActiveRecord::Schema.define(version: 20170102210515) do
   create_table "survey_questions", force: :cascade do |t|
     t.text     "description"
     t.string   "question_type"
+    t.boolean  "multiple_answers", default: false
     t.integer  "survey_id"
     t.integer  "data_question_id"
-    t.datetime "created_at",       null: false
-    t.datetime "updated_at",       null: false
+    t.datetime "created_at",                       null: false
+    t.datetime "updated_at",                       null: false
     t.index ["data_question_id"], name: "index_survey_questions_on_data_question_id", using: :btree
     t.index ["survey_id"], name: "index_survey_questions_on_survey_id", using: :btree
   end

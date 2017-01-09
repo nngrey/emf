@@ -4,7 +4,11 @@
       = question.description
     %ul
       - question.survey_responses.each do |response|
-        %li= response.input_value
+        - if valid_json? response.input_value
+          - JSON.parse(response.input_value).each do |value|
+            %li= value
+        - else
+          %li= response.input_value
   .dropdown
     %button#dropdownMenu1.btn.btn-success.dropdown-toggle{"aria-expanded" => "true", "aria-haspopup" => "true", "data-toggle" => "dropdown", :type => "button"}
       Actions

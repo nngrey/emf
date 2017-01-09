@@ -1,9 +1,12 @@
 .nested-fields
   = f.inputs do
     = f.input :data_question_id, as: :hidden, :input_html => { :value => question.data_question.id }
-    - if ['Yes / No', 'True / False', 'Multiple choice'].include? question.data_question.question_type
-      = f.input :input_value, label: false, :as => :radio, :collection => question.data_question.options.pluck(:description)
-    - elsif question.data_question.question_type == 'An amount or quantity'
-      = f.input :input_value, label: false
+    - if question.multiple_answers && question.data_question.question_type == 'Multiple choice'
+      = f.input :input_value, label: false, :as => :check_boxes, :collection => question.data_question.options.pluck(:description)
     - else
-      = f.input :input_value, label: false, as: :text
+      - if ['Yes / No', 'True / False', 'Multiple choice'].include? question.data_question.question_type
+        = f.input :input_value, label: false, :as => :radio, :collection => question.data_question.options.pluck(:description)
+      - elsif question.data_question.question_type == 'An amount or quantity'
+        = f.input :input_value, label: false
+      - else
+        = f.input :input_value, label: false, as: :text

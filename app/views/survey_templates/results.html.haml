@@ -24,6 +24,7 @@
                   = "#{option.description} - "
                   - if question.multiple_answers && question.question_type == 'Multiple choice'
                     - survey_response = SurveyResponse.multiple_response_total(question.id, option.description)
+                    - data_hash[option.description] = survey_response
                     = survey_response
                   - else
                     - if ['Yes / No', 'True / False', 'Multiple choice'].include? question.question_type

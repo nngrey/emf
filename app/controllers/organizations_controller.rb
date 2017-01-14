@@ -1,5 +1,8 @@
 class OrganizationsController < ApplicationController
 
+  # redirect to root if there is not organization record
+  around_filter :catch_not_found
+
   def new
     @organization = Organization.new
   end
@@ -18,6 +21,12 @@ class OrganizationsController < ApplicationController
   end
 
   private
+
+  def catch_not_found
+    yield
+  rescue ActiveRecord::RecordNotFound
+    redirect_to root_url
+  end
 
   def organization_params
     params.require(:organization).permit(:name)

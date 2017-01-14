@@ -1,13 +1,17 @@
 Rails.application.routes.draw do
-  get 'dashboard/home'
+  # get 'dashboard/home'
 
   root 'home#home'
 
-  get 'home/home' => 'pages#show'
+  # get 'home/home' => 'pages#show'
 
   get 'survey_templates' => 'survey_templates#index'
 
   get 'results_index' => 'survey_templates#results_index'
+
+  resources :organizations, only: [:new, :create, :edit, :update, :show] do
+    resources :programs, only: [:new]
+  end
 
   resources :analyses, only: [:update]
 
@@ -30,9 +34,6 @@ Rails.application.routes.draw do
     get 'dashboard', on: :member
   end
 
-  resources :organizations, only: [:new, :create, :edit, :update, :show] do
-    resources :programs, only: [:new]
-  end
 
 
   resources :programs, only: [:create, :show] do

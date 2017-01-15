@@ -9,8 +9,8 @@ Rails.application.routes.draw do
 
   get 'results_index' => 'survey_templates#results_index'
 
-  resources :organizations, only: [:new, :create, :edit, :update, :show] do
-    resources :programs, only: [:new]
+  resources :organizations, only: [:new, :create, :show] do
+    resources :programs, only: [:new, :create]
   end
 
   resources :analyses, only: [:update]

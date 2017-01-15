@@ -7,6 +7,10 @@ class Program < ApplicationRecord
   accepts_nested_attributes_for :budgets, reject_if: :all_blank, allow_destroy: true
 
   validates :name, uniqueness: true
+  validates :name, presence: true
+  validate :end_date_is_after_start_date
+
+  #TODO Should we add validations for budget, start date, end date?
 
   def question_hints(category)
     if category == 'appropriateness'
@@ -99,5 +103,15 @@ class Program < ApplicationRecord
 
   def correct_month(month)
     month > 12 ? 01 : month
+  end
+end
+
+private
+
+def end_date_is_after_start_date
+  return if end_date.blank? || start_date.blank?
+
+  if end_date < start_date
+    errors.add(:end_date, "cannot be before the start date")
   end
 end

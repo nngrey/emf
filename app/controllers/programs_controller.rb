@@ -1,18 +1,20 @@
 class ProgramsController < ApplicationController
 
   def new
-    @program = Program.new
-    @budget = @program.budgets.build
+    @organization = Organization.find(params[:organization_id])
+    @program = @organization.programs.new
+    @budget = @program.budgets.build(total: @total)
   end
 
   def create
-    @organization = Organization.first
+    @organization = Organization.find(params[:organization_id])
     @program = @organization.programs.new(program_params)
     if @program.save
       @program.create_framework(name: "Framework for #{@program.name}")
       logic_model = @program.create_logic_model
       redirect_to new_inputs_logic_model_path(logic_model)
     else
+      @total = program_params[:budgets_attributes]['0'][:total]
       render "new"
     end
   end
@@ -43,7 +45,18 @@ class ProgramsController < ApplicationController
   end
 
   private
+
   def program_params
-    params.require(:program).permit(:id, :name, :budget)
+    params.require(:program).permit(
+      :id,
+      :name,
+      :start_date,
+      :end_date,
+      budgets_attributes:
+      [
+        :name,
+        :total
+      ]
+    )
   end
 end

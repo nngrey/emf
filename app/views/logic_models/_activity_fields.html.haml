@@ -1,8 +1,0 @@
-/ .nested-fields
-/   = f.inputs do
-/     = f.input :name
-/     = f.input :description, :input_html => { :rows => 2, :id => 'activity'}
-/     = f.input :start_date, :input_html => {"data-provide" => "datepicker", "data-date-autoclose" => true}
-/     = f.input :end_date, :input_html => {"data-provide" => "datepicker", "data-date-autoclose" => true}
-/     = f.input :budget
-/     %p= link_to_remove_association "<button, class='btn btn-warning'>Remove this activity</button>".html_safe, f

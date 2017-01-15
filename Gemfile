@@ -22,12 +22,11 @@ gem "cocoon"
 gem 'bootstrap-datepicker-rails'
 gem "highcharts-rails"
 
-group :development, :test do
+group :test, :development do
   gem 'ffaker'
   gem 'database_cleaner'
   gem "pry"
   gem 'rspec-rails', '~> 3.5'
-  gem 'shoulda-matchers'
   gem 'factory_girl_rails'
   gem 'rails-controller-testing'
 end
@@ -37,4 +36,8 @@ group :development do
   gem "binding_of_caller"
   gem 'web-console', '~> 2.0'
   gem 'spring'
+end
+
+group :test do
+  gem 'shoulda-matchers', '~> 3.1', require: false
 end

@@ -1,6 +1,6 @@
 .container
   %h3 Add a program
-  = semantic_form_for @program do |f|
+  = semantic_form_for [@organization, @program] do |f|
     = f.input :name, :label => 'Program name'
     = f.semantic_fields_for :budgets do |budget|
       = budget.inputs do

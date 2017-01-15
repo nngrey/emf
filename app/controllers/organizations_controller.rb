@@ -1,6 +1,6 @@
 class OrganizationsController < ApplicationController
 
-  # redirect to root if there is not organization record
+  # redirect to root if there is no organization record
   around_filter :catch_not_found
 
   def new

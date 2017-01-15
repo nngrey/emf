@@ -13,5 +13,5 @@
     %dd= @activity.budget
     %bsr
   .div{:style => "margin-top: 50px"}
-    %h5= link_to "Add another activity", new_logic_model_activity_path(@logic_model)
+    = link_to "Add another activity", new_logic_model_activity_path(@logic_model), {class: 'btn btn-success', method: :get}
     .pull-right= link_to "Continue", new_outputs_logic_model_path(@logic_model), {class: 'btn btn-success', method: :get}

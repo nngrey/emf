@@ -12,12 +12,6 @@ class LogicModel < ApplicationRecord
   accepts_nested_attributes_for :outcomes, reject_if: :all_blank, allow_destroy: true
   accepts_nested_attributes_for :impacts, reject_if: :all_blank, allow_destroy: true
 
-  validates_associated :logic_model_inputs
-  validates_associated :activities
-  validates_associated :outputs
-  validates_associated :outcomes
-  validates_associated :impacts
-
   def timeline_data
     timeline_array = []
     self.activities.each do |activity|

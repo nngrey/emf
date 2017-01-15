@@ -1,4 +1,4 @@
 .nested-fields
   = f.inputs do
-    = f.input :description, :required => true, :input_html => { :rows => 2, :id => 'output'}
+    = f.input :description, :input_html => { :rows => 2, :id => 'output'}
     %p= link_to_remove_association "Remove this output", f

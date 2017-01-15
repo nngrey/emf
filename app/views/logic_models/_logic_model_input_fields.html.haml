@@ -1,5 +1,5 @@
 .nested-fields
   = f.inputs do
-    = f.input :description, :required => true, :input_html => { :rows => 1, :id => 'input'}
+    = f.input :description, :input_html => { :rows => 1, :id => 'input'}
     / .help-block In most cases, you will want to measure the relevance or appropriateness of your program to the community. Is the issue one that concerns them and do they agree with the proposed solutions?
   %p= link_to_remove_association "Remove this input", f

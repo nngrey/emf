@@ -56,7 +56,7 @@ class LogicModelsController < ApplicationController
 
   def create_inputs
     @logic_model = LogicModel.find(params[:id])
-    @logic_model_inputs = logic_model_inputs_with_errors
+    @logic_model_inputs = items_with_errors('logic_model_inputs')
     if @logic_model_inputs.all?(&:valid?) && @logic_model.update_attributes(logic_model_params)
       redirect_to new_logic_model_activity_path(@logic_model)
     else
@@ -71,8 +71,8 @@ class LogicModelsController < ApplicationController
 
   def create_outputs
     @logic_model = LogicModel.find(params[:id])
-    @outputs = outputs_with_errors
-    if @outputs.all?(&:valid?) && @logic_model.update_attributes(logic_model_params)
+    @outputs = items_with_errors('outputs')
+    if @outputs.all?(&:valid?) && @logic_model.save
       redirect_to new_outcomes_logic_model_path(@logic_model)
     else
       render 'new_outputs'
@@ -86,8 +86,8 @@ class LogicModelsController < ApplicationController
 
   def create_outcomes
     @logic_model = LogicModel.find(params[:id])
-    @outcomes = outcomes_with_errors
-    if @outcomes.all?(&:valid?) && @logic_model.update_attributes(logic_model_params)
+    @outcomes = items_with_errors('outcomes')
+    if @outcomes.all?(&:valid?) && @logic_model.save
       redirect_to new_impacts_logic_model_path(@logic_model)
     else
       render 'new_outcomes'
@@ -101,9 +101,8 @@ class LogicModelsController < ApplicationController
 
   def create_impacts
     @logic_model = LogicModel.find(params[:id])
-    @impacts = impacts_with_errors
-    binding.pry
-    if @impacts.all?(&:valid?) && @logic_model.update_attributes(logic_model_params)
+    @impacts = items_with_errors('impacts')
+    if @impacts.all?(&:valid?) && @logic_model.save
       redirect_to logic_model_path(@logic_model)
     else
       render 'new_impacts'
@@ -115,86 +114,51 @@ class LogicModelsController < ApplicationController
   #neither validates_associated nor "required: true" inline in the form are working
   #it may be a clash with cocoon or simply the way I have organized things
   #these methods depend on presence validations in the model
-  def logic_model_inputs_with_errors
-    logic_model_inputs = []
-    if logic_model_params[:logic_model_inputs_attributes].blank?
-      logic_model_input = @logic_model.logic_model_inputs.new
-      logic_model_input.errors.add(:description, "cannot be blank")
-      logic_model_inputs << logic_model_input
+
+  def items_with_errors(step)
+    items = []
+    if logic_model_params[("#{step}_attributes").to_sym].blank?
+      item = @logic_model.send(step.to_sym).new
+      item.errors.add(:description, "cannot be blank")
+      items << item
     else
-      logic_model_params[:logic_model_inputs_attributes].each do |k, v|
+      logic_model_params[("#{step}_attributes").to_sym].each do |k, v|
         if v[:description].blank?
-          logic_model_input = @logic_model.logic_model_inputs.new
-          logic_model_input.errors.add(:description, "cannot be blank")
+          item = @logic_model.send(step.to_sym).new
+          item.errors.add(:description, "cannot be blank")
         else
-          logic_model_input = @logic_model.logic_model_inputs.new(description: v[:description])
+          item = @logic_model.send(step.to_sym).new(description: v[:description])
         end
-        logic_model_inputs << logic_model_input
+        items << item
       end
     end
-    logic_model_inputs
+    items
   end
 
-  def outputs_with_errors
-    outputs = []
-    if logic_model_params[:outputs_attributes].blank?
-      output = @logic_model.outputs.new
-      output.errors.add(:description, "cannot be blank")
-      outputs << output
-    else
-      logic_model_params[:outputs_attributes].each do |k, v|
-        if v[:description].blank?
-          output = @logic_model.outputs.new
-          output.errors.add(:description, "cannot be blank")
-        else
-          output = @logic_model.outputs.new(description: v[:description])
-        end
-        outputs << output
-      end
-    end
-    outputs
-  end
+  # def build_and_validate_associations(step)
+  #   items = []
+  #   if logic_model_params[("#{step}_attributes").to_sym].blank?
+  #     item = @logic_model.send(step.to_sym).new
+  #     item.errors.add(:description, "cannot be blank")
+  #     items << item
+  #   else
+  #     items = validate_presence_of_description(step)
+  #   end
+  #   items
+  # end
 
-  def outcomes_with_errors
-    outcomes = []
-    if logic_model_params[:outcomes_attributes].blank?
-      outcome = @logic_model.outcomes.new
-      outcome.errors.add(:description, "cannot be blank")
-      outcomes << outcome
-    else
-      logic_model_params[:outcomes_attributes].each do |k, v|
-        if v[:description].blank?
-          outcome = @logic_model.outcomes.new
-          outcome.errors.add(:description, "cannot be blank")
-        else
-          outcome = @logic_model.outcomes.new(description: v[:description])
-        end
-        outcomes << outcome
-      end
-    end
-    outcomes
-  end
-
-  def impacts_with_errors
-    impacts = []
-    if logic_model_params[:impacts_attributes].blank?
-      impact = @logic_model.impacts.new
-      impact.errors.add(:description, "cannot be blank")
-      impacts << impact
-    else
-      logic_model_params[:impacts_attributes].each do |k, v|
-        if v[:description].blank?
-          impact = @logic_model.impacts.new
-          impact.errors.add(:description, "cannot be blank")
-        else
-          impact = @logic_model.impacts.new(description: v[:description])
-        end
-        impacts << impact
-      end
-    end
-    binding.pry
-    impacts
-  end
+  # def validate_presence_of_description(step)
+  #   items = []
+  #   logic_model_params[("#{step}_attributes").to_sym].each do |k, v|
+  #     if v[:description].blank?
+  #       item = @logic_model.send(step.to_sym).new
+  #       item.errors.add(:description, "cannot be blank")
+  #     else
+  #       item = @logic_model.send(step.to_sym).new(description: v[:description])
+  #     end
+  #     items << item
+  #   end
+  # end
 
   def logic_model_params
     params.fetch(:logic_model, {}).permit(

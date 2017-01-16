@@ -34,10 +34,8 @@ Rails.application.routes.draw do
     get 'dashboard', on: :member
   end
 
-
-
-  resources :programs, only: [:create, :show] do
-    resources :logic_models, only: [:new, :create]
+  resources :programs, only: [:show] do
+    # resources :logic_models, only: [:new, :create]
     get 'overview', on: :member
   end
 

@@ -43,7 +43,9 @@ Rails.application.routes.draw do
     resources :activities, only: [:new, :create]
     member do
       get 'new_inputs'
+      get 'edit_inputs'
       patch 'create_inputs'
+      patch 'update_inputs'
       get 'new_outputs'
       patch 'create_outputs'
       get 'new_outcomes'

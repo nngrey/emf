@@ -64,6 +64,20 @@ class LogicModelsController < ApplicationController
     end
   end
 
+  def edit_inputs
+    @logic_model = LogicModel.find(params[:id])
+    @inputs = @logic_model.logic_model_inputs
+  end
+
+  def update_inputs
+    @logic_model = LogicModel.find(params[:id])
+    if @logic_model.update(logic_model_params)
+      redirect_to logic_model_path(@logic_model)
+    else
+      render 'edit_inputs'
+    end
+  end
+
   def new_outputs
     @logic_model = LogicModel.find(params[:id])
     @logic_model.outputs.new if @logic_model.outputs.blank?

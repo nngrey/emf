@@ -5,7 +5,9 @@
       %table.table.table-bordered
         %thead
           %tr
-            %th Inputs
+          %th
+            Inputs
+            .pull-right= link_to 'edit', edit_inputs_logic_model_path(@logic_model)
             %th Activities
             %th Outputs
             %th Outcomes

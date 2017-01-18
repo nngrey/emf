@@ -47,15 +47,21 @@ Rails.application.routes.draw do
       patch 'create_inputs'
       patch 'update_inputs'
       get 'new_outputs'
+      get 'edit_outputs'
       patch 'create_outputs'
+      patch 'update_outputs'
       get 'new_outcomes'
+      get 'edit_outcomes'
       patch 'create_outcomes'
+      patch 'update_outcomes'
       get 'new_impacts'
+      get 'edit_impacts'
       patch 'create_impacts'
+      patch 'update_impacts'
     end
   end
 
-  resources :activities, only: [:show]
+  resources :activities, only: [:show, :edit, :update]
 
   resources :evaluative_questions, except: [:index, :new, :create] do
     member do

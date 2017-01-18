@@ -6,6 +6,8 @@ class Activity < ApplicationRecord
   validate :end_date_is_after_start_date
   #TODO Validate presence of budget and dates
 
+  attr_accessor :save_and_return
+
   private
 
   def end_date_is_after_start_date

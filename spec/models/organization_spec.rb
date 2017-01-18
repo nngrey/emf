@@ -6,9 +6,14 @@ RSpec.describe Organization, type: :model do
     expect(FactoryGirl.create(:organization)).to be_valid
   end
 
-  it "is valid with all required attributes" do
-    expect(FactoryGirl.build(:organization)).to be_valid
+  it 'can be simply created' do
+    organization = FactoryGirl.build(:organization)
+    expect{ program.save }.to change{ Organizaton.count }.by(1)
   end
 
-  it { is_expected.to validate_presence_of(:name) }
+  it { should validate_presence_of(:name) }
+
+  it { should have_many(:programs) }
+
+  it { should accept_nested_attributes_for(:programs) }
 end

@@ -1,27 +1,5 @@
 class LogicModelsController < ApplicationController
 
-  # def new
-  #   @program = Program.find(params[:program_id])
-  #   @logic_model = @program.build_logic_model
-  #   ["community support and engagement", "staff", "volunteers", "funding"].each do |input|
-  #     @logic_model_input = @logic_model.logic_model_inputs.build(description: input)
-  #   end
-  #   @activity = @logic_model.activities.new
-  #   @output = @logic_model.outputs.new
-  #   @outcome = @logic_model.outcomes.new
-  #   @impact = @logic_model.impacts.new
-  # end
-
-  # def create
-  #   @program = Program.find(params[:program_id])
-  #   @logic_model = @program.build_logic_model(logic_model_params)
-  #   if @logic_model.save
-  #     redirect_to logic_model_path(@logic_model)
-  #   else
-  #     render "new"
-  #   end
-  # end
-
   def edit
     @logic_model = LogicModel.find(params[:id])
     @logic_model_input = @logic_model.logic_model_inputs.new unless @logic_model.logic_model_inputs.any?
@@ -93,6 +71,20 @@ class LogicModelsController < ApplicationController
     end
   end
 
+  def edit_outputs
+    @logic_model = LogicModel.find(params[:id])
+    @outputs = @logic_model.outputs
+  end
+
+  def update_outputs
+    @logic_model = LogicModel.find(params[:id])
+    if @logic_model.update(logic_model_params)
+      redirect_to logic_model_path(@logic_model)
+    else
+      render 'edit_outputs'
+    end
+  end
+
   def new_outcomes
     @logic_model = LogicModel.find(params[:id])
     @logic_model.outcomes.new if @logic_model.outcomes.blank?
@@ -108,6 +100,20 @@ class LogicModelsController < ApplicationController
     end
   end
 
+  def edit_outcomes
+    @logic_model = LogicModel.find(params[:id])
+    @outcomes = @logic_model.outcomes
+  end
+
+  def update_outcomes
+    @logic_model = LogicModel.find(params[:id])
+    if @logic_model.update(logic_model_params)
+      redirect_to logic_model_path(@logic_model)
+    else
+      render 'edit_outcomes'
+    end
+  end
+
   def new_impacts
     @logic_model = LogicModel.find(params[:id])
     @logic_model.impacts.new if @logic_model.impacts.blank?
@@ -120,6 +126,20 @@ class LogicModelsController < ApplicationController
       redirect_to logic_model_path(@logic_model)
     else
       render 'new_impacts'
+    end
+  end
+
+  def edit_impacts
+    @logic_model = LogicModel.find(params[:id])
+    @impacts = @logic_model.impacts
+  end
+
+  def update_impacts
+    @logic_model = LogicModel.find(params[:id])
+    if @logic_model.update(logic_model_params)
+      redirect_to logic_model_path(@logic_model)
+    else
+      render 'edit_impacts'
     end
   end
 

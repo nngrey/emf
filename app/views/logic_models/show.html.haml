@@ -6,11 +6,19 @@
         %tr
           %th
             Inputs
-            .pull-right= link_to 'edit', edit_inputs_logic_model_path(@logic_model)
-          %th Activities
-          %th Outputs
-          %th Outcomes
-          %th Impacts
+            .pull-right= link_to 'add/edit', edit_inputs_logic_model_path(@logic_model)
+          %th
+            Activities
+            .pull-right= link_to 'add', new_logic_model_activity_path(@logic_model)
+          %th
+            Outputs
+            .pull-right= link_to 'add/edit', edit_outputs_logic_model_path(@logic_model)
+          %th
+            Outcomes
+            .pull-right= link_to 'add/edit', edit_outcomes_logic_model_path(@logic_model)
+          %th
+            Impacts
+            .pull-right= link_to 'add/sedit', edit_impacts_logic_model_path(@logic_model)
       %tbody
         %tr
           %td
@@ -24,7 +32,9 @@
             %ul
               - if @logic_model.activities.any?
                 - @logic_model.activities.each do |activity|
-                  %li= activity.name
+                  %li
+                    = activity.description
+                    %br= link_to 'edit', edit_activity_path(activity)
               - else
                 %li TBD
           %td

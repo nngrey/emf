@@ -1,16 +1,16 @@
 = semantic_form_for [@framework, @evaluative_question] do |f|
-  %h3= "Evaluative question: #{@category}"
+  %h3= "Evaluative question: #{@category.titleize}"
   .help-block= @question_hints
   = f.input :category, :as => :hidden, :input_html => {:value => @category}
-  = f.input :description, label: "Question", :input_html => { :rows => 3 }
+  = f.input :description, label: "Question", :input_html => { :rows => 2 }
   %h3 Performance indicators
   .help-block= @indicator_hints
-  = f.semantic_fields_for :performance_indicators do |performance_indicator|
-    = render 'performance_indicator_fields', f: performance_indicator
-  .row
-    .col-sm-6
-      .links
-        %p= link_to_add_association "<button, class='btn btn-success'>Add another performance indicator</button>".html_safe, f, :performance_indicators
-    .col-sm-6
-      .pull-right{:style => "margin-left: 3px"}
-        = f.action :submit, label: @button_text, :button_html => { :class => 'btn btn-success' }
+  #indicators
+    = f.semantic_fields_for :performance_indicators do |performance_indicator|
+      = render 'performance_indicator_fields', f: performance_indicator
+
+    .links
+      %p= link_to_add_association "<button, class='btn btn-success'>Add another performance indicator</button>".html_safe, f, :performance_indicators
+
+    .pull-right{:style => "margin-left: 3px"}
+      = f.action :submit, label: @button_text, :button_html => { :class => 'btn btn-success' }

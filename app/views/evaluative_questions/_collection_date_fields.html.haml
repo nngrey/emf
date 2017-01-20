@@ -1,6 +1,9 @@
 .nested-fields
   = f.inputs do
     .row
+      .col-sm-2{:style => "font-size: 14px; font-weight: bold"}
+        Date
+        .pull-right{:style => "font-weight: normal"}= link_to_remove_association "(Delete)", f
+    .row
       .col-sm-2
-        = f.input :date, :input_html => {"data-provide" => "datepicker", "data-date-autoclose" => true}
-    %p= link_to_remove_association "Remove this date", f
+        = f.input :date, label: false, :input_html => {"data-provide" => "datepicker", "data-date-autoclose" => true}

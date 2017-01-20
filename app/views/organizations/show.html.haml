@@ -23,8 +23,8 @@
                       - else
                         %li
                           %a{:href => logic_model_path(program.logic_model)} View logic model
-                        %li
-                          %a{:href => edit_logic_model_path(program.logic_model)} Edit logic model
+                        / %li
+                        /   %a{:href => edit_logic_model_path(program.logic_model)} Edit logic model
                       - if program.framework.evaluative_questions.blank? && program.logic_model.present?
                         %li
                           %a{:href => new_framework_evaluative_question_path(program.framework)} Create Framework

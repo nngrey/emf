@@ -1,11 +1,5 @@
 class EvaluativeQuestionsController < ApplicationController
 
-  def show
-    @evaluative_question = EvaluativeQuestion.find(params[:id])
-    @framework = @evaluative_question.framework
-    @button_text = @evaluative_question.category == 'sustainability' ? 'Finish' : 'Continue'
-  end
-
   def new
     @framework = Framework.find(params[:framework_id])
     @program = @framework.program
@@ -34,11 +28,24 @@ class EvaluativeQuestionsController < ApplicationController
       redirect_to overview_program_path(@program)
     else
       if @evaluative_question.performance_indicators.blank?
-        @evaluative_question.performance_indicators.build
+        performance_indicator = @evaluative_question.performance_indicators.build
+        performance_indicator.collection_dates.build
+      else
+        @evaluative_question.performance_indicators.each do |indicator|
+          if indicator.collection_dates.blank?
+            indicator.collection_dates.build
+          end
+        end
       end
       @program = @framework.program
-      render "new"
+      render action: "new"
     end
+  end
+
+  def show
+    @evaluative_question = EvaluativeQuestion.find(params[:id])
+    @framework = @evaluative_question.framework
+    @button_text = @evaluative_question.category == 'sustainability' ? 'Finish' : 'Continue'
   end
 
   def edit

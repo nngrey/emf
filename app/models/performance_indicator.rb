@@ -7,8 +7,8 @@ class PerformanceIndicator < ApplicationRecord
   accepts_nested_attributes_for :collection_dates, reject_if: :all_blank, allow_destroy: true
 
   validates :description, presence: true
-  # validates :definition, presence: true
-  # validate :unique_labels
+  validates :data_source, presence: true
+  validates_associated :collection_dates
 
   def self.categories
     ['appropriateness', 'effectiveness', 'efficiency', 'impact', 'sustainability']

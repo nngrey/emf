@@ -1,22 +1,22 @@
 class LogicModelsController < ApplicationController
 
-  def edit
-    @logic_model = LogicModel.find(params[:id])
-    @logic_model_input = @logic_model.logic_model_inputs.new unless @logic_model.logic_model_inputs.any?
-    @activity = @logic_model.activities.new unless @logic_model.activities.any?
-    @output = @logic_model.outputs.new
-    @outcome = @logic_model.outcomes.new
-    @impact = @logic_model.impacts.new
-  end
+  # def edit
+  #   @logic_model = LogicModel.find(params[:id])
+  #   @logic_model_input = @logic_model.logic_model_inputs.new unless @logic_model.logic_model_inputs.any?
+  #   @activity = @logic_model.activities.new unless @logic_model.activities.any?
+  #   @output = @logic_model.outputs.new
+  #   @outcome = @logic_model.outcomes.new
+  #   @impact = @logic_model.impacts.new
+  # end
 
-  def update
-    @logic_model = LogicModel.find(params[:id])
-    if @logic_model.update_attributes(logic_model_params)
-      redirect_to logic_model_path(@logic_model)
-    else
-      render 'edit'
-    end
-  end
+  # def update
+  #   @logic_model = LogicModel.find(params[:id])
+  #   if @logic_model.update_attributes(logic_model_params)
+  #     redirect_to logic_model_path(@logic_model)
+  #   else
+  #     render 'edit'
+  #   end
+  # end
 
   def show
     @logic_model = LogicModel.find(params[:id])

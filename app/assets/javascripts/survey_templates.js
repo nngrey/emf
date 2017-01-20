@@ -22,7 +22,13 @@ $(document).on('turbolinks:load', function(){
 
   $('#indicators')
     .on("cocoon:before-insert", function(e, added_indicator) {
-    added_indicator.find('#indicator').val('');
+    added_indicator.find('.indicator').val('');
+  });
+
+// Clicks link on new collection date to open field
+  $('#indicators')
+    .on("cocoon:after-insert", function(e, added_indicator) {
+    added_indicator.find('#add-date').trigger('click');
   });
 
   $('#add-option')

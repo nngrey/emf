@@ -7,7 +7,7 @@ class EvaluativeQuestion < ApplicationRecord
   validates :category, presence: true
   validates :description, presence: true
   validates_associated :performance_indicators
-  # validates_presence_of :performance_indicators
+  validates_presence_of :performance_indicators
 
   scope :appropriateness, -> { where(category: 'appropriateness') }
   scope :efficiency, -> { where(category: 'efficiency') }

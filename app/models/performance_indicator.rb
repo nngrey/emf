@@ -9,6 +9,7 @@ class PerformanceIndicator < ApplicationRecord
   validates :description, presence: true
   validates :data_source, presence: true
   validates_associated :collection_dates
+  validates_presence_of :collection_dates
 
   def self.categories
     ['appropriateness', 'effectiveness', 'efficiency', 'impact', 'sustainability']

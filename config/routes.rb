@@ -28,14 +28,14 @@ Rails.application.routes.draw do
     post 'sort', on: :collection
   end
 
-  resources :frameworks do
+  resources :frameworks, only: [:show] do
     resources :survey_templates, only: [:index, :new, :create]
     resources :evaluative_questions, only: [:index, :new, :create, :update]
     get 'dashboard', on: :member
   end
 
   resources :programs, only: [:show] do
-    # resources :logic_models, only: [:new, :create]
+    resources :logic_models, only: [:new, :create]
     get 'overview', on: :member
   end
 
@@ -63,7 +63,7 @@ Rails.application.routes.draw do
 
   resources :activities, only: [:show, :edit, :update]
 
-  resources :evaluative_questions, except: [:index, :new, :create] do
+  resources :evaluative_questions, except: [:index] do
     member do
       get 'edit_performance_indicators'
       put 'update_performance_indicators'

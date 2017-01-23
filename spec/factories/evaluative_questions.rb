@@ -3,11 +3,5 @@ FactoryGirl.define do
     category ['effectiveness', 'efficiency'].sample
     description { FFaker::Lorem.sentence }
     association :framework, factory: :framework, strategy: :build
-    # after :build do |evaluative_question|
-    #   evaluative_question.sub_questions << FactoryGirl.build_list(:sub_question, 1, evaluative_question: nil)
-    # end
-    after :build do |evaluative_question|
-      create_list :performance_indicator, 1, evaluative_question: evaluative_question   # has_many
-    end
   end
 end

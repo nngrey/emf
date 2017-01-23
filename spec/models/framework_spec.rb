@@ -10,7 +10,10 @@ RSpec.describe Framework, type: :model do
     expect(FactoryGirl.build(:framework)).to be_valid
   end
 
-  it "is invalid without a name" do
-    expect(FactoryGirl.build(:framework, name: nil)).to_not be_valid
-  end
+  it { should have_many(:evaluative_questions) }
+  it { should have_many(:survey_templates) }
+  it { should belong_to(:program) }
+
+  it { should accept_nested_attributes_for(:evaluative_questions) }
+  it { should accept_nested_attributes_for(:survey_templates) }
 end

@@ -7,6 +7,7 @@ class EvaluativeQuestionsController < ApplicationController
     @question_hints = @program.question_hints(@category)
     @indicator_hints = @program.indicator_hints(@category)
     @button_text = @category == 'sustainability' ? 'Finish' : 'Save and continue'
+    @date_errors = []
     if params[:commit] == 'Finish'
       redirect_to framework_path(@program.framework)
     else
@@ -20,12 +21,13 @@ class EvaluativeQuestionsController < ApplicationController
     ##TODO refactor like update
     @framework = Framework.find(params[:framework_id])
     @program = @framework.program
-    @category = params['commit']
+    @category = evaluative_question_params[:category]
+    step = params['commit']
     @evaluative_question = @framework.evaluative_questions.new(evaluative_question_params)
-    if @evaluative_question.save && @category != 'Finish'
+    if @evaluative_question.save && step != 'Finish'
       redirect_to evaluative_question_path(@evaluative_question)
-    elsif @evaluative_question.save && @category == 'Finish'
-      redirect_to overview_program_path(@program)
+    elsif @evaluative_question.save && step == 'Finish'
+      redirect_to framework_path(@framework)
     else
       if @evaluative_question.performance_indicators.blank?
         performance_indicator = @evaluative_question.performance_indicators.build
@@ -37,7 +39,10 @@ class EvaluativeQuestionsController < ApplicationController
           end
         end
       end
-      @program = @framework.program
+      @date_errors = []
+      if @evaluative_question.errors["performance_indicators.collection_dates"].any?
+        @date_errors = @evaluative_question.errors["performance_indicators.collection_dates"]
+      end
       render action: "new"
     end
   end
@@ -49,6 +54,7 @@ class EvaluativeQuestionsController < ApplicationController
   end
 
   def edit
+    @date_errors = []
     @evaluative_question = EvaluativeQuestion.find(params[:id])
     @category = @evaluative_question.category
   end
@@ -56,7 +62,7 @@ class EvaluativeQuestionsController < ApplicationController
   def update
     @evaluative_question = EvaluativeQuestion.find(params[:id])
     if @evaluative_question.update_attributes(evaluative_question_params)# && category != 'complete'
-      redirect_to overview_program_path(@evaluative_question.framework.program, tab: "framework")
+      redirect_to framework_path(@evaluative_question.framework)
     else
       @category = @evaluative_question.category
       render 'edit'

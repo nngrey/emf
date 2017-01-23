@@ -10,10 +10,10 @@ class ActivitiesController < ApplicationController
   def create
     @logic_model = LogicModel.find(params[:logic_model_id])
     @activity = @logic_model.activities.new(activity_params)
-    save_and_return = activity_params[:save_and_return]
-    if  save_and_return && @activity.save
+    @save_and_return = activity_params[:save_and_return]
+    if (@save_and_return == "true") && @activity.save
       redirect_to logic_model_path(@activity.logic_model)
-    elsif !save_and_return && @activity.save && params['commit']
+    elsif !(@save_and_return == "true") && @activity.save && params['commit']
       redirect_to activity_path(@activity)
     else
       render 'new'

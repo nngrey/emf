@@ -1,9 +1,12 @@
 .nested-fields
   = f.inputs do
     .row
-      .col-sm-2{:style => "font-size: 14px; font-weight: bold"}
-        Date
-        .pull-right{:style => "font-weight: normal"}= link_to_remove_association "(Delete)", f
-    .row
       .col-sm-2
-        = f.input :date, label: false, :input_html => {"data-provide" => "datepicker", "data-date-autoclose" => true}
+        - if @date_errors.any?
+          .string.input.error.required.stringish.form-group.has-error
+            .pull-right{:style => "font-weight: normal"}= link_to_remove_association "(Delete)", f
+            = f.input :date, label: 'Date', :input_html => {"data-provide" => "datepicker", "data-date-autoclose" => true}
+            %span{:style => "color: #a94442"}= @date_errors.join(', ')
+        - else
+          .pull-right{:style => "font-weight: normal"}= link_to_remove_association "(Delete)", f
+          = f.input :date, label: 'Date', :input_html => {"data-provide" => "datepicker", "data-date-autoclose" => true}

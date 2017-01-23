@@ -1,26 +1,26 @@
-require 'rails_helper'
+# require 'rails_helper'
 
-describe 'frameworks/index.html.haml' do
-  context 'when there is a framework' do
-    let(:framework) { FactoryGirl.create(:framework) }
-    it 'displays a list of frameworks' do
+# describe 'frameworks/index.html.haml' do
+#   context 'when there is a framework' do
+#     let(:framework) { FactoryGirl.create(:framework) }
+#     it 'displays a list of frameworks' do
 
-      assign(:frameworks, [framework])
+#       assign(:frameworks, [framework])
 
-      render
+#       render
 
-      expect(rendered).to include(framework.name)
-    end
-  end
+#       expect(rendered).to include(framework.name)
+#     end
+#   end
 
-  context 'when there is no framework' do
-    it 'displays a message' do
+#   context 'when there is no framework' do
+#     it 'displays a message' do
 
-      assign(:frameworks, [])
+#       assign(:frameworks, [])
 
-      render
+#       render
 
-      expect(rendered).to include('No frameworks have been created.')
-    end
-  end
-end
+#       expect(rendered).to include('No frameworks have been created.')
+#     end
+#   end
+# end

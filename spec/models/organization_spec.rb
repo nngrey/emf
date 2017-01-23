@@ -8,7 +8,7 @@ RSpec.describe Organization, type: :model do
 
   it 'can be simply created' do
     organization = FactoryGirl.build(:organization)
-    expect{ program.save }.to change{ Organizaton.count }.by(1)
+    expect{ organization.save }.to change{ Organization.count }.by(1)
   end
 
   it { should validate_presence_of(:name) }

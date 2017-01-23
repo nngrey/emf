@@ -75,7 +75,7 @@ def seed_framework
     logic_model.impacts.create(description: attr)
   end
 
-  framework = program.create_framework(name: "Framework for NicaAgua")
+  framework = program.create_framework
   survey_template = framework.survey_templates.create(name: 'Baseline survey')
 
   indicator = PerformanceIndicator.create(description: 'percentage of people who agree with the problem', data_source: 'survey')

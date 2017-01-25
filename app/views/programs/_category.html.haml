@@ -45,7 +45,7 @@
                           - survey_response = SurveyResponse.response_total(question.id, option.description)
                           = survey_response
                           - data_hash[option.description] = survey_response
-        - if @data_combinations.send(category).any?
+        - if @data_combinations && @data_combinations.send(category).any?
           - analyses = @survey_template.data_combinations.send(category).map{|dc| dc.analyses}.flatten
           - analyses.each do |analysis|
             - unless analysis.display_value == 'Do not display'

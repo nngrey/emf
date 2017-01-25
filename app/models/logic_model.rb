@@ -15,8 +15,10 @@ class LogicModel < ApplicationRecord
   def timeline_data
     timeline_array = []
     self.activities.each do |activity|
-      activity_array = [activity.name, activity.start_date, activity.end_date]
-      timeline_array << activity_array
+      if activity.start_date.present?
+        activity_array = [activity.name, activity.start_date, activity.end_date]
+        timeline_array << activity_array
+      end
     end
     timeline_array
   end

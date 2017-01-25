@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170102210515) do
+ActiveRecord::Schema.define(version: 20170124042209) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -93,7 +93,9 @@ ActiveRecord::Schema.define(version: 20170102210515) do
     t.datetime "updated_at",                                          null: false
     t.integer  "survey_template_id"
     t.string   "display_value",            default: "Do not display"
+    t.integer  "survey_id"
     t.index ["performance_indicator_id"], name: "index_data_questions_on_performance_indicator_id", using: :btree
+    t.index ["survey_id"], name: "index_data_questions_on_survey_id", using: :btree
     t.index ["survey_template_id"], name: "index_data_questions_on_survey_template_id", using: :btree
   end
 
@@ -200,12 +202,12 @@ ActiveRecord::Schema.define(version: 20170102210515) do
 
   create_table "survey_responses", force: :cascade do |t|
     t.text     "input_value"
-    t.integer  "survey_question_id"
+    t.integer  "survey_id"
     t.integer  "data_question_id"
-    t.datetime "created_at",         null: false
-    t.datetime "updated_at",         null: false
+    t.datetime "created_at",       null: false
+    t.datetime "updated_at",       null: false
     t.index ["data_question_id"], name: "index_survey_responses_on_data_question_id", using: :btree
-    t.index ["survey_question_id"], name: "index_survey_responses_on_survey_question_id", using: :btree
+    t.index ["survey_id"], name: "index_survey_responses_on_survey_id", using: :btree
   end
 
   create_table "survey_templates", force: :cascade do |t|
@@ -231,6 +233,7 @@ ActiveRecord::Schema.define(version: 20170102210515) do
   add_foreign_key "data_combinations", "survey_templates"
   add_foreign_key "data_questions", "performance_indicators"
   add_foreign_key "data_questions", "survey_templates"
+  add_foreign_key "data_questions", "surveys"
   add_foreign_key "evaluative_questions", "frameworks"
   add_foreign_key "frameworks", "programs"
   add_foreign_key "impacts", "logic_models"
@@ -244,7 +247,7 @@ ActiveRecord::Schema.define(version: 20170102210515) do
   add_foreign_key "survey_questions", "data_questions"
   add_foreign_key "survey_questions", "surveys"
   add_foreign_key "survey_responses", "data_questions"
-  add_foreign_key "survey_responses", "survey_questions"
+  add_foreign_key "survey_responses", "surveys"
   add_foreign_key "survey_templates", "frameworks"
   add_foreign_key "surveys", "survey_templates"
 end

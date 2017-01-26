@@ -109,16 +109,16 @@ def seed_framework
   data_question2.options.create(description: 'No')
   20.times do
     survey = survey_template.surveys.create()
-    survey_question = survey.survey_questions.create(description: data_question.description, question_type: data_question.question_type, data_question_id: data_question.id)
-    survey_question2 = survey.survey_questions.create(description: data_question2.description, question_type: data_question2.question_type, data_question_id: data_question2.id)
-    response = survey_question.survey_responses.create(input_value: ['Yes', 'Yes', 'Yes', 'No'].sample, data_question_id: data_question.id)
+    survey_data_question = survey.data_questions.create(description: data_question.description, question_type: data_question.question_type)
+    survey_data_question2 = survey.data_questions.create(description: data_question2.description, question_type: data_question2.question_type)
+    response = survey_data_question.survey_responses.create(input_value: ['Yes', 'Yes', 'Yes', 'No'].sample)
     if response.input_value == 'No'
-      survey_question2.survey_responses.create(input_value: 'No', data_question_id: data_question2.id)
+      survey_data_question2.survey_responses.create(input_value: 'No')
     else
-      survey_question2.survey_responses.create(input_value: ['Yes', 'Yes', 'No'].sample, data_question_id: data_question2.id)
+      survey_data_question2.survey_responses.create(input_value: ['Yes', 'Yes', 'No'].sample)
     end
   end
-  data_combination = survey_template.data_combinations.create(title: 'Sucessful Filter Implementation', description: 'Filter was installed and functioned correctly.', category: 'efficiency', criterion_1: data_question.options.first.id, criterion_2: data_question2.options.first.id, data_question_1_id: data_question.id, data_question_2_id: data_question2.id, data_label_1: 'Successful installation', data_label_2: 'Failed installations')
+  data_combination = survey_template.data_combinations.create(title: 'Sucessful Filter Implementation', description: 'Filter was installed and functioned correctly.', category: 'efficiency', criterion_1: data_question.options.first.id, criterion_2: data_question2.options.first.id, data_question_1_id: survey_data_question.id, data_question_2_id: survey_data_question2.id, data_label_1: 'Successful installation', data_label_2: 'Failed installations')
   data_combination.analyses.create(title: data_combination.title, description: data_combination.description, display_value: 'Pie chart')
 end
 

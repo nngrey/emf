@@ -188,18 +188,6 @@ ActiveRecord::Schema.define(version: 20170124042209) do
     t.index ["organization_id"], name: "index_programs_on_organization_id", using: :btree
   end
 
-  create_table "survey_questions", force: :cascade do |t|
-    t.text     "description"
-    t.string   "question_type"
-    t.boolean  "multiple_answers", default: false
-    t.integer  "survey_id"
-    t.integer  "data_question_id"
-    t.datetime "created_at",                       null: false
-    t.datetime "updated_at",                       null: false
-    t.index ["data_question_id"], name: "index_survey_questions_on_data_question_id", using: :btree
-    t.index ["survey_id"], name: "index_survey_questions_on_survey_id", using: :btree
-  end
-
   create_table "survey_responses", force: :cascade do |t|
     t.text     "input_value"
     t.integer  "survey_id"
@@ -244,8 +232,6 @@ ActiveRecord::Schema.define(version: 20170124042209) do
   add_foreign_key "outputs", "logic_models"
   add_foreign_key "performance_indicators", "evaluative_questions"
   add_foreign_key "programs", "organizations"
-  add_foreign_key "survey_questions", "data_questions"
-  add_foreign_key "survey_questions", "surveys"
   add_foreign_key "survey_responses", "data_questions"
   add_foreign_key "survey_responses", "surveys"
   add_foreign_key "survey_templates", "frameworks"

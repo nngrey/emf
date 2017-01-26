@@ -78,27 +78,28 @@ def seed_framework
   framework = program.create_framework
   survey_template = framework.survey_templates.create(name: 'Baseline survey')
 
-  indicator = PerformanceIndicator.create(description: 'percentage of people who agree with the problem', data_source: 'survey')
+  collection_date = CollectionDate.create(date: Date.today + 90)
+  indicator = PerformanceIndicator.create(description: 'percentage of people who agree with the problem', data_source: 'survey', collection_dates: [collection_date])
   eval_question = framework.evaluative_questions.create(category: 'appropriateness', description: 'To what degree does the community agree with the problem', performance_indicators: [indicator])
-  indicator = PerformanceIndicator.create(description: 'percentage of people who agree with the solution', data_source: 'observation')
+  indicator = PerformanceIndicator.create(description: 'percentage of people who agree with the solution', data_source: 'observation', collection_dates: [collection_date])
   eval_question = framework.evaluative_questions.create(category: 'appropriateness', description: 'To what degree does the community agree with the solution', performance_indicators: [indicator])
 
-  indicator = PerformanceIndicator.create(description: 'budget per beneficiary', data_source: 'survey')
+  indicator = PerformanceIndicator.create(description: 'budget per beneficiary', data_source: 'survey', collection_dates: [collection_date])
   eval_question = framework.evaluative_questions.create(category: 'efficiency', description: 'Was the funding used efficiently', performance_indicators: [indicator])
-  indicator2 = PerformanceIndicator.create(description: 'Number of filters installed', data_source: 'survey')
-  indicator3 = PerformanceIndicator.create(description: 'Number of filters working after 6 weeks', data_source: 'observation')
+  indicator2 = PerformanceIndicator.create(description: 'Number of filters installed', data_source: 'survey', collection_dates: [collection_date])
+  indicator3 = PerformanceIndicator.create(description: 'Number of filters working after 6 weeks', data_source: 'observation', collection_dates: [collection_date])
   eval_question = framework.evaluative_questions.create(category: 'efficiency', description: 'Were activities carried out on time and with the desire results', performance_indicators: [indicator3, indicator2])
 
-  indicator = PerformanceIndicator.create(description: 'percentage of people using the filters', data_source: 'survey')
-  indicator1 = PerformanceIndicator.create(description: 'percentage of people who understand the benefits of using filters', data_source: 'observation')
+  indicator = PerformanceIndicator.create(description: 'percentage of people using the filters', data_source: 'survey', collection_dates: [collection_date])
+  indicator1 = PerformanceIndicator.create(description: 'percentage of people who understand the benefits of using filters', data_source: 'observation', collection_dates: [collection_date])
   eval_question = framework.evaluative_questions.create(category: 'effectiveness', description: 'To what degree was the intervention adopted', performance_indicators: [indicator, indicator1])
 
-  indicator = PerformanceIndicator.create(description: 'reduction in diarrheal diseases', data_source: 'clinical record')
+  indicator = PerformanceIndicator.create(description: 'reduction in diarrheal diseases', data_source: 'clinical record', collection_dates: [collection_date])
   eval_question = framework.evaluative_questions.create(category: 'impact', description: 'Did the populations health improve', performance_indicators: [indicator])
-  indicator = PerformanceIndicator.create(description: 'reduction in missed school days', data_source: 'school record')
+  indicator = PerformanceIndicator.create(description: 'reduction in missed school days', data_source: 'school record', collection_dates: [collection_date])
   eval_question = framework.evaluative_questions.create(category: 'impact', description: 'Were children able to maintain daily schedule', performance_indicators: [indicator])
 
-  indicator = PerformanceIndicator.create(description: 'percentage of people who want to continue using the filters', data_source: 'survey')
+  indicator = PerformanceIndicator.create(description: 'percentage of people who want to continue using the filters', data_source: 'survey', collection_dates: [collection_date])
   eval_question = framework.evaluative_questions.create(category: 'impact', description: 'Does the population want to continue their new behaviors', performance_indicators: [indicator])
 
   data_question = survey_template.data_questions.create(description: 'Was a water filter installed?', question_type: 'Yes / No', display_value: 'Pie chart', survey_template_id: survey_template.id, performance_indicator_id: indicator2.id)
@@ -109,16 +110,16 @@ def seed_framework
   data_question2.options.create(description: 'No')
   20.times do
     survey = survey_template.surveys.create()
-    survey_data_question = survey.data_questions.create(description: data_question.description, question_type: data_question.question_type)
-    survey_data_question2 = survey.data_questions.create(description: data_question2.description, question_type: data_question2.question_type)
-    response = survey_data_question.survey_responses.create(input_value: ['Yes', 'Yes', 'Yes', 'No'].sample)
+    survey.data_questions.create(description: data_question.description, question_type: data_question.question_type)
+    survey.data_questions.create(description: data_question2.description, question_type: data_question2.question_type)
+    response = data_question.survey_responses.create(input_value: ['Yes', 'Yes', 'Yes', 'No'].sample, survey_id: survey.id)
     if response.input_value == 'No'
-      survey_data_question2.survey_responses.create(input_value: 'No')
+      data_question2.survey_responses.create(input_value: 'No', survey_id: survey.id)
     else
-      survey_data_question2.survey_responses.create(input_value: ['Yes', 'Yes', 'No'].sample)
+      data_question2.survey_responses.create(input_value: ['Yes', 'Yes', 'No'].sample, survey_id: survey.id)
     end
   end
-  data_combination = survey_template.data_combinations.create(title: 'Sucessful Filter Implementation', description: 'Filter was installed and functioned correctly.', category: 'efficiency', criterion_1: data_question.options.first.id, criterion_2: data_question2.options.first.id, data_question_1_id: survey_data_question.id, data_question_2_id: survey_data_question2.id, data_label_1: 'Successful installation', data_label_2: 'Failed installations')
+  data_combination = survey_template.data_combinations.create(title: 'Sucessful Filter Implementation', description: 'Filter was installed and functioned correctly.', category: 'efficiency', criterion_1: data_question.options.first.id, criterion_2: data_question2.options.first.id, data_question_1_id: data_question.id, data_question_2_id: data_question2.id, data_label_1: 'Successful installation', data_label_2: 'Failed installations')
   data_combination.analyses.create(title: data_combination.title, description: data_combination.description, display_value: 'Pie chart')
 end
 

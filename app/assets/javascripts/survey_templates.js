@@ -78,7 +78,6 @@ $(document).on('turbolinks:load', function(){
     });
   });
 
-
   $('.display_format').change(function() {
     var selected = $(this).val();
     var id = $(this).data("id");

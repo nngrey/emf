@@ -15,5 +15,6 @@
         .links
           %p= link_to_add_association "<button, id='add-question-button' class='btn btn-success btn-xs'>Add another option</button>".html_safe, f, :options
 
-  .pull-left= f.action :submit, label: 'Add another question', status: 'continue', :button_html => { :class => 'btn btn-success' }
-  .pull-right= f.action :submit, label: 'Finish', status: 'complete', :button_html => { :class => 'btn btn-default' }, data: { confirm: 'Are you done?' }
+  / .pull-left= f.action :submit, label: 'Add another question', status: 'continue', :button_html => { :class => 'btn btn-success' }
+  / .pull-right= f.action :submit, label: 'Finish', status: 'complete', :button_html => { :class => 'btn btn-default' }, data: { confirm: 'Are you done?' }
+  .pull-left= f.action :submit, label: 'Continue', status: 'continue', :button_html => { :class => 'btn btn-success' }

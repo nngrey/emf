@@ -1,11 +1,13 @@
 .div{:style => "margin-top: 30px"}
 
   .panel.panel-default{:style => "width: 100%"}
+    .panel-heading
+      %h3= @program.name
     .panel-body
-      %h3 The problem
-      Describe the problem you are solving.
-      %h3 The solution
-      Describe your proposed solution.
+      %h4 The problem
+      = @program.problem_description
+      %h4 The solution
+      = @program.solution_description
 
   - if @timeline_array.any?
     %h4 Timeline of activities

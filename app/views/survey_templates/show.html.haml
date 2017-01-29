@@ -18,7 +18,7 @@
       - @data_questions.each_with_index do |question|
         %li{:id => "question_#{question.id}"}
           = question.description
-          = link_to 'Edit', edit_data_question_path(question), class: "btn btn-default",  :data => {:confirm => "Editing a survey after it has been administered can affect your results."}
+          = link_to 'Edit', edit_data_question_path(question), class: "btn btn-default btn-sm",  :data => {:confirm => "Editing a survey after it has been administered can affect your results."}
           %ul
             - question.options.each do |option|
               %li

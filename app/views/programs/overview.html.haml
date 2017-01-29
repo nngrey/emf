@@ -5,13 +5,13 @@
       %li.active{:role => "presentation"}
         %a{"aria-controls" => "details", "data-toggle" => "tab", :href => "#details", :role => "tab"} Program Overview
       %li{:role => "presentation"}
-        %a{"aria-controls" => "results", "data-toggle" => "tab", :href => "#results", :role => "tab"} Program results
+        %a{"aria-controls" => "results", "data-toggle" => "tab", "data-target" => "#results", :role => "tab"} Program results
       %li{:role => "presentation"}
-        %a{"aria-controls" => "logic-model", "data-toggle" => "tab", :href => "#logic-model", :role => "tab"} Logic Model
+        %a{"aria-controls" => "logic-model", "data-toggle" => "tab", "data-target" => "#logic-model", :role => "tab"} Logic Model
       %li{:role => "presentation"}
-        %a{"aria-controls" => "framework", "data-toggle" => "tab", :href => "#framework", :role => "tab"} Evaluative Framework
+        %a{"aria-controls" => "framework", "data-toggle" => "tab", "data-target" => "#framework", :role => "tab"} Evaluative Framework
       %li{:role => "presentation"}
-        %a{"aria-controls" => "templates", "data-toggle" => "tab", :href => "#templates", :role => "tab"} Survey Templates
+        %a{"aria-controls" => "templates", "data-toggle" => "tab", "data-target" => "#templates", :role => "tab"} Survey Templates
 
     / Tab panes
     .tab-content
@@ -25,3 +25,5 @@
         = render partial: 'framework'
       #templates.tab-pane{:role => "tabpanel"}
         = render partial: 'templates'
+
+

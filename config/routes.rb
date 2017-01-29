@@ -18,13 +18,13 @@ Rails.application.routes.draw do
   get 'performance_indicators/dashboard' => "performance_indicators#dashboard"
 
   resources :survey_templates, only: [:edit, :update, :show] do
-    resources :data_questions, except: [:edit]
+    resources :data_questions, only: [:new, :create]
     resources :data_combinations
     resources :surveys, only: [:new, :create, :show, :edit, :update]
     get 'results', on: :member
   end
 
-  resources :data_questions, only: [:edit, :update] do
+  resources :data_questions, only: [:show, :edit, :update] do
     post 'sort', on: :collection
   end
 

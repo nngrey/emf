@@ -2,6 +2,8 @@
   %h3 Add a program
   = semantic_form_for [@organization, @program] do |f|
     = f.input :name, :label => 'Program name'
+    = f.input :problem_description, label: "Problem", hint: "Describe the problem you are addressing.", :input_html => { :rows => 3 }
+    = f.input :solution_description, label: "Solution", hint: "Describe the solution you are implementing.", :input_html => { :rows => 3 }
     = f.semantic_fields_for :budgets do |budget|
       = budget.inputs do
         = budget.input :name, :as => :hidden, :input_html => { :value => "Actual" }

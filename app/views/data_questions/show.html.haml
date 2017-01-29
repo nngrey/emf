@@ -1,0 +1,16 @@
+.container
+  %dl.dl-horizontal
+    %dt Question
+    %dd= @data_question.description
+    %dt Options
+    %dd
+      %ul{:style => "padding-left: 20px"}
+        - @data_question.options.each do |option|
+          %li= option.description
+    %dt Question type
+    %dd= @data_question.question_type
+    - if @data_question.performance_indicator.present?
+      %dt Associated with indicator
+      %dd= @data_question.performance_indicator.description
+  .pull-left= link_to "Add another question", new_survey_template_data_question_path(@data_question.survey_template), {class: 'btn btn-success'}
+  .pull-right= link_to "Done", survey_template_path(@data_question.survey_template), {class: 'btn btn-default'}

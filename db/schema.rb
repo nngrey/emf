@@ -180,11 +180,13 @@ ActiveRecord::Schema.define(version: 20170124042209) do
 
   create_table "programs", force: :cascade do |t|
     t.string   "name"
+    t.text     "problem_description"
+    t.text     "solution_description"
     t.string   "start_date"
     t.string   "end_date"
     t.integer  "organization_id"
-    t.datetime "created_at",      null: false
-    t.datetime "updated_at",      null: false
+    t.datetime "created_at",           null: false
+    t.datetime "updated_at",           null: false
     t.index ["organization_id"], name: "index_programs_on_organization_id", using: :btree
   end
 

@@ -4,6 +4,8 @@ def seed_framework
   organization = Organization.create(name: 'Communidad Connect')
   program = organization.programs.create(
     name: "NicaAgua",
+    problem_description: "Clean, accessible water for all is an essential part of the world we want to live in. There is sufficient fresh water on the planet to achieve this. But due to bad economics or poor infrastructure, every year millions of people, most of them children, die from diseases associated with inadequate water supply, sanitation and hygiene. Water scarcity, poor water quality and inadequate sanitation negatively impact food security, livelihood choices and educational opportunities for poor families across the world. Drought afflicts some of the world’s poorest countries, worsening hunger and malnutrition. By 2050, at least one in four people is likely to live in a country affected by chronic or recurring shortages of fresh water.",
+    solution_description: "Currently available filters and treatment methods based on heat, the sun or chlorine are costly, inaccessible or ineffective. Our team has developed a ceramic filter made from a clay-and-sawdust mixture to remove pathogenic bacteria from water. Baking the mixture burns off the sawdust, leaving behind tiny pores that block microbes. The clay filter we have developed eliminates water-borne diseases within weeks. We plan on replying this filter to families in several villages to test its efficacy.",
     start_date: "01/02/2017",
     end_date: "15/11/2017")
 

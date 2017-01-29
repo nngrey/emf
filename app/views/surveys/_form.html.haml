@@ -1,5 +1,9 @@
 = semantic_form_for [@survey_template, @survey] do |f|
   - @survey_template.data_questions.each do |data_question|
-    = f.semantic_fields_for :data_questions, data_question do |data_question|
-      = render 'survey_questions_fields', f: data_question, question: data_question.object
+    = f.semantic_fields_for :data_questions, data_question do |question|
+      = question.inputs do
+        = data_question.description
+        = question.semantic_fields_for :survey_responses do |survey_response|
+          = render 'survey_responses_fields', f: survey_response, question: data_question
+
   = f.action :submit, label: "Submit", :button_html => { :class => 'btn btn-success' }

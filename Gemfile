@@ -21,6 +21,7 @@ gem 'formtastic-bootstrap'
 gem "cocoon"
 gem 'bootstrap-datepicker-rails'
 gem "highcharts-rails"
+gem 'bootswatch-rails'
 
 group :test, :development do
   gem 'ffaker'

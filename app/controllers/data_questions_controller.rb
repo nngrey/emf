@@ -9,13 +9,14 @@ class DataQuestionsController < ApplicationController
   def create
     @survey_template = SurveyTemplate.find(params[:survey_template_id])
     @data_question = @survey_template.data_questions.new(data_question_params)
-    if @data_question.save && (params['commit'] == "Add another question")
+    if @data_question.save #&& (params['commit'] == "Add another question")
       @data_question.build_options
-      redirect_to new_survey_template_data_question_path(@survey_template)
-    elsif params['commit'] == "Finish"
-      @data_question.save
-      @data_question.build_options
-      redirect_to survey_template_path(@survey_template)
+      redirect_to data_question_path(@data_question)
+    #   redirect_to new_survey_template_data_question_path(@survey_template)
+    # elsif params['commit'] == "Finish"
+    #   @data_question.save
+    #   @data_question.build_options
+    #   redirect_to survey_template_path(@survey_template)
     else
       @evaluative_questions = @survey_template.framework.evaluative_questions
       render "new"
@@ -47,6 +48,12 @@ class DataQuestionsController < ApplicationController
       @evaluative_questions = @survey_template.framework.evaluative_questions
       render 'edit'
     end
+  end
+
+  def show
+    @data_question = DataQuestion.find(params[:id])
+
+    @options
   end
 
   def sort

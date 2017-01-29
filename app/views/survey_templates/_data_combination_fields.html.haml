@@ -1,16 +1,16 @@
-.nested-fields
-  = f.inputs do
-    = f.input :title
-    = f.input :description, label: 'Analysis decription', hint: 'For example: This analysis will return a positive response if the answer to question 3 is "Yes" and the anser to question 6 is "True".', :input_html => { :rows => 3, :id => 'new_question' }
-    = f.input :blah, :as => :hidden, :input_html => { :id => "blah", :value => @survey_template.data_questions.pluck(:id)}
-    = f.input :data_question_1_id, label: 'Select first question', :as => :select, :collection => @survey_template.data_questions.pluck(:description, :id), :input_html => { :id => "bar" }
-    %span.options1#label1 Select option
-    - @survey_template.data_questions.each do |question|
-      = f.input :criterion_1, label: false, :as => :select, :collection => question.options.pluck(:description, :id), :input_html => { :class => "options1", :id => "options1_for_#{question.id}" }
-    = f.input :data_question_2_id, label: 'Select second question', :as => :select, :collection => @survey_template.data_questions.pluck(:description, :id), :input_html => { :id => "baz" }
-    %span.options2#label2 Select option
-    - @survey_template.data_questions.each do |question|
-      = f.input :criterion_2, label: false, :as => :select, :collection => question.options.pluck(:description, :id), :input_html => { :class => "options2", :id => "options2_for_#{question.id}"}
-    = f.input :data_label_1
-    = f.input :data_label_2
+/ .nested-fields
+/   = f.inputs do
+/     = f.input :title
+/     = f.input :description, label: 'Analysis decription', hint: 'For example: This analysis will return a positive response if the answer to question 3 is "Yes" and the anser to question 6 is "True".', :input_html => { :rows => 3, :id => 'new_question' }
+/     = f.input :blah, :as => :hidden, :input_html => { :id => "blah", :value => @survey_template.data_questions.pluck(:id)}
+/     = f.input :data_question_1_id, label: 'Select first question', :as => :select, :collection => @survey_template.data_questions.pluck(:description, :id), :input_html => { :id => "bar" }
+/     %span.options1#label1 Select option
+/     - @survey_template.data_questions.each do |question|
+/       = f.input :criterion_1, label: false, :as => :select, :collection => question.options.pluck(:description, :id), :input_html => { :class => "options1", :id => "options1_for_#{question.id}" }
+/     = f.input :data_question_2_id, label: 'Select second question', :as => :select, :collection => @survey_template.data_questions.pluck(:description, :id), :input_html => { :id => "baz" }
+/     %span.options2#label2 Select option
+/     - @survey_template.data_questions.each do |question|
+/       = f.input :criterion_2, label: false, :as => :select, :collection => question.options.pluck(:description, :id), :input_html => { :class => "options2", :id => "options2_for_#{question.id}"}
+/     = f.input :data_label_1
+/     = f.input :data_label_2
 

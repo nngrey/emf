@@ -5,13 +5,6 @@ class SurveysController < ApplicationController
   def new
     @survey_template = SurveyTemplate.find(params[:survey_template_id])
     @survey = @survey_template.surveys.build
-    # @survey_template.data_questions.each do |question|
-    #   binding.pry
-    #   @survey.data_questions.build(description: question.description, question_type: question.question_type, multiple_answers: question.multiple_answers)
-    # end
-    # @survey.data_questions.each do |question|
-    #   question.survey_responses.build
-    # end
   end
 
   def create

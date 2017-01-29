@@ -1,4 +1,4 @@
-= semantic_form_for [@survey_template, @data_question] do |f|
+= semantic_form_for [@data_question] do |f|
   = f.inputs do
     %h3 Add a question
     = f.input :performance_indicator, :as => :select, :collection => option_groups_from_collection_for_select(@evaluative_questions, :performance_indicators, :description, :id, :description, @performance_indicator_id), :include_blank => "Not associated"

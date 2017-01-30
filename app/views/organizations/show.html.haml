@@ -12,9 +12,9 @@
                 .col-sm-4
                   %h4= link_to program.name, overview_program_path(program)
 
-                .col-sm-2
+                .col-sm-offset-4.col-sm-2
                   .dropdown
-                    %button#dropdownMenu1.btn.btn-success.dropdown-toggle{"aria-expanded" => "true", "aria-haspopup" => "true", "data-toggle" => "dropdown", :type => "button"}
+                    %button#dropdownMenu1.btn.btn-success.btn-sm.dropdown-toggle{"aria-expanded" => "true", "aria-haspopup" => "true", "data-toggle" => "dropdown", :type => "button"}
                       Actions
                       %span.caret
                     %ul.dropdown-menu{"aria-labelledby" => "dropdownMenu1"}

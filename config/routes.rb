@@ -1,4 +1,5 @@
 Rails.application.routes.draw do
+  devise_for :users
   # get 'dashboard/home'
 
   root 'home#home'
@@ -7,7 +8,7 @@ Rails.application.routes.draw do
 
   get 'survey_templates' => 'survey_templates#index'
 
-  get 'results_index' => 'survey_templates#results_index'
+  # get 'results_index' => 'survey_templates#results_index'
 
   resources :organizations, only: [:new, :create, :show] do
     resources :programs, only: [:new, :create]
@@ -34,7 +35,7 @@ Rails.application.routes.draw do
     get 'dashboard', on: :member
   end
 
-  resources :programs, only: [:show] do
+  resources :programs, only: [:show, :edit, :update] do
     resources :logic_models, only: [:new, :create]
     get 'overview', on: :member
   end

@@ -23,8 +23,8 @@ class SurveyTemplatesController < ApplicationController
   end
 
   def index
-    framework = Framework.find(params[:framework_id])
-    @survey_templates = framework.survey_templates
+    @framework = Framework.find(params[:framework_id])
+    @survey_templates = @framework.survey_templates
   end
 
   def results_index

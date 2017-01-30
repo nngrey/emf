@@ -12,6 +12,10 @@ $(document).on('turbolinks:load', function(){
     toggleFields();
   });
 
+  $(".alert").delay(4000).slideUp(200, function() {
+      $(this).alert('close');
+  });
+
   $('#foo').change(function() {
     if ($(this).val() === 'Yes') {
       $('#performance-indicators').show();

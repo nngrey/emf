@@ -22,6 +22,7 @@ gem "cocoon"
 gem 'bootstrap-datepicker-rails'
 gem "highcharts-rails"
 gem 'bootswatch-rails'
+gem 'devise'
 
 group :test, :development do
   gem 'ffaker'
@@ -36,6 +37,7 @@ group :development do
   gem "binding_of_caller"
   gem 'web-console', '~> 2.0'
   gem 'spring'
+  gem "letter_opener"
 end
 
 group :test do

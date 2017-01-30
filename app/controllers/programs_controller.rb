@@ -19,6 +19,19 @@ class ProgramsController < ApplicationController
     end
   end
 
+  def edit
+    @program = Program.find(params[:id])
+  end
+
+  def update
+    @program = Program.find(params[:id])
+    if @program.update(program_params)
+      redirect_to overview_program_path(@program)
+    else
+      render edit
+    end
+  end
+
   def show
     @categories = ['appropriateness', 'efficiency', 'effectiveness', 'impact', 'sustainability']
     @program = Program.find(params[:id])

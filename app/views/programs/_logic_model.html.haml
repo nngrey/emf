@@ -1,6 +1,21 @@
 - if @logic_model.present?
   .container
-    %h4= "Logic model for #{ @logic_model.program.name }"
+    .dropdown
+      .row{:style => "margin-bottom: 10px"}
+        .col-sm-4
+          %h3 Logic model
+        .col-sm-offset-6.col-sm-2
+          %button#dropdownMenu1.btn.btn-success.dropdown-toggle{"aria-expanded" => "true", "aria-haspopup" => "true", "data-toggle" => "dropdown", :type => "button"}
+            Actions
+            %span.caret
+          %ul.dropdown-menu{"aria-labelledby" => "dropdownMenu1"}
+            - if @program.logic_model.blank?
+              %li
+                %a{:href => new_program_logic_model_path(@program)} Create logic model
+            - else
+              %li
+                %a{:href => logic_model_path(@program.logic_model)} Edit logic model
+
     .table-responsive
       %table.table.table-bordered
         %thead

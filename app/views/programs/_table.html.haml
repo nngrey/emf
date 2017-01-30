@@ -7,7 +7,6 @@
         %th Performance indicators
         %th Data source
         %th Collection dates
-        %th{:style => "border: 0"}
       %tbody
         - @categories.each do |category|
           - if @evaluative_questions.send(category).any?
@@ -24,8 +23,6 @@
                 = @evaluative_questions.send(category).first.performance_indicators.first.data_source
               %td
                 = @evaluative_questions.send(category).first.performance_indicators.first.collection_dates.map{|d| d.date}.join(', ')
-              %td{:style => "border: 0"}
-                = link_to 'Edit', edit_evaluative_question_path(@evaluative_questions.send(category).first), class: "btn btn-default btn-xs"
                 - @evaluative_questions.send(category).first.performance_indicators.drop(1).each do |performance_indicator|
                   %tr
                     %td= performance_indicator.description
@@ -43,8 +40,6 @@
                   = question.performance_indicators.first.data_source
                 %td
                   = question.performance_indicators.first.collection_dates.map{|d| d.date}.join(', ')
-                %td{:style => "border: 0"}
-                  = link_to 'Edit', edit_evaluative_question_path(question), class: "btn btn-default btn-xs"
                 - question.performance_indicators.drop(1).each do |performance_indicator|
                   %tr
                     %td= performance_indicator.description

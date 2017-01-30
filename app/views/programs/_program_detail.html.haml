@@ -1,12 +1,24 @@
-.div{:style => "margin-top: 30px"}
+.container
+  .dropdown
+    .row{:style => "margin-bottom: 10px"}
+      .col-sm-2
+        %h3= @program.name
+      .col-sm-offset-8.col-sm-2
+        %button#dropdownMenu1.btn.btn-success.dropdown-toggle.btn-md{"aria-expanded" => "true", "aria-haspopup" => "true", "data-toggle" => "dropdown", :type => "button"}
+          Actions
+          %span.caret
+        %ul.dropdown-menu{"aria-labelledby" => "dropdownMenu1"}
+          %li
+            %a{:href => edit_program_path(@program)} Edit program
 
   .panel.panel-default{:style => "width: 100%"}
     .panel-heading
-      %h3= @program.name
+      %h4 Description
     .panel-body
       %h4 The problem
       = @program.problem_description
-      %h4 The solution
+
+      %h4{style: "margin-top: 20px"} The solution
       = @program.solution_description
 
   - if @timeline_array.any?
@@ -16,3 +28,4 @@
   - if @budget_array
     %h4 Actual budget vs average budget (cumulative)
     = line_chart @budget_array
+

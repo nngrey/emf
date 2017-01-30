@@ -1,6 +1,21 @@
 .container
   - if @evaluative_questions.any?
-    %h2= "Evaluative framework for #{@framework.program.name}"
+    .dropdown
+      .row{:style => "margin-bottom: 10px"}
+        .col-sm-4
+          %h3 Evaluative framework
+        .col-sm-offset-6.col-sm-2
+          %button#dropdownMenu1.btn.btn-success.dropdown-toggle{"aria-expanded" => "true", "aria-haspopup" => "true", "data-toggle" => "dropdown", :type => "button"}
+            Actions
+            %span.caret
+          %ul.dropdown-menu{"aria-labelledby" => "dropdownMenu1"}
+            - if @program.framework.evaluative_questions.blank? && @program.logic_model.present?
+              %li
+                %a{:href => new_framework_evaluative_question_path(@program.framework)} Create Framework
+            - if @program.framework.evaluative_questions.any? && @program.logic_model.present?
+              %li
+                %a{:href => framework_path(@program.framework)} Edit framework
+
     = render partial: 'table'
   - else
     %p This is where the evaluative framework will appear after it has been built.

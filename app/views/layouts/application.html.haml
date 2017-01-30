@@ -7,7 +7,7 @@
     = javascript_include_tag 'application', 'data-turbolinks-track' => true
     = csrf_meta_tags
   %body
-    %nav.navbar.navbar-default
+    %nav.navbar.navbar-default{:style => "margin-bottom: 10px"}
       .container-fluid{:style => "padding-left: 40px"}
         .navbar-header
           %button.navbar-toggle.collapsed{"aria-expanded" => "false", "data-target" => "#bs-example-navbar-collapse-1", "data-toggle" => "collapse", :type => "button"}
@@ -27,4 +27,13 @@
                 %li
                   %a{:href => overview_program_path(program)}
                     = program.name.titleize
+          %ul.nav.navbar-nav.navbar-right
+            - if user_signed_in?
+              %li= link_to current_user.email, '#'
+              %li
+                =link_to "Logout", destroy_user_session_path, method: :delete
+            - else
+              %li
+                %a{:href => user_session_path} Login
+    = render partial: "shared/flash_messages", flash: flash
     = yield

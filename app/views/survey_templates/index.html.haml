@@ -1,0 +1,27 @@
+.container
+  %h3 Survey templates
+  - if @survey_templates.any?
+    .panel.panel-default{:style => "width: 100%"}
+      .panel-heading
+        %h3.panel-title
+      .panel-body
+        .row
+          .col-sm-12
+            - @survey_templates.each do |template|
+              .row
+                .col-sm-4
+                  %h4= link_to template.name, survey_template_path(template)
+
+                .col-sm-2
+                  .dropdown
+                    %button#dropdownMenu1.btn.btn-success.btn-sm.dropdown-toggle{"aria-expanded" => "true", "aria-haspopup" => "true", "data-toggle" => "dropdown", :type => "button"}
+                      Actions
+                      %span.caret
+                    %ul.dropdown-menu{"aria-labelledby" => "dropdownMenu1"}
+                      %li
+                        %a{:href => survey_template_path(template)} View survey template
+                      %li
+                        %a{:href => new_survey_template_survey_path(template)} Administer survey
+                      %li
+                        %a{:href => results_survey_template_path(template)} View survey results
+    .div{:style => "margin-top: 20px"}= link_to "New survey template", new_framework_survey_template_path(@framework), class: "btn btn-default"

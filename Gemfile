@@ -23,6 +23,7 @@ gem 'bootstrap-datepicker-rails'
 gem "highcharts-rails"
 gem 'bootswatch-rails'
 gem 'devise'
+gem 'devise-bootstrap-views'
 
 group :test, :development do
   gem 'ffaker'

@@ -1,5 +1,6 @@
 class Organization < ApplicationRecord
   has_many :programs, inverse_of: :organization
+  belongs_to :user
 
   validates :name, presence: true
 

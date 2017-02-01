@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170129235606) do
+ActiveRecord::Schema.define(version: 20170201035949) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -150,6 +150,8 @@ ActiveRecord::Schema.define(version: 20170129235606) do
     t.string   "name"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.integer  "user_id"
+    t.index ["user_id"], name: "index_organizations_on_user_id", using: :btree
   end
 
   create_table "outcomes", force: :cascade do |t|
@@ -251,6 +253,7 @@ ActiveRecord::Schema.define(version: 20170129235606) do
   add_foreign_key "logic_model_inputs", "logic_models"
   add_foreign_key "logic_models", "programs"
   add_foreign_key "options", "data_questions"
+  add_foreign_key "organizations", "users"
   add_foreign_key "outcomes", "logic_models"
   add_foreign_key "outputs", "logic_models"
   add_foreign_key "performance_indicators", "evaluative_questions"

@@ -1,23 +1,31 @@
 .container
-  - @survey.data_questions.each do |question|
-    %p
-      = question.description
-    %ul
-      - response = @responses.find_by(data_question_id: question.id)
-      - if valid_json? response.input_value
-        - JSON.parse(response.input_value).each do |value|
-          %li= value
-      - else
-        %li= response.input_value
-  .dropdown
-    %button#dropdownMenu1.btn.btn-success.dropdown-toggle{"aria-expanded" => "true", "aria-haspopup" => "true", "data-toggle" => "dropdown", :type => "button"}
-      Actions
-      %span.caret
-    %ul.dropdown-menu{"aria-labelledby" => "dropdownMenu1"}
-      %li
-        %a{:href => new_survey_template_survey_path(@survey.survey_template)} Administer this survey
-      %li
-        %a{:href => results_survey_template_path(@survey.survey_template)} View survey results
+  .row
+    .col-sm-4
+      %h2 Survey response
+    .col-sm-offset-6.col-sm-2
+      .dropdown{:style => "margin-top: 25px"}
+        %button#dropdownMenu1.btn.btn-success.dropdown-toggle{"aria-expanded" => "true", "aria-haspopup" => "true", "data-toggle" => "dropdown", :type => "button"}
+          Actions
+          %span.caret
+        %ul.dropdown-menu{"aria-labelledby" => "dropdownMenu1"}
+          %li
+            %a{:href => new_survey_template_survey_path(@survey.survey_template)} Administer this survey
+          %li
+            %a{:href => results_survey_template_path(@survey.survey_template)} View survey results
+  .panel.panel-default{:style => "width: 80%; margin-top: 25px"}
+    .panel-heading
+      = "Survey number #{@survey_template.surveys.count}"
+    .panel-body
+      - @survey.data_questions.each do |question|
+        %p
+          = question.description
+        %ul
+          - response = @responses.find_by(data_question_id: question.id)
+          - if valid_json? response.input_value
+            - JSON.parse(response.input_value).each do |value|
+              %li= value
+          - else
+            %li= response.input_value
 
   / TODO Not sure if we want to allow surveys to be edited
   / = link_to "Edit", edit_survey_template_survey_path(@survey_template, @survey), :class => "btn btn-default btn-xs"

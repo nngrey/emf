@@ -1,5 +1,7 @@
 .container
-  %h4= "Logic model for #{ @logic_model.program.name }"
+  .row
+    .col-sm-4
+      %h2 Edit logic model
   .table-responsive
     %table.table.table-bordered
       %thead
@@ -18,7 +20,7 @@
             .pull-right= link_to 'add/edit', edit_outcomes_logic_model_path(@logic_model)
           %th
             Impacts
-            .pull-right= link_to 'add/sedit', edit_impacts_logic_model_path(@logic_model)
+            .pull-right= link_to 'add/edit', edit_impacts_logic_model_path(@logic_model)
       %tbody
         %tr
           %td

@@ -65,6 +65,24 @@ class EvaluativeQuestionsController < ApplicationController
       redirect_to framework_path(@evaluative_question.framework)
     else
       @category = @evaluative_question.category
+      @date_errors = []
+      if @evaluative_question.errors["performance_indicators.collection_dates"].any?
+        @date_errors = @evaluative_question.errors["performance_indicators.collection_dates"]
+      end
+      if @evaluative_question.performance_indicators.blank?
+        performance_indicator = @evaluative_question.performance_indicators.build
+        performance_indicator.collection_dates.build
+      else
+        @evaluative_question.performance_indicators.each do |indicator|
+          if indicator.collection_dates.blank?
+            indicator.collection_dates.build
+          end
+        end
+      end
+      @date_errors = []
+      if @evaluative_question.errors["performance_indicators.collection_dates"].any?
+        @date_errors = @evaluative_question.errors["performance_indicators.collection_dates"]
+      end
       render 'edit'
     end
   end

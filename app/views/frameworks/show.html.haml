@@ -1,6 +1,6 @@
 .container
   - if @evaluative_questions.any?
-    %h2= "Evaluative framework for #{@framework.program.name}"
+    %h2 Edit evaluative framework
     = render partial: 'table'
   - else
     %p This is where the evaluative framework will appear after it has been built.

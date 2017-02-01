@@ -1,16 +1,21 @@
 .container
-  %dl.dl-horizontal
-    %dt Question
-    %dd= @data_question.description
-    %dt Options
-    %dd
+  .row
+    .col-sm-4
+      %h2 Survey question
+  .panel.panel-default{:style => "width: 80%; margin-top: 25px"}
+    .panel-heading
+      = "Question number #{@data_questions ? @data_questions.count + 1 : 1}"
+    .panel-body
+      = @data_question.description
       %ul{:style => "padding-left: 20px"}
         - @data_question.options.each do |option|
           %li= option.description
-    %dt Question type
-    %dd= @data_question.question_type
-    - if @data_question.performance_indicator.present?
-      %dt Associated with indicator
-      %dd= @data_question.performance_indicator.description
+      %p
+        Question type:
+        = @data_question.question_type
+      - if @data_question.performance_indicator.present?
+        %p
+          Associated with indicator
+          = @data_question.performance_indicator.description
   .pull-left= link_to "Add another question", new_survey_template_data_question_path(@data_question.survey_template), {class: 'btn btn-success'}
   .pull-right= link_to "Done", survey_template_path(@data_question.survey_template), {class: 'btn btn-default'}

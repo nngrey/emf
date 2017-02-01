@@ -1,6 +1,8 @@
 #survey-questions
   = semantic_form_for [@framework, @survey_template] do |f|
-    = f.input :name, label: "Survey title"
+    .row
+      .col-sm-8
+        = f.input :name, label: "Survey title"
     = f.semantic_fields_for :data_questions do |data_question|
       = data_question.inputs do
         %h3 Add a question
@@ -12,4 +14,6 @@
               = render 'option_fields', f: option
             .links
               %p= link_to_add_association "<button, id='add-question-button' class='btn btn-success btn-xs'>Add another option</button>".html_safe, data_question, :options
-    / .pull-right= f.action :submit, label: 'Continue', status: 'continue', :button_html => { :class => 'btn btn-success' }
+    .row
+      .col-sm-offset-6.col-sm-2
+        .pull-right= f.action :submit, label: 'Continue', status: 'continue', :button_html => { :class => 'btn btn-success' }

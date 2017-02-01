@@ -1,76 +1,87 @@
 .container
-  %h2 Results
-  / = link_to 'Add advanced analysis', edit_survey_template_path(@survey_template)
-  = link_to 'Add advanced analysis', new_survey_template_data_combination_path(@survey_template)
-
-  .row
-    .col-sm-4
-      %h4 Response totals
-    .col-sm-4
-      %h4 View as pie chart
-    .col-sm-4
-      %h4 View as bar chart
-  %br
-  %ol
-    - @survey_template.data_questions.each do |question|
-      - data_hash = {}
-      .row
-        .col-sm-4
+  .dropdown
+    .row{:style => "margin-top: 25px"}
+      .col-sm-4
+        %h3 Results
+      .col-sm-offset-6.col-sm-2
+        %button#dropdownMenu1.btn.btn-success.dropdown-toggle{"aria-expanded" => "true", "aria-haspopup" => "true", "data-toggle" => "dropdown", :type => "button"}
+          Actions
+          %span.caret
+        %ul.dropdown-menu{"aria-labelledby" => "dropdownMenu1"}
           %li
-            = question.description
-            %ul
-              - question.options.each do |option|
-                %li
-                  = "#{option.description} - "
-                  - if question.multiple_answers && question.question_type == 'Multiple choice'
-                    - survey_response = SurveyResponse.multiple_response_total(question.id, option.description)
-                    - data_hash[option.description] = survey_response
-                    = survey_response
-                  - else
-                    - if ['Yes / No', 'True / False', 'Multiple choice'].include? question.question_type
-                      - survey_response = SurveyResponse.response_total(question.id, option.description)
-                      = survey_response
-                      - data_hash[option.description] = survey_response
-                    - else
-                      %ol
-                        - SurveyResponse.where(data_question_id: question.id).each do |answer|
-                          %li= answer.input_value
+            %a{:href => new_survey_template_data_combination_path(@survey_template)} Add advanced analysis
+  .panel.panel-default{:style => "width: 100%; margin-top: 25px"}
+    .panel-heading
+      .row{:style => "margin-top: 15px"}
+        .col-sm-3
+          %h4 Text
+        .col-sm-3
+          %h4 Pie chart
+        .col-sm-4
+          %h4 Bar chart
+        .col-sm-2
+          %h4 Display as:
+    .panel-body
+      %ol{:style => "padding-left: 10px"}
+        - @survey_template.data_questions.each do |question|
+          .row
+            .col-sm-3
+              - data_hash = {}
+              %li
+                = question.description
+                %ul
+                  - question.options.each do |option|
+                    %li
+                      = "#{option.description} - "
+                      - if question.multiple_answers && question.question_type == 'Multiple choice'
+                        - survey_response = SurveyResponse.multiple_response_total(question.id, option.description)
+                        - data_hash[option.description] = survey_response
+                        = survey_response
+                      - else
+                        - if ['Yes / No', 'True / False', 'Multiple choice'].include? question.question_type
+                          - survey_response = SurveyResponse.response_total(question.id, option.description)
+                          = survey_response
+                          - data_hash[option.description] = survey_response
+                        - else
+                          %ol
+                            - SurveyResponse.where(data_question_id: question.id).each do |answer|
+                              %li= answer.input_value
+            - if data_hash.any?
+              .col-sm-3
+                = pie_chart data_hash, width: "225px", height: "175px"
+              .col-sm-4
+                = bar_chart data_hash, width: "275px", height: "175px"
+            .col-sm-2
+              = semantic_form_for question do |f|
+                = f.input :display_value, :label => false, :as => :select, :collection => ['Do not display', 'Text', 'Pie chart', 'Bar chart'], :input_html => {:class => 'display_format', data: {id: question.id} }
           %br
-          = semantic_form_for question do |f|
-            = f.input :display_value, label: "Display on dashboard as:", :as => :select, :collection => ['Do not display', 'Text', 'Pie chart', 'Bar chart'], :input_html => {:class => 'display_format', data: {id: question.id} }
-
-        - if data_hash.any?
-          .col-sm-4
-            = pie_chart data_hash, width: "175px", height: "175px"
-          .col-sm-4
-            = bar_chart data_hash, width: "175px", height: "175px"
-
-  %br
   %h3 Advanced analyses
-  .row
-    .col-sm-4
-      %h4 Response totals
-    .col-sm-4
-      %h4 View as pie chart
-    .col-sm-4
-      %h4 View as bar chart
-  %br
-  %ul
-    - @analyses.each do |analysis|
+  .panel.panel-default{:style => "width: 100%; margin-top: 25px"}
+    .panel-heading
       .row
+        .col-sm-3
+          %h4 Text
+        .col-sm-3
+          %h4 Pie chart
         .col-sm-4
-          %h4= analysis.title
-          %p= analysis.description
-          .container
-            - data_hash = analysis.build_data_hash
-            - data_hash.each do |key, value|
-              %li= "#{key}: #{value}"
-          %br
-          = semantic_form_for analysis do |f|
-            = f.input :display_value, label: "Display on dashboard as:", :as => :select, :collection => ['Do not display', 'Text', 'Pie chart', 'Bar chart'], :input_html => {:class => 'analysis_display_format', data: {id: analysis.id} }
-
-        .col-sm-4
-          = pie_chart data_hash, width: "175px", height: "175px"
-        .col-sm-4
-          = bar_chart data_hash, width: "175px", height: "175px"
-      %hr
+          %h4 Bar chart
+        .col-sm-2
+          %h4 Display as:
+    .panel-body
+      %ul{:style => "padding-left: 0px"}
+        - @analyses.each do |analysis|
+          .row
+            .col-sm-3
+              %h4= analysis.title
+              .help-block= analysis.description
+              .container
+                - data_hash = analysis.build_data_hash
+                - data_hash.each do |key, value|
+                  %li= "#{key}: #{value}"
+            .col-sm-3
+              = pie_chart data_hash, width: "175px", height: "175px"
+            .col-sm-4
+              = bar_chart data_hash, width: "275px", height: "175px"
+            .col-sm-2
+              = semantic_form_for analysis do |f|
+                = f.input :display_value, label: false, :as => :select, :collection => ['Do not display', 'Text', 'Pie chart', 'Bar chart'], :input_html => {:class => 'analysis_display_format', data: {id: analysis.id} }

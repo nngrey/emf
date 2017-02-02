@@ -24,6 +24,8 @@ gem "highcharts-rails"
 gem 'bootswatch-rails'
 gem 'devise'
 gem 'devise-bootstrap-views'
+gem 'cancancan'
+gem 'devise_invitable', '~> 1.7.0'
 
 group :test, :development do
   gem 'ffaker'

@@ -2,6 +2,13 @@ require 'ffaker'
 
 def seed_framework
   organization = Organization.create(name: 'Communidad Connect')
+  admin = User.new(email: 'admin@abc.org', role: 'admin', password: "password", password_confirmation: "password", organization: organization)
+  admin.skip_confirmation!
+  admin.save!
+  volunteer = User.new(email: 'vol@abc.org', role: '', password: "password", password_confirmation: "password", organization: organization)
+  volunteer.skip_confirmation!
+  volunteer.save!
+
   program = organization.programs.create(
     name: "NicaAgua",
     problem_description: "Clean, accessible water for all is an essential part of the world we want to live in. There is sufficient fresh water on the planet to achieve this. But due to bad economics or poor infrastructure, every year millions of people, most of them children, die from diseases associated with inadequate water supply, sanitation and hygiene. Water scarcity, poor water quality and inadequate sanitation negatively impact food security, livelihood choices and educational opportunities for poor families across the world. Drought afflicts some of the world’s poorest countries, worsening hunger and malnutrition. By 2050, at least one in four people is likely to live in a country affected by chronic or recurring shortages of fresh water.",

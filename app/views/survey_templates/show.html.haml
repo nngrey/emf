@@ -2,33 +2,38 @@
   .row
     .col-sm-4
       %h2= "Survey: #{@survey_template.name}"
-    .col-sm-offset-6.col-sm-2
-      .dropdown{:style => "margin-top: 25px"}
-        %button#dropdownMenu1.btn.btn-success.dropdown-toggle{"aria-expanded" => "true", "aria-haspopup" => "true", "data-toggle" => "dropdown", :type => "button"}
-          Actions
-          %span.caret
-        %ul.dropdown-menu{"aria-labelledby" => "dropdownMenu1"}
-          %li
-            %a{:href => new_survey_template_survey_path(@survey_template)} Administer this survey
-          %li
-            %a{:href => results_survey_template_path(@survey_template)} View survey results
+    - if can? :update, @survey_template
+      .col-sm-offset-6.col-sm-2
+        .dropdown{:style => "margin-top: 25px"}
+          %button#dropdownMenu1.btn.btn-success.dropdown-toggle{"aria-expanded" => "true", "aria-haspopup" => "true", "data-toggle" => "dropdown", :type => "button"}
+            Actions
+            %span.caret
+          %ul.dropdown-menu{"aria-labelledby" => "dropdownMenu1"}
+            %li
+              %a{:href => new_survey_template_survey_path(@survey_template)} Administer this survey
+            %li
+              %a{:href => results_survey_template_path(@survey_template)} View survey results
   .panel.panel-default{:style => "width: 70%; margin-top: 25px"}
     / Default panel contents
     .panel-heading
-      .help-block (You can reorder questions by dragging and dropping them.)
+      - if can? :update, @survey_template
+        .help-block (You can reorder questions by dragging and dropping them.)
     .panel-body
       %ol.question-list
         - @data_questions.each_with_index do |question|
           %li{:id => "question_#{question.id}"}
             %span
               = question.description
-              .pull-right= link_to 'Edit', edit_data_question_path(question), class: "btn btn-default btn-sm",  :data => {:confirm => "Editing a survey after it has been administered can affect your results."}
+              - if can? :update, @survey_template
+                .pull-right= link_to 'Edit', edit_data_question_path(question), class: "btn btn-default btn-sm",  :data => {:confirm => "Editing a survey after it has been administered can affect your results."}
             %ul
               - question.options.each do |option|
                 %li
                   = option.description
 
-  = link_to 'Add a question', new_survey_template_data_question_path(@survey_template), class: "btn btn-default"
+  - if can? :update, @survey_template
+    .pull-right= link_to 'Edit', edit_dat
+    = link_to 'Add a question', new_survey_template_data_question_path(@survey_template), class: "btn btn-default"
 
 
 

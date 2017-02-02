@@ -57,6 +57,7 @@ GEM
     bootswatch-rails (3.3.5)
       railties (>= 3.1)
     builder (3.2.2)
+    cancancan (1.15.0)
     chartkick (2.1.1)
     cocoon (1.2.9)
     coderay (1.1.1)
@@ -77,6 +78,9 @@ GEM
       responders
       warden (~> 1.2.3)
     devise-bootstrap-views (0.0.10)
+    devise_invitable (1.7.0)
+      actionmailer (>= 4.0.0)
+      devise (>= 4.0.0)
     diff-lcs (1.2.5)
     erubis (2.7.0)
     execjs (2.7.0)
@@ -252,12 +256,14 @@ DEPENDENCIES
   bootstrap-datepicker-rails
   bootstrap-sass
   bootswatch-rails
+  cancancan
   chartkick
   cocoon
   coffee-rails (~> 4.1.0)
   database_cleaner
   devise
   devise-bootstrap-views
+  devise_invitable (~> 1.7.0)
   factory_girl_rails
   ffaker
   formtastic (~> 3.0)

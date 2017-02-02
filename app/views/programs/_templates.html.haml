@@ -10,15 +10,17 @@
             .row{:style => "margin-bottom: 10px"}
               .col-sm-2
                 %h4= link_to template.name, survey_template_path(template)
-              .col-sm-offset-4.col-sm-2
-                %button#dropdownMenu1.btn.btn-success.btn-sm.dropdown-toggle{"aria-expanded" => "true", "aria-haspopup" => "true", "data-toggle" => "dropdown", :type => "button"}
-                  Actions
-                  %span.caret
-                %ul.dropdown-menu{"aria-labelledby" => "dropdownMenu1"}
-                  %li
-                    %a{:href => survey_template_path(template)} View survey template
-                  %li
-                    %a{:href => new_survey_template_survey_path(template)} Administer survey
-                  %li
-                    %a{:href => results_survey_template_path(template)} View survey results
-  .div{:style => "margin-top: 20px"}= link_to "New template", new_framework_survey_template_path(@framework), class: "btn btn-default"
+              - if can? :update, @survey_templates
+                .col-sm-offset-4.col-sm-2
+                  %button#dropdownMenu1.btn.btn-success.btn-sm.dropdown-toggle{"aria-expanded" => "true", "aria-haspopup" => "true", "data-toggle" => "dropdown", :type => "button"}
+                    Actions
+                    %span.caret
+                  %ul.dropdown-menu{"aria-labelledby" => "dropdownMenu1"}
+                    %li
+                      %a{:href => survey_template_path(template)} View survey template
+                    %li
+                      %a{:href => new_survey_template_survey_path(template)} Administer survey
+                    %li
+                      %a{:href => results_survey_template_path(template)} View survey results
+  - if can? :create, @survey_template
+    .div{:style => "margin-top: 20px"}= link_to "New template", new_framework_survey_template_path(@framework), class: "btn btn-default"

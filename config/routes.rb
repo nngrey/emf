@@ -1,14 +1,14 @@
 Rails.application.routes.draw do
-  devise_for :users
-  # get 'dashboard/home'
+
+  devise_for :users, controllers: {
+    sessions: 'users/sessions',
+    registrations: 'users/registrations',
+    invitations: 'users/invitations'
+  }
 
   root 'home#home'
 
-  # get 'home/home' => 'pages#show'
-
   get 'survey_templates' => 'survey_templates#index'
-
-  # get 'results_index' => 'survey_templates#results_index'
 
   resources :organizations, only: [:new, :create, :show] do
     resources :programs, only: [:new, :create]

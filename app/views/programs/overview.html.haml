@@ -2,7 +2,7 @@
   %div
     / Nav tabs
     %ul.nav.nav-pills{:role => "tablist", :style => "font-size: 120%; margin-top: 15px"}
-      %li.active{:role => "presentation"}
+      %li{:role => "presentation"}
         %a{"aria-controls" => "details", "data-toggle" => "tab", :href => "#details", :role => "tab"} Program Overview
       %li{:role => "presentation"}
         %a{"aria-controls" => "results", "data-toggle" => "tab", "data-target" => "#results", :role => "tab"} Program results
@@ -12,26 +12,29 @@
         %a{"aria-controls" => "framework", "data-toggle" => "tab", "data-target" => "#framework", :role => "tab"} Evaluative Framework
       %li{:role => "presentation"}
         %a{"aria-controls" => "templates", "data-toggle" => "tab", "data-target" => "#templates", :role => "tab"} Survey Templates
-      %li.nav-item.dropdown
-        %a.nav-link.dropdown-toggle{"aria-expanded" => "true", "aria-haspopup" => "true", "data-toggle" => "dropdown", :href => "#", :role => "button"} Admin
-        .dropdown-menu
-          %ul{:style => "list-style-type: none; padding-left: 15px"}
-            - if @program.logic_model.blank?
-              %li
-                %a.dropdown-item{:href => new_program_logic_model_path(@program)} Create logic model
-            - else
-              %li
-                %a.dropdown-item{:href => logic_model_path(@program.logic_model)} Edit logic model
-            - if @program.framework.evaluative_questions.blank? && @program.logic_model.present?
-              %li
-                %a.dropdown-item{:href => new_framework_evaluative_question_path(@program.framework)} Create Framework
-            - if @program.framework.evaluative_questions.any? && @program.logic_model.present?
-              %li
-                %a.dropdown-item{:href => framework_path(@program.framework)} Edit framework
-              %li
-                %a.dropdown-item{:href => new_framework_survey_template_path(@program.framework)} Create template
-              %li
-                %a.dropdown-item{:href => survey_templates_path('framework_id' => @program.framework.id)} View templates
+      - if can? :create, @program
+        %li.nav-item.dropdown
+          %a.nav-link.dropdown-toggle{"aria-expanded" => "true", "aria-haspopup" => "true", "data-toggle" => "dropdown", :href => "#", :role => "button"} Admin
+          .dropdown-menu
+            %ul{:style => "list-style-type: none; padding-left: 15px"}
+              - if @program.logic_model.blank?
+                %li
+                  %a.dropdown-item{:href => new_program_logic_model_path(@program)} Create logic model
+              - else
+                %li
+                  %a.dropdown-item{:href => logic_model_path(@program.logic_model)} Edit logic model
+              - if @program.framework.evaluative_questions.blank? && @program.logic_model.present?
+                %li
+                  %a.dropdown-item{:href => new_framework_evaluative_question_path(@program.framework)} Create Framework
+              - if @program.framework.evaluative_questions.any? && @program.logic_model.present?
+                %li
+                  %a.dropdown-item{:href => framework_path(@program.framework)} Edit framework
+                %li
+                  %a.dropdown-item{:href => new_framework_survey_template_path(@program.framework)} Create template
+                %li
+                  %a.dropdown-item{:href => survey_templates_path('framework_id' => @program.framework.id)} View templates
+                %li
+                  %a.dropdown-item{:href => new_user_invitation_path} Invite user
 
     / Tab panes
     .tab-content

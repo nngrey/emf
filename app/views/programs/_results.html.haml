@@ -3,14 +3,15 @@
     .row{:style => "margin-bottom: 10px"}
       .col-sm-4
         %h3 Results
-      .col-sm-offset-6.col-sm-2
-        %button#dropdownMenu1.btn.btn-success.dropdown-toggle{"aria-expanded" => "true", "aria-haspopup" => "true", "data-toggle" => "dropdown", :type => "button"}
-          Actions
-          %span.caret
-        %ul.dropdown-menu{"aria-labelledby" => "dropdownMenu1"}
-          - if @program.framework.survey_templates.any?
-            %li
-              %a{:href => framework_survey_templates_path(@program.framework)} Survey templates
+      - if can? :create, @program
+        .col-sm-offset-6.col-sm-2
+          %button#dropdownMenu1.btn.btn-success.dropdown-toggle{"aria-expanded" => "true", "aria-haspopup" => "true", "data-toggle" => "dropdown", :type => "button"}
+            Actions
+            %span.caret
+          %ul.dropdown-menu{"aria-labelledby" => "dropdownMenu1"}
+            - if @program.framework.survey_templates.any?
+              %li
+                %a{:href => framework_survey_templates_path(@program.framework)} Survey templates
 
   - @categories.each do |category|
     = render 'category', category: category

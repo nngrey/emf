@@ -34,7 +34,8 @@ class ProgramsController < ApplicationController
 
   def show
     @categories = ['appropriateness', 'efficiency', 'effectiveness', 'impact', 'sustainability']
-    @program = Program.find(params[:id])
+    organization = current_user.organization
+    @program = organization.programs.find(params[:id])
     @survey_template = @program.framework.survey_templates.first if @program.framework.survey_templates.any?
     if @survey_template.present? && @survey_template.data_combinations.any?
       @data_combinations = @survey_template.data_combinations
@@ -43,7 +44,8 @@ class ProgramsController < ApplicationController
 
   def overview
     @tab = params[:tab].present? ? params[:tab] : 'details'
-    @program = Program.find(params[:id])
+    organization = current_user.organization
+    @program = organization.programs.find(params[:id])
     @categories = ['appropriateness', 'efficiency', 'effectiveness', 'impact', 'sustainability']
     ##TODO How do we handle multiple survey templates???
     @survey_template = @program.framework.survey_templates.first if @program.framework.survey_templates.any?
@@ -59,6 +61,12 @@ class ProgramsController < ApplicationController
   end
 
   private
+
+  def catch_not_found
+    yield
+  rescue ActiveRecord::RecordNotFound
+    redirect_to root_url
+  end
 
   def program_params
     params.require(:program).permit(

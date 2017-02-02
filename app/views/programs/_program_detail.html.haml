@@ -3,13 +3,14 @@
     .row{:style => "margin-bottom: 10px"}
       .col-sm-2
         %h3= @program.name
-      .col-sm-offset-8.col-sm-2
-        %button#dropdownMenu1.btn.btn-success.dropdown-toggle.btn-md{"aria-expanded" => "true", "aria-haspopup" => "true", "data-toggle" => "dropdown", :type => "button"}
-          Actions
-          %span.caret
-        %ul.dropdown-menu{"aria-labelledby" => "dropdownMenu1"}
-          %li
-            %a{:href => edit_program_path(@program)} Edit program
+      - if can? :create, @program
+        .col-sm-offset-8.col-sm-2
+          %button#dropdownMenu1.btn.btn-success.dropdown-toggle.btn-md{"aria-expanded" => "true", "aria-haspopup" => "true", "data-toggle" => "dropdown", :type => "button"}
+            Actions
+            %span.caret
+          %ul.dropdown-menu{"aria-labelledby" => "dropdownMenu1"}
+            %li
+              %a{:href => edit_program_path(@program)} Edit program
 
   .panel.panel-default{:style => "width: 100%"}
     .panel-heading

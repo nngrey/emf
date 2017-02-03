@@ -32,7 +32,6 @@
                   = option.description
 
   - if can? :update, @survey_template
-    .pull-right= link_to 'Edit', edit_dat
     = link_to 'Add a question', new_survey_template_data_question_path(@survey_template), class: "btn btn-default"
 
 

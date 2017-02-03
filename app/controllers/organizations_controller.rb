@@ -10,6 +10,7 @@ class OrganizationsController < ApplicationController
   def create
     @organization = Organization.new(organization_params)
     if @organization.save
+      current_user.update(organization_id: @organization.id, role: 'admin')
       redirect_to organization_path(@organization)
     else
       render "new"

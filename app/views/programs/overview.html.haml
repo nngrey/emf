@@ -33,6 +33,7 @@
                   %a.dropdown-item{:href => new_framework_survey_template_path(@program.framework)} Create template
                 %li
                   %a.dropdown-item{:href => survey_templates_path('framework_id' => @program.framework.id)} View templates
+              - if current_user && current_user.organization.present?
                 %li
                   %a.dropdown-item{:href => new_user_invitation_path} Invite user
 

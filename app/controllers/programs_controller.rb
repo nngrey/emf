@@ -44,8 +44,7 @@ class ProgramsController < ApplicationController
 
   def overview
     @tab = params[:tab].present? ? params[:tab] : 'details'
-    organization = current_user.organization
-    @program = organization.programs.find(params[:id])
+    @program = Program.find(params[:id])
     @categories = ['appropriateness', 'efficiency', 'effectiveness', 'impact', 'sustainability']
     ##TODO How do we handle multiple survey templates???
     @survey_template = @program.framework.survey_templates.first if @program.framework.survey_templates.any?

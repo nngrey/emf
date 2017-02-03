@@ -15,15 +15,15 @@
             %span.icon-bar
             %span.icon-bar
             %span.icon-bar
-          - if Organization.count == 0
-            %a.navbar-brand{:href => new_organization_path} Set up
+          - if current_user.blank? || current_user.organization.blank? || !current_user.organization.valid?
+            %a.navbar-brand{:href => root_path} Program Reports
           - else
             %a.navbar-brand{:href => organization_path(Organization.first)}
-              = Organization.first.name.upcase
+              = current_user.organization.name.upcase
         #bs-example-navbar-collapse-1.collapse.navbar-collapse
           %ul.nav.navbar-nav
-            - if Program.count > 0
-              - Program.all.each do |program|
+            - if current_user && current_user.organization && current_user.organization.programs.count > 0
+              - current_user.organization.programs.each do |program|
                 %li
                   %a{:href => overview_program_path(program)}
                     = program.name.titleize

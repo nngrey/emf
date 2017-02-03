@@ -26,6 +26,7 @@ gem 'devise'
 gem 'devise-bootstrap-views'
 gem 'cancancan'
 gem 'devise_invitable', '~> 1.7.0'
+gem "font-awesome-rails"
 
 group :test, :development do
   gem 'ffaker'

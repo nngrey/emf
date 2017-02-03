@@ -12,6 +12,9 @@
  *
  */
  @import "styles";
+
+ @import "landing-page";
+
  @import "bootstrap-sprockets";
 
  // Import flatly variables
@@ -20,6 +23,8 @@
  @import "bootstrap";
 
  @import "devise_bootstrap_views";
+
+ @import "font-awesome";
 
  // Bootstrap body padding for fixed navbar
  body { padding-top: 10px; }

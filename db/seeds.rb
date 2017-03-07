@@ -30,7 +30,7 @@ def seed_framework
     [
       {
         name: 'baseline survey',
-        description: 'Staff will survey households that received filters.',
+        description: 'Staff will survey households that received new filters.',
         start_date: "01/01/2017",
         end_date: "01/03/2017",
         budget: 1500
@@ -133,4 +133,3 @@ def seed_framework
 end
 
 seed_framework
-

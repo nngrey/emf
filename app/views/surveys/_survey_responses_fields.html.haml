@@ -4,7 +4,7 @@
       = f.input :input_value, label: false, :as => :check_boxes, :collection => question.options.pluck(:description)
     - else
       - if ['Yes / No', 'True / False', 'Multiple choice'].include? question.question_type
-        = f.input :input_value, label: false, :as => :radio, :collection => question.options.pluck(:description)
+        = f.input :input_value, input_html: { required: true }, :prompt => true, label: false, :as => :radio, :collection => question.options.pluck(:description)
       - elsif question.question_type == 'An amount or quantity'
         = f.input :input_value, label: false
       - else

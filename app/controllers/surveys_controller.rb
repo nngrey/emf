@@ -14,8 +14,9 @@ class SurveysController < ApplicationController
     if @survey.save && create_survey_responses
       redirect_to survey_template_survey_path(@survey_template, @survey)
     else
-      # flash
-      render new
+      flash.now[:error] = "The survey could not be saved because it was missing values."
+      @survey = @survey_template.surveys.build
+      render "surveys/new"
     end
   end
 
@@ -48,13 +49,15 @@ class SurveysController < ApplicationController
   end
 
   def create_survey_responses
-    survey_params[:data_questions_attributes].each do |k, v|
-      data_question_id = v[:id]
-      data_question = @survey.data_questions.find(data_question_id)
-      attrs = v[:survey_responses].each {|k,v| {k: v}}
-      attrs[:input_value].reject!(&:empty?).collect(&:strip!) if attrs[:input_value].kind_of?(Array)
-      attrs[:survey_id] = @survey.id
-      data_question.survey_responses.create(attrs)
+    if survey_params[:data_questions_attributes].to_h.map {|k, v| v.keys.include? "survey_responses" }.all?
+      survey_params[:data_questions_attributes].each do |k, v|
+        data_question_id = v[:id]
+        data_question = @survey.data_questions.find(data_question_id)
+        attrs = v[:survey_responses].each {|k,v| {k: v}}
+        attrs[:input_value].reject!(&:empty?).collect(&:strip!) if attrs[:input_value].kind_of?(Array)
+        attrs[:survey_id] = @survey.id
+        data_question.survey_responses.create(attrs)
+      end
     end
   end
 

@@ -1,3 +1,8 @@
+//This code keeps the user on the current tab after a page refresh but interferes with the
+//timeline graph in certain situations. Need to refactor.
+
+/*
+
 $(document).on('turbolinks:load', function() {
   var lastTab = localStorage.getItem('lastTab');
   // $('.container, .tab-content').removeClass('hidden');
@@ -10,3 +15,5 @@ $(document).on('turbolinks:load', function() {
     localStorage.setItem('lastTab', $(this).data('target'));
   });
 });
+
+*/
